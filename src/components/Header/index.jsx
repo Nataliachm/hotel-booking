@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Header = (props) =>{
+function Header(props) {
   return (
     <div>Header</div>
-  )
+  );
 }
 
 export default Header;

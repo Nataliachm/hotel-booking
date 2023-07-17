@@ -10,8 +10,7 @@ module.exports = {
         node: true,
       },
       files: [
-        '.eslintrc.{js,cjs}',
-      ],
+        '.eslintrc.{js,cjs}'],
       parserOptions: {
         sourceType: 'script',
       },
@@ -22,5 +21,6 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'react/react-in-jsx-scope': 'off',
   },
 };
