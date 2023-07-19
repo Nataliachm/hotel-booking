@@ -1,40 +1,16 @@
 import { createBrowserRouter } from 'react-router-dom';
+import Root from '../layout/Root';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
-    errorElement: <NotFound />,
-    _children: [
+    children: [
       {
         path: '/',
         element: <Home />,
       },
-      {
-        path: '/posts',
-        element: <Posts />,
-        loader: loaderPost,
-      },
-      {
-        path: '/posts/:id',
-        element: <Article />,
-        loader: loaderArticle,
-      },
-      {
-        path: '/profile',
-        element: <PrivateRoute>
-          {' '}
-          <Profile />
-          {' '}
-        </PrivateRoute>,
-      },
     ],
-    get children() {
-      return this._children;
-    },
-    set children(value) {
-      this._children = value;
-    },
   },
 ]);
 
