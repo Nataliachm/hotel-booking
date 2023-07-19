@@ -1,8 +1,8 @@
 // eslint-disable-next-line react/function-component-definition
-const Footer = () => {
+const MainHome = () => {
   return (
-    <div>Este es un footer</div>
+    <div>Este es el Main</div>
   );
 };
 
-export default Footer;
+export default MainHome;
