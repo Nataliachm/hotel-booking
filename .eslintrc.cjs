@@ -23,5 +23,10 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'arrow-body-style': ['error', 'always'],
+    'arrow-parens': ['error', 'always'],
+    'no-confusing-arrow': ['error', { allowParens: true }],
+    'react/jsx-pascal-case': ['off'],
+    'react/function-component-definition': 'off',
   },
+
 };
