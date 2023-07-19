@@ -1,7 +1,15 @@
-// eslint-disable-next-line react/function-component-definition
+import { CardCarrousel } from '../CardCarrousel';
+
 const MainHome = () => {
   return (
-    <div>Este es el Main</div>
+    <div className="main">
+      <div className="main__corrousel">
+        <CardCarrousel />
+      </div>
+      <div className="main__destination" />
+      <div className="main__information" />
+      <div className="main__blogs" />
+    </div>
   );
 };
 

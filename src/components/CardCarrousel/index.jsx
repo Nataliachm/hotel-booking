@@ -1,4 +1,5 @@
-// eslint-disable-next-line react/function-component-definition
+import { useState } from 'react';
+
 export const CardCarrousel = () => {
   const informationCards = [
     {
@@ -10,30 +11,48 @@ export const CardCarrousel = () => {
     },
     {
       id: 2,
-      title: 'Food Order',
-      text: 'Complimantary Breakfast. Use Code RICAFOOD',
-      image: '../../../public/imageMain_1.jpg',
+      title: 'Flight Offer',
+      text: 'Grab Amazing Deals on Flight Ticket Booking',
+      image: '../../../public/imageMain_2.jpg',
 
     },
     {
-      id: 2,
+      id: 3,
+      title: 'Holiday Booking',
+      text: 'Weekend Sale For Holiday Bookings',
+      image: '../../../public/imageMain_3.jpg',
+
+    },
+    {
+      id: 4,
       title: 'Food Order',
       text: 'Complimantary Breakfast. Use Code RICAFOOD',
-      image: '../../../public/imageMain_1.jpg',
+      image: '../../../public/imageMain_4.jpg',
 
     },
   ];
 
+  // eslint-disable-next-line no-unused-vars
+  const [offers, setOffers] = useState(informationCards);
+
   return (
-    <div className="container">
-      <div className="container__image">
-        <img src="../../../public/imageMain_1.jpg" alt="" />
-      </div>
-      <div className="container__text">
-        <h3>Text</h3>
-        <p>Text</p>
-      </div>
-    </div>
+    <>
+
+      {offers.map((offer) => {
+        return (
+          <div className="container">
+            <div className="container__image">
+              <img src={offer.image} alt="" />
+            </div>
+            <div className="container__text">
+              <h3>{offer.title}</h3>
+              <p>{offer.text}</p>
+            </div>
+          </div>
+        );
+      })}
+
+    </>
   );
 };
 
