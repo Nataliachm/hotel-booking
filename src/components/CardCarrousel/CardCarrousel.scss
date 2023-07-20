@@ -1,0 +1,29 @@
+@import '../../styles/abstract/variables.scss';
+
+.container{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 50px;
+
+    .container__image{
+        img{
+            width: 350px;
+            height: 300px;
+            border-radius: 10px;
+            margin: 10px 0px;
+        }
+    }
+    
+    .container__text{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        p{
+            color: $color-text-silver-chalice;
+            text-align: center;
+        }
+    }
+}

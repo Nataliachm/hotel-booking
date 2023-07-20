@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './CardCarrousel.scss';
 
 export const CardCarrousel = () => {
   const informationCards = [
@@ -40,7 +41,7 @@ export const CardCarrousel = () => {
 
       {offers.map((offer) => {
         return (
-          <div className="container">
+          <div className="container" key={offer.id}>
             <div className="container__image">
               <img src={offer.image} alt="" />
             </div>
