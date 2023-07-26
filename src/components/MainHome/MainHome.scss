@@ -96,6 +96,7 @@
 .main__destination{
     display: flex;
     overflow: auto;
+    width: 360px;
 
     &::-webkit-scrollbar {
         width: 0rem;
