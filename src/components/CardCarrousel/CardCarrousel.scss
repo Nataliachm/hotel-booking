@@ -7,12 +7,30 @@
     align-items: center;
     margin: 0px 50px;
 
+    @media (width: 1024px) {
+        margin: 0px 65px;
+    }
+
+    @media (min-width: 1250px) {
+        justify-content: space-around;
+        margin: 0px 20px;
+    }
+
     .container__image{
         img{
-            width: 350px;
-            height: 300px;
+            width: 300px;
+            height: 250px;
             border-radius: 10px;
             margin: 10px 0px;
+        }
+
+        @media (min-width: 1280px) {
+            img{
+                width: 250px;
+                height: 200px;
+                border-radius: 10px;
+                margin: 10px 0px;
+            }
         }
     }
     
@@ -20,10 +38,22 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        max-width: 300px;
 
         p{
             color: $color-text-silver-chalice;
             text-align: center;
+            font-size: 15px;
+        }
+
+        @media (min-width: 1280px) {
+            h3{
+                font-size: 18px;
+            }
+            p{
+                font-size: 13px;
+            }
         }
     }
+
 }

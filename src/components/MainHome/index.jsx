@@ -1,5 +1,6 @@
 import { CardCarrousel } from '../CardCarrousel';
 import './MainHome.scss';
+import CardDestination from '../CardDestination';
 
 const MainHome = () => {
   return (
@@ -9,7 +10,9 @@ const MainHome = () => {
           <CardCarrousel />
         </div>
       </div>
-      <div className="main__destination" />
+      <div className="main__destination">
+        <CardDestination />
+      </div>
       <div className="main__information" />
       <div className="main__blogs" />
     </div>

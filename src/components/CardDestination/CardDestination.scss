@@ -1,0 +1,25 @@
+@import '../../styles/abstract/variables.scss';
+
+.container-destination{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 175px;
+    margin: 0px 10px;
+}
+.container-destination__image{
+    img{
+        width: 170px;
+        border-radius: 15px;
+    }
+}
+
+.container-destination__text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p{
+        font-size: 15px;
+        color: $color-text-silver-chalice;
+    }
+}
