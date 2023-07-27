@@ -1,0 +1,52 @@
+import React from 'react';
+import './CardInformation.scss';
+
+export const CardInformation = () => {
+  const cardsInformation = [
+    {
+      id: 1,
+      title: 'Explore',
+      image: '../../../public/imageMain_booking_1.png',
+    },
+    {
+      id: 2,
+      title: 'Get Quotes',
+      image: '../../../public/imageMain_booking_2.png',
+    },
+    {
+      id: 3,
+      title: 'Customize',
+      image: '../../../public/imageMain_booking_3.png',
+    },
+    {
+      id: 4,
+      title: 'Book & Enjoy',
+      image: '../../../public/imageMain_booking_4.png',
+    },
+  ];
+
+  return (
+    <div className="container-information">
+      <div className="container-information_text">
+        <h2>Super Easy Booking</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias aperiam
+          at, aut commodi corporis dolorum ducimus labore magnam mollitia natus porro possimus
+          quae sit tenetur veniam veritatis voluptate voluptatem!
+        </p>
+      </div>
+      {
+        cardsInformation.map((information) => {
+          return (
+            <div className="container-information__image" key={information.id}>
+              <img src={information.image} alt={information.title} />
+              <p>{information.title}</p>
+            </div>
+          );
+        })
+      }
+    </div>
+  );
+};
+
+export default CardInformation;

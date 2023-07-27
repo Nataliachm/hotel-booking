@@ -1,0 +1,26 @@
+.container-information{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-information__image{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0px;
+    width: 90%;
+    height: 120px;
+    background-color: white;
+    border-radius: 15px;
+
+    img{
+        width: 50px;
+        margin-bottom: 8px;
+    }
+
+    p{
+        font-weight: 100;
+    }
+}
