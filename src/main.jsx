@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Header from './components/Header';
 import MainHome from './components/MainHome';
+// import MainHotel from './components/MainHotel';
 import Footer from './components/Footer';
 import './styles/base/base.scss';
 import './styles/base/reset.scss';
@@ -16,7 +17,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <>
       <Header />
       <MainHome />
+
       <Footer />
     </>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
