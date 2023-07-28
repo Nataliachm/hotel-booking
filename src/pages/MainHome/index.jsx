@@ -1,10 +1,10 @@
-import { CardCarrousel } from '../CardCarrousel';
+import { CardCarrousel } from '../../components/CardCarrousel';
 import './MainHome.scss';
-import CardDestination from '../CardDestination';
-import { CardInformation } from '../CardInformation';
-import TitleHome from '../TitleHome';
-import CardBlog from '../CardBlog';
-import SubscribeHome from '../SubscribeHome';
+import CardDestination from '../../components/CardDestination';
+import { CardInformation } from '../../components/CardInformation';
+import TitleHome from '../../components/TitleHome';
+import CardBlog from '../../components/CardBlog';
+import SubscribeHome from '../../components/SubscribeHome';
 
 const MainHome = () => {
   return (
