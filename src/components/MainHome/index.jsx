@@ -3,6 +3,8 @@ import './MainHome.scss';
 import CardDestination from '../CardDestination';
 import { CardInformation } from '../CardInformation';
 import TitleHome from '../TitleHome';
+import CardBlog from '../CardBlog';
+import SubscribeHome from '../SubscribeHome';
 
 const MainHome = () => {
   return (
@@ -23,7 +25,12 @@ const MainHome = () => {
       <div className="main__information">
         <CardInformation />
       </div>
-      <div className="main__blogs" />
+      <div className="main__blogs">
+        <CardBlog />
+      </div>
+      <div className="main__subscribe">
+        <SubscribeHome />
+      </div>
     </div>
   );
 };

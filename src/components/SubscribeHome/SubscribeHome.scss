@@ -1,0 +1,59 @@
+@import '../../styles/abstract/variables.scss';
+
+.container-subscribe{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    height: 200px;
+    padding: 0rem 1.5rem 2rem;
+}
+
+.container-subscribe__text{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    height: 100px;
+
+    h3{
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    p{
+        font-size: 14px;
+        color: $color-text-silver-chalice;
+
+    }
+}
+
+.container-subscribe__input{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 50px;
+    box-shadow: 1px 1px 15px $color-text-silver-chalice;
+    border-radius: 10px;
+    padding: 0.8rem 0.8rem;
+
+    input{
+        font-size: 15px;
+        border: 0px;
+    }
+
+    input:focus{
+        outline: none;
+        border: none;
+    }
+
+    button{
+        color: $color-white;
+        font-weight: 700;
+        background-color: $color-accent;
+        padding: 10px 25px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 4px $color-accent;
+    }
+}
