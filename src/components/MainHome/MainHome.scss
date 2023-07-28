@@ -1,5 +1,10 @@
 @import '../../styles/abstract/variables.scss';
 
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .main__corrousel{
     display: flex;
@@ -10,13 +15,13 @@
     overflow: hidden;
     margin: 2rem 0rem;
 
-    @media (width: 1024px) {
-        width: 900px;
-    }
-
-    @media (min-width: 1280px) {
+    @media (min-width: 768px) {
         width: 100%;
     }
+
+    // @media (min-width: 1280px) {
+    //     width: 100%;
+    // }
 }
 
 .main__wrap-corrousel{
@@ -24,6 +29,11 @@
     animation: slideAnimation 12s infinite;
     div:nth-child(1){
         margin-left: 15px;
+    }
+
+    @media (width: 768px) {
+        animation: slideAnimationTabletSmall 12s infinite;
+        
     }
 
     @media (width: 1024px) {
@@ -69,14 +79,38 @@
     85%{
         transform: translateX(-825px);
     }
-    // 75%{
-    //     transform: translateX(-1250px);
-    // }
-    // 95%{
-    //     transform: translateX(-1255px);
-    // }
     100%{
         transform: translateX(850px);
+    }
+}
+
+@keyframes slideAnimationTabletSmall {
+    0%{
+      transform: translateX(650px);
+    }
+    5%{
+      transform: translateX(645px);
+    }
+    25%{
+      transform: translateX(235px);
+    }
+    30%{
+        transform: translateX(230px)
+    }
+    50%{
+        transform: translateX(-190px)
+    }
+    55%{
+        transform: translateX(-195px);
+    }
+    75%{
+        transform: translateX(-620px);
+    }
+    80%{
+        transform: translateX(-625px);
+    }
+    100%{
+        transform: translateX(650px);
     }
 }
 
@@ -88,29 +122,23 @@
       transform: translateX(700px);
     }
     25%{
-      transform: translateX(270px);
+      transform: translateX(235px);
     }
     30%{
-        transform: translateX(265px)
+        transform: translateX(230px)
     }
     50%{
-        transform: translateX(-200px)
+        transform: translateX(-210px)
     }
     55%{
-        transform: translateX(-205px);
+        transform: translateX(-215px);
     }
     75%{
-        transform: translateX(-640px);
+        transform: translateX(-650px);
     }
     80%{
-        transform: translateX(-645px);
+        transform: translateX(-655px);
     }
-    // 90%{
-    //     transform: translateX(-1340px);
-    // }
-    // 95%{
-    //     transform: translateX(-1345px);
-    // }
     100%{
         transform: translateX(705px);
     }
