@@ -1,0 +1,60 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 80px;
+    padding: 1rem 5rem;
+    position: relative;
+  }
+  
+  .logo {
+    width: 70px;
+    height: fit-content;
+    filter: invert(1);
+    cursor: pointer;
+  }
+  
+  .containerIcons {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  
+  .menu {
+    cursor: pointer;
+  }
+  
+  .menu-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 0 0.5rem;
+    width: 50vw;
+    height: 100vh;
+    transition: all 0.35s ease-in-out;
+    z-index: 1;
+    gap: 1rem;
+
+    .close{
+      align-self: flex-end;
+      padding: 1rem;
+    
+    }
+
+    a{
+      color: #222222;
+    }
+    
+    &--closed {
+        right: -1000px;
+        transition: all 0.35s ease-in-out;
+    }
+  }
+  
+  

@@ -1,0 +1,153 @@
+@import '../../styles/abstract/variables.scss';
+
+
+.main__corrousel{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 23.2rem; /* Ancho del carrusel */
+    overflow: hidden;
+    margin: 2rem 0rem;
+
+    @media (width: 1024px) {
+        width: 900px;
+    }
+
+    @media (min-width: 1280px) {
+        width: 100%;
+    }
+}
+
+.main__wrap-corrousel{
+    display: flex;
+    animation: slideAnimation 12s infinite;
+    div:nth-child(1){
+        margin-left: 15px;
+    }
+
+    @media (width: 1024px) {
+        animation: slideAnimationTablet 12s infinite;
+    }
+
+    @media (min-width: 1280px) {
+        animation: none;
+        div:nth-child(1){
+            margin-left: initial;
+        }
+    }
+}
+
+@keyframes slideAnimation {
+    0%{
+      transform: translateX(850px);
+    }
+    5%{
+        transform: translateX(845px);
+    }
+    20%{
+        transform: translateX(435px);
+    }
+    25%{
+        transform: translateX(430px);
+    }
+    40%{
+      transform: translateX(20px);
+    }
+    45%{
+      transform: translateX(15px);
+    }
+    60%{
+        transform: translateX(-400px)
+    }
+    65%{
+        transform: translateX(-405px)
+    }
+    80%{
+        transform: translateX(-820px);
+    }
+    85%{
+        transform: translateX(-825px);
+    }
+    // 75%{
+    //     transform: translateX(-1250px);
+    // }
+    // 95%{
+    //     transform: translateX(-1255px);
+    // }
+    100%{
+        transform: translateX(850px);
+    }
+}
+
+@keyframes slideAnimationTablet {
+    0%{
+      transform: translateX(705px);
+    }
+    5%{
+      transform: translateX(700px);
+    }
+    25%{
+      transform: translateX(270px);
+    }
+    30%{
+        transform: translateX(265px)
+    }
+    50%{
+        transform: translateX(-200px)
+    }
+    55%{
+        transform: translateX(-205px);
+    }
+    75%{
+        transform: translateX(-640px);
+    }
+    80%{
+        transform: translateX(-645px);
+    }
+    // 90%{
+    //     transform: translateX(-1340px);
+    // }
+    // 95%{
+    //     transform: translateX(-1345px);
+    // }
+    100%{
+        transform: translateX(705px);
+    }
+}
+
+.main__destination{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0rem;
+
+    .main__card-destination{
+        display: flex;
+        overflow: auto;
+        width: 360px;
+        cursor: pointer;
+        &::-webkit-scrollbar {
+            width: 0rem;
+            height: 0rem;
+        }
+
+
+        @media (width: 1024px) {
+            width: 900px;
+            justify-content: space-around;
+        }
+
+        @media (min-width: 1280px) {
+            width: 1200px;
+            justify-content: space-around;
+        }
+
+    }
+
+}
+
+.main__information{
+    background-image: url('../../../public/imageMain_booking_background.jpg');
+    width: fit-content;
+}
