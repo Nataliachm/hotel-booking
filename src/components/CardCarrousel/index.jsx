@@ -31,6 +31,13 @@ export const CardCarrousel = () => {
       image: '../../../public/imageMain_4.jpg',
 
     },
+    {
+      id: 5,
+      title: 'Hire Cap',
+      text: '50% Cashback On Every Cab Booking',
+      image: '../../../public/imageMain_5.jpg',
+
+    },
   ];
 
   // eslint-disable-next-line no-unused-vars
@@ -38,7 +45,6 @@ export const CardCarrousel = () => {
 
   return (
     <>
-
       {offers.map((offer) => {
         return (
           <div className="container" key={offer.id}>

@@ -1,5 +1,7 @@
+/* eslint-disable react/jsx-curly-brace-presence */
 import React from 'react';
 import './CardInformation.scss';
+import TitleHome from '../TitleHome';
 
 export const CardInformation = () => {
   const cardsInformation = [
@@ -28,23 +30,26 @@ export const CardInformation = () => {
   return (
     <div className="container-information">
       <div className="container-information_text">
-        <h2>Super Easy Booking</h2>
+        <TitleHome title={'Super Easy Booking'} />
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias aperiam
           at, aut commodi corporis dolorum ducimus labore magnam mollitia natus porro possimus
           quae sit tenetur veniam veritatis voluptate voluptatem!
         </p>
       </div>
-      {
-        cardsInformation.map((information) => {
-          return (
-            <div className="container-information__image" key={information.id}>
-              <img src={information.image} alt={information.title} />
-              <p>{information.title}</p>
-            </div>
-          );
-        })
-      }
+      <div className="container-information__images">
+
+        {
+          cardsInformation.map((information) => {
+            return (
+              <div className="container-information__image" key={information.id}>
+                <img src={information.image} alt={information.title} />
+                <p>{information.title}</p>
+              </div>
+            );
+          })
+        }
+      </div>
     </div>
   );
 };

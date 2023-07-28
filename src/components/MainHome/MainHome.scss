@@ -1,9 +1,14 @@
 @import '../../styles/abstract/variables.scss';
 
+
 .main__corrousel{
-    width: 350px; /* Ancho del carrusel */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 23.2rem; /* Ancho del carrusel */
     overflow: hidden;
-    position: relative;
+    margin: 2rem 0rem;
 
     @media (width: 1024px) {
         width: 900px;
@@ -35,52 +40,70 @@
 
 @keyframes slideAnimation {
     0%{
-      transform: translateX(0px);
+      transform: translateX(850px);
     }
-    30%{
-      transform: translateX(-3px);
+    5%{
+        transform: translateX(845px);
     }
-    35%{
-      transform: translateX(-410px);
+    20%{
+        transform: translateX(435px);
     }
-    55%{
-        transform: translateX(-420px)
+    25%{
+        transform: translateX(430px);
+    }
+    40%{
+      transform: translateX(20px);
+    }
+    45%{
+      transform: translateX(15px);
     }
     60%{
-        transform: translateX(-830px)
+        transform: translateX(-400px)
+    }
+    65%{
+        transform: translateX(-405px)
+    }
+    80%{
+        transform: translateX(-820px);
     }
     85%{
-        transform: translateX(-840px);
+        transform: translateX(-825px);
     }
-    90%{
-        transform: translateX(-1250px);
-    }
-    95%{
-        transform: translateX(-1255px);
-    }
+    // 75%{
+    //     transform: translateX(-1250px);
+    // }
+    // 95%{
+    //     transform: translateX(-1255px);
+    // }
     100%{
-        transform: translateX(0px);
+        transform: translateX(850px);
     }
 }
 
 @keyframes slideAnimationTablet {
     0%{
-      transform: translateX(0px);
+      transform: translateX(705px);
+    }
+    5%{
+      transform: translateX(700px);
+    }
+    25%{
+      transform: translateX(270px);
     }
     30%{
-      transform: translateX(-3px);
+        transform: translateX(265px)
     }
-    35%{
-      transform: translateX(-400px);
+    50%{
+        transform: translateX(-200px)
     }
     55%{
-        transform: translateX(-410px)
+        transform: translateX(-205px);
     }
-    60%{
-        transform: translateX(-870px)
+    75%{
+        transform: translateX(-640px);
     }
-    85%{
-        transform: translateX(-890px);
+    80%{
+        transform: translateX(-645px);
     }
     // 90%{
     //     transform: translateX(-1340px);
@@ -89,32 +112,42 @@
     //     transform: translateX(-1345px);
     // }
     100%{
-        transform: translateX(0px);
+        transform: translateX(705px);
     }
 }
 
 .main__destination{
     display: flex;
-    overflow: auto;
-    width: 360px;
-    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0rem;
 
-    &::-webkit-scrollbar {
-        width: 0rem;
-        height: 0rem;
+    .main__card-destination{
+        display: flex;
+        overflow: auto;
+        width: 360px;
+        cursor: pointer;
+        &::-webkit-scrollbar {
+            width: 0rem;
+            height: 0rem;
+        }
+
+
+        @media (width: 1024px) {
+            width: 900px;
+            justify-content: space-around;
+        }
+
+        @media (min-width: 1280px) {
+            width: 1200px;
+            justify-content: space-around;
+        }
+
     }
 
-    @media (width: 1024px) {
-        width: 900px;
-        justify-content: space-around;
-    }
-
-    @media (min-width: 1280px) {
-        width: 1200px;
-        justify-content: space-around;
-    }
 }
 
 .main__information{
     background-image: url('../../../public/imageMain_booking_background.jpg');
+    width: fit-content;
 }
