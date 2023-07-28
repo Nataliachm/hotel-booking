@@ -28,4 +28,5 @@ module.exports = {
     'react/jsx-pascal-case': ['off'],
     'react/function-component-definition': 'off',
   },
+
 };
