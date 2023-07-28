@@ -20,6 +20,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <MainHome />
       <Footer />
     </>
-    {/* <RouterProvider router={router} /> */}
   </React.StrictMode>,
 );
