@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './FilterControl.scss';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import DatePickerControl from './DatePickerControl';
 
 export default function FilterControl() {
   const [number, setNumber] = useState();
-  const [startDate, setStartDate] = useState(new Date());
+
   return (
     <section className="filter-control">
       <h2 className="filter-control__title">BOOK ROOMS, HOMES & APTS</h2>
@@ -18,12 +18,7 @@ export default function FilterControl() {
           <span className="control__title">Check In</span>
           <span className="control__value">
             <div className="calendar-container">
-              <DatePicker
-                selected={startDate}
-                onChange={(date) => {
-                  return setStartDate(date);
-                }}
-              />
+              <DatePickerControl />
             </div>
           </span>
         </div>
@@ -31,12 +26,7 @@ export default function FilterControl() {
           <span className="control__title">Check Out</span>
           <span className="control__value">
             <div className="calendar-container">
-              <DatePicker
-                selected={startDate}
-                onChange={(date) => {
-                  return setStartDate(date);
-                }}
-              />
+              <DatePickerControl />
             </div>
           </span>
         </div>
