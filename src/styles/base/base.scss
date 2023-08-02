@@ -1,8 +1,10 @@
 @import '../abstract/variables.scss';
 
-html, body {
-    font-family: $font-nunito;
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-  }
+html,
+body {
+  font-family: $font-nunito;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}

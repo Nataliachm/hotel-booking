@@ -3,7 +3,7 @@ import hotels from './hotels';
 
 const MainHotel = () => {
   return (
-    <div className="container">
+    <div className="MainHotel__container">
       {hotels.map((hotel) => {
         return (
           <div className="card" key={hotel.id}>
