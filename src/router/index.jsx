@@ -5,6 +5,7 @@ import MainHotel from '../pages/MainHotel';
 import SuccessPayment from '../pages/SuccessPayment';
 import FailPayment from '../pages/FailPayment';
 import NotFound from '../pages/NotFound';
+import TravellerInformation from '../pages/TravellerInformation';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: '/failPayment',
         element: <FailPayment />,
+      },
+      {
+        path: '/TravellerInformation',
+        element: <TravellerInformation />,
       },
     ],
   },

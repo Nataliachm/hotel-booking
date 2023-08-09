@@ -1,0 +1,72 @@
+.PurchaseSummary__container{
+    padding: 16px;
+    font-size: 14px;
+    box-shadow: 1px 11px 20px 0px rgba(239, 63, 62, 0.12);
+
+    .section{
+        padding: 10px 5px;
+        border-bottom: 2px solid #cc15159d;
+        &:last-child{
+            border-bottom: none
+        }
+    }
+
+    .container__hotel{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+
+        .roomImage{
+            max-width: 40%;
+            height: auto;
+        }
+    }
+
+    .container__date{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+        
+        
+        .right-align{
+            text-align: right;
+        }
+
+    }
+
+    .container__summary{
+        display: flex;
+
+        .summary{
+            flex-grow: 1;
+        }
+
+        .button-edit{
+            color: red;
+        }
+    }
+
+.container__payment{
+
+    .prices{
+
+        margin-top: 5px;
+    }
+    .price-item{
+        display: flex;
+        & :first-child{
+            flex-grow: 1;
+        }
+    }
+}
+
+.container__payment-total{
+    display: flex;
+    & :first-child{
+        flex-grow: 1;
+    }
+
+}
+
+}
