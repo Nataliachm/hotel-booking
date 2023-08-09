@@ -41,7 +41,7 @@ const HeaderMainRooms = () => {
       </section>
       <section className="container-header-rooms__price-information">
         <p>
-          <p className="container-header-rooms__price">$250 </p>
+          <span className="container-header-rooms__price">$250 </span>
           / Per Night
         </p>
         <button>Book this Now</button>

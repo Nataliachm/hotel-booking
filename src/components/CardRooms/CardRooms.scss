@@ -1,0 +1,67 @@
+@import '../../styles/abstract/variables.scss';
+@import '../../styles/abstract/mixins.scss';
+
+
+.container-rooms{
+    padding: 1rem;
+    background-color: $color-white;
+
+    .container-rooms__image-container{
+        margin: 0.5rem 0rem;
+        width: 100%;
+        img{
+            width: 100%;
+        }
+    }
+}
+.container-rooms__information-container{
+    display: flex;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.1rem solid rgba(161, 161, 161, 0.2);
+    .container-rooms__amenities, .container-rooms__inclusions{
+        flex: 1;
+    }
+    .container-rooms__amenitie, .container-rooms__inclusion{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 0.3rem;
+        p{
+            font-size: 14px;
+        }
+    }
+}
+
+.container-rooms__icon{
+    font-size: 14px;
+    margin-right: 0.5rem;
+    opacity: 60%;
+}
+
+.container-rooms__title-amenities, .container-rooms__title-inclusions{
+    margin-bottom: 0.7rem;
+}
+
+.container-rooms__price-container{
+    display: flex;
+    flex-direction: column;
+    span{
+        font-size: 13px;
+        font-weight: 100;
+    }
+
+    span:nth-child(1){
+        text-decoration: line-through;
+    }
+
+    p{
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    button{
+        @include button;
+        align-self: flex-start;
+    }
+}
