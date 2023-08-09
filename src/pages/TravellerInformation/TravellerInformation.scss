@@ -1,10 +1,15 @@
 .TravellerInformation__container {
-    .container {
-        &__hotel {
-            padding: 15px;
-        }
-        &__traveller {
+    background-color: #e8e8e8;
+    padding: 20px;
 
-        }
+
+    .container {
+        padding: 15px;
+        flex-grow: 1;
+    }
+
+    @media (min-width: 768px) {
+        display: flex;
+        align-items: stretch;
     }
 }
