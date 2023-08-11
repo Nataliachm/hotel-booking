@@ -9,8 +9,7 @@ module.exports = {
       env: {
         node: true,
       },
-      files: [
-        '.eslintrc.{js,cjs}'],
+      files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
         sourceType: 'script',
       },
@@ -27,6 +26,7 @@ module.exports = {
     'no-confusing-arrow': ['error', { allowParens: true }],
     'react/jsx-pascal-case': ['off'],
     'react/function-component-definition': 'off',
+    'react/prop-types': 0,
+    'react/jsx-props-no-spreading': 'off',
   },
-
 };

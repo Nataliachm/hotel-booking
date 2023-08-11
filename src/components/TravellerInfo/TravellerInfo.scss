@@ -1,0 +1,47 @@
+.TravellerInfo__container {
+  $input-height: 40px;
+  $font-size-14: 0.875rem;
+
+  background-color: white;
+  padding: 16px;
+  font-size: $font-size-14;
+  box-shadow: 1px 11px 20px 0px rgba(35, 35, 35, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+
+  input {
+    height: $input-height;
+    padding: 5px;
+    border: 1px solid #e8e8e8;
+  }
+
+  textarea {
+    padding: 5px;
+    border: 1px solid #e8e8e8;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .helper-text {
+    font-size: 0.7rem;
+    color: #aaa9a9;
+  }
+
+  .traveller-info-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    font-weight: bold;
+    flex-grow: 1;
+
+    & :first-child {
+      margin-bottom: 5px;
+    }
+  }
+
+  .names {
+    display: flex;
+    gap: 5px;
+  }
+}

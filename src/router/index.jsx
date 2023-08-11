@@ -5,6 +5,12 @@ import MainHotel from '../pages/MainHotel';
 import SuccessPayment from '../pages/SuccessPayment';
 import FailPayment from '../pages/FailPayment';
 import NotFound from '../pages/NotFound';
+import TravellerInformation from '../pages/TravellerInformation';
+import Login from '../pages/Login';
+import Password from '../pages/Password';
+import AccountRecovery from '../pages/AccountRecovery';
+import RegisterPassword from '../pages/RegisterPassword';
+import Payment from '../pages/Payment';
 import ViewRooms from '../pages/ViewRooms';
 import MainHotelConfig from '../pages/MainHotelConfig';
 import ProfileConfig from '../pages/ProfileConfig';
@@ -29,8 +35,16 @@ const router = createBrowserRouter([
         element: <SuccessPayment />,
       },
       {
-        path: '/failPayment',
+        path: '/fail-payment',
         element: <FailPayment />,
+      },
+      {
+        path: '/traveller-information',
+        element: <TravellerInformation />,
+      },
+      {
+        path: '/payment',
+        element: <Payment />,
       },
       {
         path: '/view-rooms',
@@ -49,6 +63,22 @@ const router = createBrowserRouter([
         element: <FormHotelRegistration />,
       },
     ],
+  },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/login-Password',
+    element: <Password />,
+  },
+  {
+    path: '/login-accountRecovery',
+    element: <AccountRecovery />,
+  },
+  {
+    path: '/login-register-password',
+    element: <RegisterPassword />,
   },
 ]);
 
