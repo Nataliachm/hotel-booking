@@ -1,0 +1,27 @@
+$input-height: 40px;
+
+.FormInput__container {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  font-weight: bold;
+  flex-grow: 1;
+  width: 100%;
+
+  .input-row {
+    display: flex;
+  }
+  input {
+    height: $input-height;
+    padding: 5px;
+    border: 1px solid #e8e8e8;
+    flex-grow: 1;
+  }
+
+  .input-button {
+    height: $input-height;
+    background-color: #e8e8e8;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+}
