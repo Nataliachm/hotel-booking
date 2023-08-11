@@ -5,6 +5,7 @@ import MainHotel from '../pages/MainHotel';
 import SuccessPayment from '../pages/SuccessPayment';
 import FailPayment from '../pages/FailPayment';
 import NotFound from '../pages/NotFound';
+import ViewRooms from '../pages/ViewRooms';
 import MainHotelConfig from '../pages/MainHotelConfig';
 import ProfileConfig from '../pages/ProfileConfig';
 import FormHotelRegistration from '../pages/FormHotelRegistration';
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: '/failPayment',
         element: <FailPayment />,
+      },
+      {
+        path: '/view-rooms',
+        element: <ViewRooms />,
       },
       {
         path: '/hotel-config',

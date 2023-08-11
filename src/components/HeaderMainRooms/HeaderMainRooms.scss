@@ -1,0 +1,212 @@
+@import '../../styles/abstract/variables.scss';
+@import '../../styles/abstract/mixins.scss';
+
+.container-header-rooms{
+
+    padding: 2rem 1rem 1rem 0rem;
+    background-color: $color-main-background;
+
+    @media(min-width:768px){
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .container-header-rooms__principal-information{
+        display: flex;
+        align-items: center;
+    }
+
+    .container-header-rooms__title{
+        display: flex;
+        align-items: center;
+
+        h2{
+            margin: 0px !important;
+        }
+
+        @media(min-width:1024px){
+            h2{
+                font-size: 30px;
+            }
+        }
+    }
+
+    .container-header-rooms__stars{
+        display: none;
+    }
+
+    @media(min-width:425px){
+        .container-header-rooms__stars{
+            display: flex;
+            margin-left: 1rem;
+            align-items: center;
+            font-size: 13px;
+
+            & *{
+                margin: 0rem 0.1rem;
+                color: $color-stars;
+                border-color: $color-stars;
+            }
+        }
+    }
+
+    .container-header-rooms__share-container{
+        p{
+            display: none;
+        }
+
+        .container-header-rooms__share-icon{
+            margin: 0rem 0.5rem;
+            background-color: $color-white;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        
+        @media(min-width:1024px){
+            display: flex;
+            align-items: center;
+            padding-right: 0.5rem;
+            background-color: $color-white;
+            margin: 0rem 0.5rem;
+            p{
+                display: inline;
+                font-size: 15px;
+                font-weight: 700;
+                // background-color: $color-white;
+                // padding: 0.5rem 0.5rem 0.5rem 0rem;
+            }
+
+            .container-header-rooms__share-icon{
+                font-size: 16px;
+                margin: 0rem;
+            }
+         }
+    }
+
+    .container-header-rooms__share-container:hover{
+
+        .container-header-rooms__share-icon{
+            color: $color-accent;
+        }
+
+
+    }
+
+    .container-header-rooms__save-container{
+
+        p{
+            display: none;
+        }
+
+        .container-header-rooms__save-icon{
+            background-color: $color-white;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .container-header-rooms__save-icon:hover{
+            color: $color-accent;
+        }
+
+        @media(min-width:1024px){
+            display: flex;
+            align-items: center;
+            padding-right: 0.5rem;
+            background-color: $color-white;
+            p{
+                display: inline;
+                font-size: 15px;
+                font-weight: 700;
+                // background-color: $color-white;
+                // padding: 0.5rem 0.5rem 0.5rem 0rem;
+            }
+
+            .container-header-rooms__save-icon{
+                font-size: 16px;
+            }
+         }
+    }
+
+    .container-header-rooms__location-tags{
+        p{
+            font-size: 14px;
+            font-weight: 700;
+            color: $color-text-silver-chalice;
+        }
+    }
+
+    .container-header-rooms__service-tags{
+        display: none;
+    }
+
+    @media(min-width:768px){
+       .container-header-rooms__service-tags{
+        display: flex;
+        margin-top: 15px;
+        margin-bottom: -6px;
+
+        & *{
+            color: rgba(0, 0, 0, 0.7);
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: capitalize;
+            padding: 2px 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 0px 5px;
+        }
+
+        p:nth-child(1){
+            margin: 0px 5px 0px  0px !important;
+        }
+       }
+    }
+
+    .container-header-rooms__price-information{
+        margin-top: 0.7rem;
+        p{
+            display: inline;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        button{
+            display: none;
+        }
+
+        @media(min-width:425px){
+            p{
+                font-size: 15px;
+            }
+            .container-header-rooms__price{
+                font-size: 20px;
+            }
+        }
+
+        @media(min-width:768px){
+            display: flex;
+            flex-direction: column;
+            align-items:end;
+            margin-top: 0rem;
+            p{
+                margin-bottom: 0.2rem;
+            }
+            button{
+                display: block;
+                font-size: 15px;
+                @include button-shadow($font:700, $radius:20px, $vertical:8px, $horizontal:24px)
+            }
+        }
+
+        @media(min-width:425px){
+            // p{
+            //     font-size: 17px;
+            // }
+            .container-header-rooms__price{
+                font-size: 25px;
+            }
+        }
+    }
+}
