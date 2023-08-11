@@ -1,0 +1,93 @@
+@import 'src/styles/abstract/variables.scss';
+.person{
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+      .person__card {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          margin: 15px;
+          width: 87%;
+          border: 1px solid #c3c2c2;
+          padding: 30px 20px;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          div{
+            display: flex;
+            justify-content: center;
+          }
+          .person__card__info{
+            display: flex;
+            flex-direction: column;
+          }
+        }
+        
+        .profile-img {
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          margin-bottom: 10px;
+          
+
+          animation: img-2 4s ease 0s 5 normal forwards;
+          @keyframes img-2 {
+            0%,
+            100% {
+              transform: translateX(0%);
+              transform-origin: 50% 50%;
+            }
+          
+            15% {
+              transform: translateX(-30px) rotate(-6deg);
+            }
+          
+            30% {
+              transform: translateX(15px) rotate(6deg);
+            }
+          
+            45% {
+              transform: translateX(-15px) rotate(-3.6deg);
+            }
+          
+            60% {
+              transform: translateX(9px) rotate(2.4deg);
+            }
+          
+            75% {
+              transform: translateX(-6px) rotate(-1.2deg);
+            }
+          }
+
+        }
+        
+        .name {
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+        
+        .email {
+          font-size: 14px;
+          color: #666;
+          margin-bottom: 15px;
+        }
+        
+        
+        .additional-link {
+          background-color: #eeeeee;
+          display: block;
+          color: #007bff; 
+          text-decoration: none; 
+          margin: 8px 15px;
+          font-weight: 700;
+          padding: 5px 6px;
+          box-shadow: 1px 1px 2px 0px rgba(239, 63, 62, 0.12);
+          box-shadow: 1px 1px 2px 0px rgba(239, 63, 62, 0.12);
+          
+        }
+        
+        .additional-link:hover {
+          text-decoration: underline; 
+        }
+  }

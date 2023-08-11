@@ -11,6 +11,10 @@ import Password from '../pages/Password';
 import AccountRecovery from '../pages/AccountRecovery';
 import RegisterPassword from '../pages/RegisterPassword';
 import Payment from '../pages/Payment';
+import ViewRooms from '../pages/ViewRooms';
+import MainHotelConfig from '../pages/MainHotelConfig';
+import ProfileConfig from '../pages/ProfileConfig';
+import FormHotelRegistration from '../pages/FormHotelRegistration';
 
 const router = createBrowserRouter([
   {
@@ -31,33 +35,49 @@ const router = createBrowserRouter([
         element: <SuccessPayment />,
       },
       {
-        path: '/failPayment',
+        path: '/fail-payment',
         element: <FailPayment />,
       },
       {
-        path: '/TravellerInformation',
+        path: '/traveller-information',
         element: <TravellerInformation />,
       },
       {
-        path: '/Payment',
+        path: '/payment',
         element: <Payment />,
+      },
+      {
+        path: '/view-rooms',
+        element: <ViewRooms />,
+      },
+      {
+        path: '/hotel-config',
+        element: <MainHotelConfig />,
+      },
+      {
+        path: '/profile-config',
+        element: <ProfileConfig />,
+      },
+      {
+        path: '/form-hotel-registration',
+        element: <FormHotelRegistration />,
       },
     ],
   },
   {
-    path: '/Login',
+    path: '/login',
     element: <Login />,
   },
   {
-    path: '/Login/Password',
+    path: '/login-Password',
     element: <Password />,
   },
   {
-    path: '/Login/AccountRecovery',
+    path: '/login-accountRecovery',
     element: <AccountRecovery />,
   },
   {
-    path: '/Login/RegisterPassword',
+    path: '/login-register-password',
     element: <RegisterPassword />,
   },
 ]);

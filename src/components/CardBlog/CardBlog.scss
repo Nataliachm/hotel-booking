@@ -1,10 +1,10 @@
 @import '../../styles/abstract/variables.scss';
+@import '../../styles/abstract/mixins.scss';
 
 .container-blog{
     width: 350px;
     margin: 0px 10px;
-    box-shadow: 0px 2px 6px $color-text-silver-chalice;
-    border-radius: 5px;
+    @include basic-card;
 
     @media (width: 425px) {
         margin: 0px 30px;
@@ -93,12 +93,7 @@
     }
 
     button{
-        color: $color-white;
-        font-weight: 700;
-        background-color: $color-accent;
-        padding: 8px;
-        border-radius: 5px;
-        box-shadow: 0px 0px 4px $color-accent;
+        @include button-shadow
     }
 
     @media (min-width: 768px) {
