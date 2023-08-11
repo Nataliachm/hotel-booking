@@ -1,0 +1,11 @@
+@import 'src/styles/abstract/variables.scss';
+
+.FormButton__container {
+  padding: 20px;
+  border-radius: 5px;
+  font-size: $font-size-16;
+  font-weight: bold;
+  color: white;
+  background-color: #ef3f3e;
+  flex-grow: 1;
+}
