@@ -1,0 +1,152 @@
+.formHotel{
+.tittleForm{
+  display: flex;
+  justify-content: center;
+  background-color: #f9f9f9;
+}
+
+.formHotelContainer{
+    padding: 10px 10px;
+    width: 100%;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+
+.formHotelContainer__img{
+  div{
+    display: flex;
+    justify-content: center; 
+  }
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px 5px;
+  border: 1px solid #ddd;
+  padding: 20px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+    label {
+      max-width: 350px;
+      margin-bottom: 10px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      box-shadow: 15px;
+    }
+    #photo {
+      display: none;
+    }
+    img{
+        max-width: 450px;
+        max-height: auto;
+        width: 95%;
+        margin: 10px;
+        
+
+    }
+    .animationImgs{
+      display: flex;
+      justify-content: center;
+      position: relative; 
+      width: 100%;
+      .gear{
+        display: flex;
+        justify-content: center;
+        position: absolute; 
+        top: 5%; 
+        right: 65%; 
+        transform: translate(50%, -50%); 
+        animation: img-1 5s ease 0s 25 normal forwards;
+        img{width: 50px;
+          height: 50px;
+        }
+        @keyframes img-1 {
+          0% {
+            transform: rotate(0);
+          }
+        
+          100% {
+            transform: rotate(360deg);
+          }
+        }}
+      
+        
+      img{
+        width: 100%;
+        height: auto;
+      }
+    }
+}
+
+.formHotelContainer__text {
+    width: 100%;
+    form {
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      max-width: 700px; // Ajusta este valor según tus necesidades
+  
+      div {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0rem; // Espacio entre los campos
+  
+        label {
+          margin-bottom: 5px;
+          font-weight: bold;
+        }
+  
+        input,
+        select,
+        textarea {
+          width: 100%;
+          padding: 3px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+      }
+  
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+  
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }}
+
+  @media (max-width: 1000px) {
+    .formHotelContainer{
+        display: flex;
+        flex-direction: column;
+        .formHotelContainer__text{
+          display: flex;
+          justify-content: center;
+          form{
+            width: 360px;
+          }
+  
+          }
+  }}
+
+  @media (min-width: 1000px) {
+    .formHotelContainer{
+        display: flex;
+        flex-direction: row;
+      
+  }}}
