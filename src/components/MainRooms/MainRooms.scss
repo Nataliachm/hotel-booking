@@ -5,6 +5,8 @@
 .main-rooms{
 
     background-color: $color-main-background;
+    box-shadow: 0 2px 4px 0 #dedede;
+    max-width: 800px;
 
     .main-rooms__options{
         display: flex;
@@ -34,4 +36,10 @@
             border-bottom: 2px solid transparent;
         }
     }
+}
+
+.container-rooms{
+    padding: 1rem;
+    background-color: $color-white;
+
 }

@@ -2,6 +2,7 @@
 import './MainRooms.scss';
 import React, { useState } from 'react';
 import { CardRooms } from '../CardRooms';
+import rooms from './infoRooms';
 
 const MainRooms = () => {
   const [selected, setSelected] = useState('Rooms');
@@ -21,7 +22,24 @@ const MainRooms = () => {
         <li className={selected === 'Policies' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Policies'); }}>Policies</li>
       </ul>
       <div className="main-rooms__content-container">
-        <CardRooms />
+        <div className="container-rooms">
+          {rooms.map((room) => {
+            return (
+            // roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice,
+
+              <CardRooms
+                key={room.id}
+                roomName={room.roomName}
+                urlImage={room.img}
+                arrayAmenities={room.amenities}
+                arrayInclusions={room.inclusion}
+                previousPrice={room.previousPrice}
+                newPrice={room.newPrice}
+
+              />
+            );
+          })}
+        </div>
       </div>
     </main>
   );

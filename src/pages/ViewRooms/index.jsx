@@ -1,4 +1,5 @@
 import React from 'react';
+import './ViewRooms.scss';
 import { HeaderViewRooms } from '../../components/HeaderViewRooms';
 import HeaderMainRooms from '../../components/HeaderMainRooms';
 import MainRooms from '../../components/MainRooms';
@@ -10,10 +11,10 @@ const ViewRooms = () => {
       <div>
         <HeaderViewRooms />
       </div>
-      <div>
+      <main className="principal-container-main-views">
         <HeaderMainRooms />
         <MainRooms />
-      </div>
+      </main>
     </>
   );
 };

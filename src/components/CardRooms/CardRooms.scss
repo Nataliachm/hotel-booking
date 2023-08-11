@@ -6,19 +6,19 @@
     padding: 1rem;
     background-color: $color-white;
 
-    .container-rooms__image-container{
-        margin: 0.5rem 0rem;
+}
+.container-rooms__image-container{
+    margin: 0.5rem 0rem;
+    width: 100%;
+    img{
         width: 100%;
-        img{
-            width: 100%;
-        }
     }
 }
 .container-rooms__information-container{
     display: flex;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 0.1rem solid rgba(161, 161, 161, 0.2);
+    // margin-bottom: 1rem;
+    // padding-bottom: 1rem;
+    // border-bottom: 0.1rem solid rgba(161, 161, 161, 0.2);
     .container-rooms__amenities, .container-rooms__inclusions{
         flex: 1;
     }
@@ -63,5 +63,30 @@
     button{
         @include button;
         align-self: flex-start;
+    }
+
+    @media (min-width: 768px) {
+        align-items: end;
+        button{
+            align-self: flex-end;
+        }
+    }
+}
+
+.container-rooms__card-withoutTitle{
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.1rem solid rgba(161, 161, 161, 0.2);
+    @media (min-width: 768px) {
+        display: flex;
+        
+        .container-rooms__image-container{
+            flex: 0.3;
+        }
+
+        .container-rooms__information-container{
+            flex: 0.7;
+            margin-left: 1rem;
+        }
     }
 }
