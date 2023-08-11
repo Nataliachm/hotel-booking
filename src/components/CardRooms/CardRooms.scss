@@ -6,6 +6,23 @@
     padding: 1rem;
     background-color: $color-white;
 
+    .container-rooms__card{
+        padding-bottom: 2rem;
+        margin-bottom: 2rem; 
+    }
+
+    @media (min-width: 768px) {
+        .container-rooms__card:not(:last-child){
+            border-bottom: 0.1rem solid rgba(161, 161, 161, 0.2);
+        }
+    }  
+
+    div:last-child{
+        padding-bottom: initial;
+        margin-bottom: initial;
+         
+    }
+
 }
 .container-rooms__image-container{
     margin: 0.5rem 0rem;
@@ -79,7 +96,10 @@
     border-bottom: 0.1rem solid rgba(161, 161, 161, 0.2);
     @media (min-width: 768px) {
         display: flex;
-        
+        border-bottom: none;
+        margin-bottom: initial;
+        padding-bottom: initial;
+
         .container-rooms__image-container{
             flex: 0.3;
         }

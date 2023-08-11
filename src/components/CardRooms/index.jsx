@@ -32,11 +32,11 @@ export const CardRooms = (props) => {
             {arrayAmenities.map((amenitie) => {
               return (
                 <div className="container-rooms__amenitie">
-                  {amenitie === 'King/Twin' && <FontAwesomeIcon icon={faBed} className="container-rooms__icon" />}
-                  {amenitie === 'Shower' && <FontAwesomeIcon icon={faShower} className="container-rooms__icon" />}
-                  {amenitie === 'LCD TV' && <FontAwesomeIcon icon={faTv} className="container-rooms__icon" />}
-                  {amenitie === 'Couch' && <FontAwesomeIcon icon={faCouch} className="container-rooms__icon" />}
-                  {amenitie === 'Pool View' && <FontAwesomeIcon icon={faWater} className="container-rooms__icon" />}
+                  {amenitie === 'King/Twin' && <FontAwesomeIcon icon={faBed} className="container-rooms__icon" key={amenitie} />}
+                  {amenitie === 'Shower' && <FontAwesomeIcon icon={faShower} className="container-rooms__icon" key={amenitie} />}
+                  {amenitie === 'LCD TV' && <FontAwesomeIcon icon={faTv} className="container-rooms__icon" key={amenitie} />}
+                  {amenitie === 'Couch' && <FontAwesomeIcon icon={faCouch} className="container-rooms__icon" key={amenitie} />}
+                  {amenitie === 'Pool View' && <FontAwesomeIcon icon={faWater} className="container-rooms__icon" key={amenitie} />}
                   <p>{amenitie}</p>
                 </div>
               );

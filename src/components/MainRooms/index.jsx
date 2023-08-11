@@ -3,6 +3,7 @@ import './MainRooms.scss';
 import React, { useState } from 'react';
 import { CardRooms } from '../CardRooms';
 import rooms from './infoRooms';
+import FormRooms from '../FormRooms';
 
 const MainRooms = () => {
   const [selected, setSelected] = useState('Rooms');
@@ -39,6 +40,10 @@ const MainRooms = () => {
               />
             );
           })}
+        </div>
+
+        <div className="main-rooms__calendar-container">
+          <FormRooms />
         </div>
       </div>
     </main>
