@@ -6,10 +6,11 @@ const hotels = [
     city: 'New York',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac est ut est vehicula interdum quis eget odio. Nam commodo nisi eu dui vulputate luctus. Praesent aliquet justo nec facilisis ultrices. Donec a venenatis mauris, et rutrum elit. Sed eleifend ipsum vel dapibus dapibus. Nullam id nulla ut odio euismod aliquet. Mauris non arcu nec dui facilisis vehicula. Aenean vel magna nec erat tincidunt iaculis vitae ac mauris.',
     review: '26412 review',
-    newPrice: 1245,
+    newPrice: 1000,
     previousPrice: 1300,
-    labels1: 'Swimming',
+    labels1: 'Victor',
     labels2: 'Parking',
+    status: 'Recommended',
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ const hotels = [
     previousPrice: 1300,
     labels1: 'Swimming',
     labels2: 'Parking',
+    status: 'Para victor',
   },
   {
     id: 3,
@@ -34,6 +36,7 @@ const hotels = [
     previousPrice: 1300,
     labels1: 'Swimming',
     labels2: 'Parking',
+    status: 'Recommended',
   },
   {
     id: 4,
@@ -58,6 +61,7 @@ const hotels = [
     previousPrice: 1300,
     labels1: 'Swimming',
     labels2: 'Parking',
+    status: 'The best',
   },
   {
     id: 6,
@@ -85,18 +89,6 @@ const hotels = [
   },
   {
     id: 8,
-    name: 'The Palazzo',
-    img: 'https://themes.pixelstrap.com/rica/assets/images/hotel/room/2.jpg',
-    city: 'New York',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac est ut est vehicula interdum quis eget odio. Nam commodo nisi eu dui vulputate luctus. Praesent aliquet justo nec facilisis ultrices. Donec a venenatis mauris, et rutrum elit. Sed eleifend ipsum vel dapibus dapibus. Nullam id nulla ut odio euismod aliquet. Mauris non arcu nec dui facilisis vehicula. Aenean vel magna nec erat tincidunt iaculis vitae ac mauris.',
-    review: '26412 review',
-    newPrice: 1245,
-    previousPrice: 1300,
-    labels1: 'Swimming',
-    labels2: 'Parking',
-  },
-  {
-    id: 9,
     name: 'Royal Bridge',
     img: 'https://media-cdn.tripadvisor.com/media/photo-s/28/45/a9/2d/hermoso-lugar-muy-hermoso.jpg',
     city: 'Mongui',
@@ -109,4 +101,5 @@ const hotels = [
   },
 
 ];
+
 export default hotels;
