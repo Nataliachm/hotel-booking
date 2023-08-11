@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './TravellerInfo.scss';
 import PhoneInput from 'react-phone-number-input';
+import FormButton from '../FormButton';
+import FormInput from '../FormInput';
 
 const DEFAULT_FORM_INFO = {
   firstName: '',
@@ -16,30 +18,26 @@ export default function TravellerInfo() {
     <form className="TravellerInfo__container">
       <h2>Traveller Information</h2>
       <div className="names">
-        <label htmlFor="name" className="traveller-info-item">
-          <span>First Name</span>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            placeholder="First Name"
-          />
-        </label>
-        <label htmlFor="lastName" className="traveller-info-item">
-          <span>Last Name</span>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            required
-            placeholder="Last Name"
-          />
-        </label>
+        <FormInput
+          labelText="First Name"
+          type="text"
+          id="name"
+          name="name"
+          required
+          placeholder="First Name"
+        />
+        <FormInput
+          labelText="Last Name"
+          type="text"
+          id="lastName"
+          name="lastName"
+          required
+          placeholder="Last Name"
+        />
       </div>
-      <label htmlFor="emailAddress" className="traveller-info-item">
-        <span>Email Address</span>
-        <input
+      <div>
+        <FormInput
+          labelText="Email Address"
           type="email"
           id="emailAddress"
           name="emailAddress"
@@ -49,7 +47,7 @@ export default function TravellerInfo() {
         <span className="helper-text">
           Booking confirmation will be sent to this email ID.
         </span>
-      </label>
+      </div>
       <span className="traveller-info-item">
         <span>Contact Info</span>
         <PhoneInput
@@ -74,18 +72,15 @@ export default function TravellerInfo() {
           placeholder="e.g.. early check-in, airport transfer"
         />
       </label>
-      <label htmlFor="promo" className="promo traveller-info-item">
-        <span>Have a coupon code?</span>
-        <div className="promo__field">
-          <input type="text" id="promo" placeholder="Promo Code" />
-          <button type="button" className="apply-btn">
-            APPLY
-          </button>
-        </div>
-      </label>
-      <button type="button" className="pay-btn">
-        PAY NOW
-      </button>
+      <FormInput
+        buttonText="APPLY"
+        labelText="Have a coupon code?"
+        type="text"
+        id="promo"
+        name="promo"
+        placeholder="Promo Code"
+      />
+      <FormButton>PAY NOW</FormButton>
     </form>
   );
 }
