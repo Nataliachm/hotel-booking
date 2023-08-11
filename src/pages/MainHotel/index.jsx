@@ -9,6 +9,11 @@ const MainHotel = () => {
           <div className="card" key={hotel.id}>
             <div className="card__digital">
               <div className="card__digital--img">
+                {hotel.status && (
+                  <div className="card__digital--Recommended">
+                    {hotel.status}
+                  </div>
+                )}
                 <img src={hotel.img} alt={`hotel ${hotel.id}`} />
                 <div className="card__digital--heartIcon">
                   <i className="far fa-heart" />
