@@ -1,12 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './MainHotelConfig.scss';
 import PersonCard from '../../components/PersonCard';
 import hotels from '../MainHotel/hotels';
+import ConfirmationModal from '../../components/ConfirmationModal';
 
 const MainHotelConfig = () => {
+  const [selectedHotel, setSelectedHotel] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = (hotel) => {
+    setSelectedHotel(hotel);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const handleConfirm = () => {
+    closeModal();
+  };
+
   return (
     <div className="MainHotelConfig__container">
-      <PersonCard />
+      {showModal && (
+        <ConfirmationModal
+          imageSrc="https://cdn.create.vista.com/api/media/small/582813668/stock-vector-trash-can-icon-isometric-water"
+          onConfirm={handleConfirm}
+          onCancel={closeModal}
+        />
+      )}
+      <PersonCard
+        btn2="Hotels"
+        img="https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
+      />
       <div className="MainHotelConfig__container--button">
         <button type="button">
           <i className="fas fa-plus-circle" />
@@ -58,13 +85,13 @@ const MainHotelConfig = () => {
                     <div>
                       <h5>
                         {`$
-                  ${hotel.normalPrice}`}
+                  ${hotel.previousPrice}`}
                       </h5>
                     </div>
                     <div>
                       <span>
                         {`$
-                    ${hotel.salePrice}`}
+                    ${hotel.newPrice}`}
                       </span>
                     </div>
                   </div>
@@ -91,7 +118,13 @@ const MainHotelConfig = () => {
                     </button>
                   </div>
                   <div>
-                    <button className="btn3" type="button">
+                    <button
+                      className="btn3"
+                      type="button"
+                      onClick={() => {
+                        return openModal(hotel);
+                      }}
+                    >
                       <i className="fas fa-trash-alt" />
                       &nbsp; Delete Hotel
                     </button>
