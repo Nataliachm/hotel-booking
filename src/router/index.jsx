@@ -15,6 +15,7 @@ import ViewRooms from '../pages/ViewRooms';
 import MainHotelConfig from '../pages/MainHotelConfig';
 import ProfileConfig from '../pages/ProfileConfig';
 import FormHotelRegistration from '../pages/FormHotelRegistration';
+import ProfileConfigUser from '../pages/ProfileConfigUser';
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: '/form-hotel-registration',
         element: <FormHotelRegistration />,
+      },
+      {
+        path: '/profile-config-user',
+        element: <ProfileConfigUser />,
       },
     ],
   },

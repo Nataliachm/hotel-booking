@@ -1,22 +1,22 @@
 /* eslint-disable comma-dangle */
-import './ProfileConfig.scss';
 import React, { useState } from 'react';
 import PersonCard from '../../components/PersonCard';
+import './ProfileConfigUser.scss';
 
-const initialData = [
+const initialDataUser = [
   {
     id: 1,
-    name: 'Fabian Mendoza',
-    role: 'Administrator',
-    birthday: '1996-06-19',
+    name: 'Pedro Perez',
+    gender: 'Male',
+    birthday: '1990-06-19',
     streetAddress: '123 Main St',
     cityState: 'New York, NY',
     zip: '10001',
   },
 ];
 
-const ProfileConfig = () => {
-  const [data, setData] = useState(initialData);
+const ProfileConfigUser = () => {
+  const [data, setData] = useState(initialDataUser);
   const [editId, setEditId] = useState(null);
   const [formData, setFormData] = useState({});
 
@@ -50,16 +50,16 @@ const ProfileConfig = () => {
   };
 
   return (
-    <div className="ProfileConfig__container">
+    <div className="ProfileConfigUser__container">
       <div>
         <PersonCard
-          img="https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
+          img="https://icon-library.com/images/persona-icon/persona-icon-25.jpg"
           btn2="Hotels"
           className="PersonCard"
         />
       </div>
-      <div className="ProfileConfig__container--table-form">
-        <div className="ProfileConfig__container--infoTable">
+      <div className="ProfileConfigUser__container--table-form">
+        <div className="ProfileConfigUser__container--infoTable">
           <div>
             <h2>Personal Information</h2>
           </div>
@@ -77,9 +77,9 @@ const ProfileConfig = () => {
                       </tr>
                       <tr>
                         <th>
-                          <b>Role</b>
+                          <b>Gender</b>
                         </th>
-                        <th>{item.role}</th>
+                        <th>{item.gender}</th>
                       </tr>
                       <tr>
                         <th>
@@ -114,7 +114,7 @@ const ProfileConfig = () => {
           <div />
           <div>
             <button
-              className="ProfileConfig__container--buttonEditar"
+              className="ProfileConfigUser__container--buttonEditar"
               type="button"
               onClick={() => {
                 return handleEdit(data[0].id);
@@ -125,7 +125,7 @@ const ProfileConfig = () => {
           </div>
         </div>
         {editId !== null && (
-          <div className="ProfileConfig__container--form">
+          <div className="ProfileConfigUser__container--form">
             <div>
               <label htmlFor="name">
                 Name:
@@ -139,13 +139,13 @@ const ProfileConfig = () => {
               </label>
             </div>
             <div>
-              <label htmlFor="role">
-                Role:
+              <label htmlFor="gender">
+                Gender:
                 <input
-                  id="role"
+                  id="gender"
                   type="text"
-                  name="role"
-                  value={formData.role || ''}
+                  name="gender"
+                  value={formData.gender || ''}
                   onChange={handleInputChange}
                 />
               </label>
@@ -210,4 +210,4 @@ const ProfileConfig = () => {
   );
 };
 
-export default ProfileConfig;
+export default ProfileConfigUser;
