@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-restricted-globals */
 /* eslint-disable react/button-has-type */
 import React, { useRef, useState } from 'react';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -29,14 +31,12 @@ const FormRooms = () => {
     }
   };
 
-  const onChangeInputDate = (event, id) => {
-    console.log(id);
+  const onChangeInputDate = (event) => {
     setInputDate(event.target.value);
     // setInputDate(event.target.value);
   };
 
-  const onChangeOutDate = (event, id) => {
-    console.log(id);
+  const onChangeOutDate = (event) => {
     setOutDate(event.target.value);
     // setInputDate(event.target.value);
   };

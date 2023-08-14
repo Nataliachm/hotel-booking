@@ -1,7 +1,12 @@
 @import '../../styles/abstract/variables.scss';
 @import '../../styles/abstract/mixins.scss';
 
-
+.main-rooms-container{
+    @media (min-width:1024px) {
+        display: flex;
+        justify-content: center;
+    }
+}
 .main-rooms{
 
     background-color: $color-main-background;
@@ -36,6 +41,11 @@
             border-bottom: 2px solid transparent;
         }
     }
+
+    @media (min-width:1024px) {
+        margin-right: 1rem;
+        margin-bottom: 2rem;
+    }
 }
 
 .container-rooms{
@@ -43,3 +53,19 @@
     background-color: $color-white;
 
 }
+
+.main-rooms__calendar-container{
+    width: 100%;
+    margin: 1.5rem 0rem;
+    @media (min-width:1024px) {
+        
+        flex: 0.4;
+    }
+}
+
+// .main-rooms__content-container{
+//     @media (min-width:1024px) {
+//         display: flex;
+//         flex-direction: row;
+//     }
+// }
