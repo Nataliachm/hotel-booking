@@ -1,16 +1,12 @@
 import React from 'react';
 import './PersonCard.scss';
 
-const PersonCard = () => {
+const PersonCard = (props) => {
   return (
     <div className="person">
       <div className="person__card">
         <div>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
-            alt="Foto de perfil"
-            className="profile-img"
-          />
+          <img src={props.img} alt="Foto de perfil" className="profile-img" />
         </div>
         <div className="person__card__info">
           <div>
@@ -28,7 +24,7 @@ const PersonCard = () => {
           </div>
           <div>
             <a href="enlace2.html" className="additional-link">
-              Hotels
+              {props.btn2}
             </a>
           </div>
           <div>
