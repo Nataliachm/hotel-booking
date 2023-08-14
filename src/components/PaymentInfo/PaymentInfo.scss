@@ -21,6 +21,10 @@
       padding: 10px;
       border: 1px solid #e8e8e8;
 
+      &.active {
+        border: 1px solid red;
+      }
+
       .icon {
         width: 70px;
       }

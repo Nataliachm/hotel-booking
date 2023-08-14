@@ -1,9 +1,22 @@
+import { useEffect, useState } from 'react';
 import AuthWrapper from '../../HOC/AuthWrapper';
 import FormButton from '../../components/FormButton';
 import FormInput from '../../components/FormInput';
 import './RegisterPassword.scss';
 
 const RegisterPassword = () => {
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showMatchWarning, setShowMatchWarning] = useState(false);
+
+  useEffect(() => {
+    if (password !== confirmPassword && confirmPassword) {
+      setShowMatchWarning(true);
+    } else {
+      setShowMatchWarning(false);
+    }
+  }, [password, confirmPassword]);
+
   return (
     <AuthWrapper
       titleText="Create password"
@@ -17,6 +30,10 @@ const RegisterPassword = () => {
           name="password"
           required
           placeholder="Enter a password"
+          value={password}
+          onChange={(e) => {
+            return setPassword(e.target.value);
+          }}
         />
         <FormInput
           labelText="Confirm password"
@@ -25,8 +42,15 @@ const RegisterPassword = () => {
           name="ConfirmPassword"
           required
           placeholder="Confirm your password"
+          value={confirmPassword}
+          onChange={(e) => {
+            setConfirmPassword(e.target.value);
+          }}
         />
-        <FormButton>Create account</FormButton>
+        {showMatchWarning && (
+          <span className="warning">passwords don't match</span>
+        )}
+        <FormButton disabled={showMatchWarning}>Create account</FormButton>
       </div>
     </AuthWrapper>
   );
