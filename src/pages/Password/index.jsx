@@ -1,14 +1,29 @@
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import AuthWrapper from '../../HOC/AuthWrapper';
 import FormButton from '../../components/FormButton';
 import FormInput from '../../components/FormInput';
+import { findPassword } from '../../mockApi';
 import './Password.scss';
 
 const Password = () => {
+  const { email } = useParams();
+  const [password, setPassword] = useState('');
+
+  const handleSignIn = async () => {
+    const found = await findPassword(email, password);
+    if (found) {
+      console.log('Signed in!');
+      return;
+    }
+    console.log('Wrong credentials :(');
+  };
+
   return (
     <AuthWrapper
       titleText="Enter your password"
       subtitle="Enter your Rica.com password for"
-      paragraph="email@example.com"
+      paragraph={email}
     >
       <div className="Password__container">
         <FormInput
@@ -18,8 +33,12 @@ const Password = () => {
           name="password"
           required
           placeholder="Enter your password"
+          value={password}
+          onChange={(e) => {
+            return setPassword(e.target.value);
+          }}
         />
-        <FormButton>Sing in</FormButton>
+        <FormButton onClick={handleSignIn}>Sing in</FormButton>
         <div className="line">
           <span className="line-text">or</span>
         </div>

@@ -8,4 +8,8 @@
   color: white;
   background-color: #ef3f3e;
   flex-grow: 1;
+
+  &:disabled {
+    background-color: #cacaca;
+  }
 }

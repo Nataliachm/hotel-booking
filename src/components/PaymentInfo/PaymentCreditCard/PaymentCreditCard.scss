@@ -1,0 +1,15 @@
+.PaymentCreditCard__container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .creditCard-data {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .security-data {
+    display: flex;
+    gap: 10px;
+  }
+}
