@@ -8,7 +8,11 @@
 
     @media(min-width:768px){
         display: flex;
-        justify-content: space-between;
+        justify-content:space-between;
+    }
+
+    @media(min-width:1440px){
+        justify-content:space-around;
     }
 
     .container-header-rooms__principal-information{
