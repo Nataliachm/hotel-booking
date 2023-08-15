@@ -1,9 +1,23 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AuthWrapper from '../../HOC/AuthWrapper';
 import FormButton from '../../components/FormButton';
 import FormInput from '../../components/FormInput';
 import './Login.scss';
+import { findUser } from '../../mockApi';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+
+  const handleClick = async () => {
+    const found = await findUser(email);
+    if (found) {
+      return navigate(`/login-Password/${found}`);
+    }
+    return navigate('/login-register-password');
+  };
+
   return (
     <AuthWrapper titleText="Sign in or create an account">
       <section className="Login__container">
@@ -14,8 +28,12 @@ const Login = () => {
           name="emailAddress"
           required
           placeholder="Email Address"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
         />
-        <FormButton>Continue</FormButton>
+        <FormButton onClick={handleClick}>Continue</FormButton>
         <div className="line">
           <span className="line-text">or use one of these options</span>
         </div>

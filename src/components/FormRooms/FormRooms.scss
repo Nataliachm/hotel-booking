@@ -6,6 +6,13 @@
     display: flex;
     flex-direction: column;
     padding: 1.2rem 1.2rem 2rem 1.2rem;
+    background-color: $color-white;
+    box-shadow: 0 2px 4px 0 #dedede;
+    max-width: 800px;
+    
+    @media (min-width:1024px) {
+        max-width: 350px;
+    }
 }
 
 .booking-room-container__map-container{

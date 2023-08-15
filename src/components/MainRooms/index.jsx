@@ -13,39 +13,41 @@ const MainRooms = () => {
   };
 
   return (
-    <main className="main-rooms">
-      <ul className="main-rooms__options">
-        <li className={selected === 'Rooms' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Rooms'); }}>Rooms</li>
-        <li className={selected === 'About' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('About'); }}>About</li>
-        <li className={selected === 'Facility' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Facility'); }}>Facility</li>
-        <li className={selected === 'Location' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Location'); }}>Location</li>
-        <li className={selected === 'Reviews' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Reviews'); }}>Reviews</li>
-        <li className={selected === 'Policies' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Policies'); }}>Policies</li>
-      </ul>
-      <div className="main-rooms__content-container">
-        <div className="container-rooms">
-          {rooms.map((room) => {
-            return (
-            // roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice,
+    <main className="main-rooms-container">
+      <div className="main-rooms">
+        <ul className="main-rooms__options">
+          <li className={selected === 'Rooms' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Rooms'); }}>Rooms</li>
+          <li className={selected === 'About' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('About'); }}>About</li>
+          <li className={selected === 'Facility' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Facility'); }}>Facility</li>
+          <li className={selected === 'Location' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Location'); }}>Location</li>
+          <li className={selected === 'Reviews' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Reviews'); }}>Reviews</li>
+          <li className={selected === 'Policies' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Policies'); }}>Policies</li>
+        </ul>
+        <div className="main-rooms__content-container">
+          <div className="container-rooms">
+            {rooms.map((room) => {
+              return (
+              // roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice,
 
-              <CardRooms
-                key={room.id}
-                roomName={room.roomName}
-                urlImage={room.img}
-                arrayAmenities={room.amenities}
-                arrayInclusions={room.inclusion}
-                previousPrice={room.previousPrice}
-                newPrice={room.newPrice}
+                <CardRooms
+                  key={room.id}
+                  roomName={room.roomName}
+                  urlImage={room.img}
+                  arrayAmenities={room.amenities}
+                  arrayInclusions={room.inclusion}
+                  previousPrice={room.previousPrice}
+                  newPrice={room.newPrice}
 
-              />
-            );
-          })}
-        </div>
+                />
+              );
+            })}
+          </div>
 
-        <div className="main-rooms__calendar-container">
-          <FormRooms />
         </div>
       </div>
+      <section className="main-rooms__calendar-container">
+        <FormRooms />
+      </section>
     </main>
   );
 };
