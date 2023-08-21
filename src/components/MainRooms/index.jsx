@@ -37,6 +37,7 @@ const MainRooms = () => {
                   arrayInclusions={room.inclusion}
                   previousPrice={room.previousPrice}
                   newPrice={room.newPrice}
+                  profile="room"
 
                 />
               );
