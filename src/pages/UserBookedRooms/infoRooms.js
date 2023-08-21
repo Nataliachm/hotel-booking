@@ -11,6 +11,14 @@ const rooms = [
     previousPrice: 1250,
     basicRoomPrice: 250, // Clase hotel
     locationTags: 'Mina Road, Bur Dubai, Dubai, United Arab Emirates', // Clase hotel
+    country: 'United States',
+    city: 'New York',
+    hotelName: 'Paradise',
+    guests: 3,
+    checkIn: '2:00 p.m',
+    checkOut: '12:00 p.m',
+    dateIn: '12/08/2023',
+    dateOut: '15/08/2023',
   },
   {
     id: 2,
@@ -24,6 +32,14 @@ const rooms = [
     previousPrice: 1350,
     basicRoomPrice: 250, // Clase hotel
     locationTags: 'Mina Road, Bur Dubai, Dubai, United Arab Emirates', // Clase hotel
+    country: 'Italy',
+    city: 'Rome',
+    hotelName: 'Landscape',
+    guests: 4,
+    checkIn: '1:00 p.m',
+    checkOut: '3:00 p.m',
+    dateIn: '15/07/2023',
+    dateOut: '20/07/2023',
   },
   {
     id: 3,
@@ -37,6 +53,14 @@ const rooms = [
     previousPrice: 1950,
     basicRoomPrice: 250, // Clase hotel
     locationTags: 'Mina Road, Bur Dubai, Dubai, United Arab Emirates', // Clase hotel
+    country: 'Argentina',
+    city: 'Buenos Aires',
+    hotelName: 'Pampalare',
+    guests: 2,
+    checkIn: '2:00 p.m',
+    checkOut: '12:00 p.m',
+    dateIn: '1/08/2023',
+    dateOut: '5/08/2023',
   },
 ];
 export default rooms;

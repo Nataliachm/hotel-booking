@@ -6,6 +6,14 @@ import { CardRooms } from '../../components/CardRooms';
 import rooms from './infoRooms';
 
 const UserBookedRooms = () => {
+  // country: 'Argentina',
+  //   city: 'Buenos Aires',
+  //   hotelName: 'Pampalare',
+  //   guests: 2,
+  //   checkIn: '2:00 p.m',
+  //   checkOut: '12:00 p.m',
+  //   dateIn: '1/08/2023',
+  //   dateOut: '5/08/2023',
   return (
     <div className="booked-user-container">
       <div>
@@ -32,6 +40,14 @@ const UserBookedRooms = () => {
                   previousPrice={room.previousPrice}
                   newPrice={room.newPrice}
                   profile="user"
+                  country={room.country}
+                  city={room.city}
+                  hotelName={room.hotelName}
+                  guests={room.guests}
+                  checkIn={room.checkIn}
+                  checkOut={room.checkOut}
+                  dateIn={room.dateIn}
+                  dateOut={room.dateOut}
                 />
               </div>
             );

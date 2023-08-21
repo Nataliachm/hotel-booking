@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export const CardRooms = (props) => {
   const {
     roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice, profile,
+    country, city, hotelName, guests, checkIn, checkOut, dateIn, dateOut,
   } = props;
 
   return (
@@ -82,44 +83,44 @@ export const CardRooms = (props) => {
             <li>
               <strong>Country:</strong>
               {' '}
-              United States
+              {country}
             </li>
             <li>
               <strong>Hotel:</strong>
               {' '}
-              Paradise
+              {hotelName}
             </li>
             <li>
               <strong>Check in:</strong>
               {' '}
-              2:00 p.m
+              {checkIn}
             </li>
             <li>
               <strong>Check out:</strong>
               {' '}
-              12:00 p.m
+              {checkOut}
             </li>
           </ul>
           <ul>
             <li>
               <strong>City:</strong>
               {' '}
-              New York
+              {city}
             </li>
             <li>
               <strong>Guets:</strong>
               {' '}
-              3
+              {guests}
             </li>
             <li>
               <strong>Date in:</strong>
               {' '}
-              12/08/2023
+              {dateIn}
             </li>
             <li>
               <strong>Date out:</strong>
               {' '}
-              15/08/2023
+              {dateOut}
             </li>
           </ul>
         </div>
