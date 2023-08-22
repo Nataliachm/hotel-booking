@@ -82,6 +82,15 @@
         align-self: flex-start;
     }
 
+    .container-rooms__botons-container{
+        display: flex;
+
+        .container-rooms__button--edit{
+            margin-right: 1rem;
+            @include button($color: $color-edit-button)
+        }
+    }
+
     @media (min-width: 768px) {
         align-items: end;
         button{

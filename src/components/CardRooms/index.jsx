@@ -133,6 +133,37 @@ export const CardRooms = (props) => {
         </div>
       </div>
       )}
+      {profile === 'admin'
+      && (
+        <div className="container-rooms__price-container">
+          <span>
+            $
+            {previousPrice}
+          </span>
+          <p>
+            $
+            {newPrice}
+          </p>
+          <span>per night</span>
+          <div className="container-rooms__botons-container">
+            <div>
+              <button className="container-rooms__button--edit" type="button">
+                <i className="fas fa-cog" />
+                      &nbsp; Edit
+              </button>
+            </div>
+            <div>
+              <button
+                className="container-rooms__button--delete"
+                type="button"
+              >
+                <i className="fas fa-trash-alt" />
+                      &nbsp; Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
