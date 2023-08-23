@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './FormHotelRegistration.scss';
 
 const FormHotelRegistration = () => {
+  const [image, setImage] = useState('');
   const [selectedImages, setSelectedImages] = useState([]);
   const [hotelsData, setHotelsData] = useState([]);
   const [formData, setFormData] = useState({
@@ -19,6 +20,24 @@ const FormHotelRegistration = () => {
     label2: '',
     status: '',
   });
+  const uploadImage = async (event) => {
+    const filesa = event.target.files;
+    const data = new FormData();
+    console.log(data);
+    data.append('file', filesa[0]);
+    data.append('upload_preset', 'hotelImages');
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/drnclewqh/image/upload',
+      {
+        method: 'POST',
+        body: data,
+      }
+    );
+    const file = await res.json();
+    console.log(res);
+    setImage(file.secure_url);
+    console.log(file.secure_url);
+  };
   const handleImageChange = (event) => {
     const images = event.target.files;
     const imageUrls = [];
@@ -27,6 +46,7 @@ const FormHotelRegistration = () => {
       imageUrls.push(imageUrl);
     }
     setSelectedImages(imageUrls);
+    uploadImage(event);
   };
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -78,6 +98,7 @@ const FormHotelRegistration = () => {
               <input
                 id="photo"
                 type="file"
+                name="file"
                 accept="image/*"
                 onChange={handleImageChange}
                 multiple
@@ -110,6 +131,7 @@ const FormHotelRegistration = () => {
               <label htmlFor="index">
                 Index:
                 <input
+                  placeholder="Index"
                   type="number"
                   id="index"
                   name="index"
@@ -122,6 +144,7 @@ const FormHotelRegistration = () => {
               <label htmlFor="name">
                 Name:
                 <input
+                  placeholder="Name"
                   type="text"
                   id="name"
                   name="name"
@@ -134,6 +157,7 @@ const FormHotelRegistration = () => {
               <label htmlFor="country">
                 Country:
                 <input
+                  placeholder="Country"
                   type="text"
                   id="country"
                   name="country"
@@ -146,6 +170,7 @@ const FormHotelRegistration = () => {
               <label htmlFor="city">
                 City:
                 <input
+                  placeholder="City"
                   type="text"
                   id="city"
                   name="city"
@@ -158,6 +183,7 @@ const FormHotelRegistration = () => {
               <label htmlFor="address">
                 Address:
                 <input
+                  placeholder="Address"
                   type="text"
                   id="address"
                   name="address"
@@ -170,6 +196,7 @@ const FormHotelRegistration = () => {
               <label htmlFor="description">
                 Description:
                 <textarea
+                  placeholder="Description"
                   id="description"
                   name="description"
                   value={formData.description}
@@ -201,6 +228,7 @@ const FormHotelRegistration = () => {
               <label htmlFor="normalPrice">
                 Normal price:
                 <input
+                  placeholder="Normal price"
                   type="number"
                   id="normalPrice"
                   name="normalPrice"
@@ -213,6 +241,7 @@ const FormHotelRegistration = () => {
               <label htmlFor="salePrice">
                 Sale Price:
                 <input
+                  placeholder="Sale Price"
                   type="number"
                   id="salePrice"
                   name="salePrice"

@@ -1,3 +1,4 @@
+$input-height: 40px;
 .formHotel{
 .tittleForm{
   display: flex;
@@ -107,8 +108,9 @@
         input,
         select,
         textarea {
+          height: $input-height;
           width: 100%;
-          padding: 3px;
+          padding: 3px 8px;
           border: 1px solid #ccc;
           border-radius: 4px;
         }
@@ -118,9 +120,10 @@
         background-color: #007bff;
         color: white;
         border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
+        padding: 5px 10px;
+        border-radius: 3px;
         cursor: pointer;
+        height: $input-height;
         transition: background-color 0.3s ease-in-out;
   
         &:hover {
