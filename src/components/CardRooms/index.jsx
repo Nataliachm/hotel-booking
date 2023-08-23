@@ -5,9 +5,7 @@ import React from 'react';
 import {
   faBed, faShower, faTv, faCouch, faCheck, faWater,
 } from '@fortawesome/free-solid-svg-icons';
-// import { faShower } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import rooms from './infoRooms';
 
 export const CardRooms = (props) => {
   const {
@@ -16,8 +14,6 @@ export const CardRooms = (props) => {
   } = props;
 
   return (
-  // <div className="container-rooms">
-  // </div>
     <div className="container-rooms__card">
 
       <div className="container-rooms__title-container">

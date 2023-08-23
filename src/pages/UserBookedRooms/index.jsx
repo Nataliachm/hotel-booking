@@ -6,14 +6,6 @@ import { CardRooms } from '../../components/CardRooms';
 import rooms from './infoRooms';
 
 const UserBookedRooms = () => {
-  // country: 'Argentina',
-  //   city: 'Buenos Aires',
-  //   hotelName: 'Pampalare',
-  //   guests: 2,
-  //   checkIn: '2:00 p.m',
-  //   checkOut: '12:00 p.m',
-  //   dateIn: '1/08/2023',
-  //   dateOut: '5/08/2023',
   return (
     <div className="booked-user-container">
       <div>
@@ -28,7 +20,6 @@ const UserBookedRooms = () => {
         <div className="booked-user-container__container-rooms">
           {rooms.map((room) => {
             return (
-            // roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice,
               <div className="booked-user-container__room" key={room.id} id={room.id}>
 
                 <CardRooms
