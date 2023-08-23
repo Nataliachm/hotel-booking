@@ -19,7 +19,6 @@
     }
 
     @media (min-width:1440px) {
-        // margin-right: 1rem;
         padding: 0rem 3rem 1rem 3rem; 
     }
 }
@@ -30,10 +29,8 @@
     width: 100%;
     background-color: $color-main-background;
     box-shadow: 0 2px 4px 0 #dedede;
-    // max-width: 1024px;
 
     @media (min-width:1024px) {
-        // margin-right: 1rem;
         margin-bottom: 2rem;
         box-shadow: none;
     }

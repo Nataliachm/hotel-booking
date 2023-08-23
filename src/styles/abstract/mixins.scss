@@ -1,16 +1,5 @@
 @import './variables.scss';
 
-// @mixin button-styles($background-color, $width, $height) {
-//     background-color: $background-color;
-//     color: white;
-//     padding: 10px 20px;
-//     border: none;
-//     border-radius: 4px;
-//     width: $width;
-//     height: $height;
-//     cursor: pointer;
-// }
-
 @mixin button-shadow($font:700, $radius:5px, $vertical:8px, $horizontal:8px) {
     
     color: $color-white;
