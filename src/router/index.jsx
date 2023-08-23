@@ -16,6 +16,8 @@ import MainHotelConfig from '../pages/MainHotelConfig';
 import ProfileConfig from '../pages/ProfileConfig';
 import FormHotelRegistration from '../pages/FormHotelRegistration';
 import ProfileConfigUser from '../pages/ProfileConfigUser';
+import UserBookedRooms from '../pages/UserBookedRooms';
+import AdminRoomEdit from '../pages/AdminRoomEdit';
 
 const router = createBrowserRouter([
   {
@@ -66,6 +68,14 @@ const router = createBrowserRouter([
       {
         path: '/profile-config-user',
         element: <ProfileConfigUser />,
+      },
+      {
+        path: '/user-booked-rooms',
+        element: <UserBookedRooms />,
+      },
+      {
+        path: '/admin-room-edit',
+        element: <AdminRoomEdit />,
       },
     ],
   },
