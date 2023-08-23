@@ -1,0 +1,48 @@
+@import '../../styles/abstract/variables.scss';
+@import '../../styles/abstract/mixins.scss';
+
+.booked-user-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $color-main-background;
+    padding: 0rem 1rem 3rem 1rem;
+
+    .booked-user-container__PersonCard{
+        background-color: $color-white;
+    }
+
+
+
+    .booked-user-container__room:not(:first-child){
+        margin-top: 1.5rem;
+    }
+
+    @media (min-width:1440px) {
+        padding: 0rem 3rem 1rem 3rem; 
+    }
+}
+
+.booked-user-container__main-rooms{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: $color-main-background;
+    box-shadow: 0 2px 4px 0 #dedede;
+
+    @media (min-width:1024px) {
+        margin-bottom: 2rem;
+        box-shadow: none;
+    }
+}
+
+.booked-user-container__container-rooms{
+    padding: 1rem;
+    background-color: $color-white;
+    max-width: 1024px;
+
+    @media (min-width:1024px) {
+        box-shadow: 0 2px 4px 0 #dedede;
+    }
+
+}

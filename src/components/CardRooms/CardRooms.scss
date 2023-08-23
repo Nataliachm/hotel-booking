@@ -82,10 +82,65 @@
         align-self: flex-start;
     }
 
+    .container-rooms__botons-container{
+        display: flex;
+
+        .container-rooms__button--edit{
+            margin-right: 1rem;
+            @include button($color: $color-edit-button)
+        }
+    }
+
     @media (min-width: 768px) {
         align-items: end;
         button{
             align-self: flex-end;
+        }
+    }
+}
+
+.container-rooms__info-user-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // padding: 0rem 0.3rem 0rem 0.3rem;
+
+    @media (min-width: 768px) {
+        position: relative;
+        right: 1rem;
+        padding: 0rem 5rem 0rem 15rem;
+        max-width: 1000px;
+        
+    }
+
+    @media (min-width: 1024px) {
+        position: relative;
+        right: 1rem;
+        top: -3rem;
+        padding: 0rem 8rem 0rem 18rem;
+        // max-width: 1000px;
+        
+    }
+
+    .container-rooms__room-info{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-bottom: 1rem;
+
+        li{
+            list-style: none;
+            line-height: 1.5rem;
+            font-weight: 100;
+        }
+    }
+
+
+    .container-rooms__price-info{
+        p{
+            text-align: center;
+            @include button
         }
     }
 }
