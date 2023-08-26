@@ -23,7 +23,6 @@ const FormHotelRegistration = () => {
   const uploadImage = async (event) => {
     const filesa = event.target.files;
     const data = new FormData();
-    console.log(data);
     data.append('file', filesa[0]);
     data.append('upload_preset', 'hotelImages');
     const res = await fetch(
@@ -34,7 +33,6 @@ const FormHotelRegistration = () => {
       }
     );
     const file = await res.json();
-    console.log(res);
     setImage(file.secure_url);
     console.log(file.secure_url);
   };
@@ -105,25 +103,11 @@ const FormHotelRegistration = () => {
               />
             </label>
           </div>
-          <div>
-            {selectedImages.length > 0 && (
-              <img src={selectedImages[0]} alt="Selected 0" />
-            )}
-          </div>
-          <div className="animationImgs">
-            <div className="gear">
-              <img
-                src="https://www.freeiconspng.com/minicovers/gear-icon-17.png"
-                alt="gear"
-              />
-            </div>
+          {image && (
             <div>
-              <img
-                src="https://www.freeiconspng.com/thumbs/hotel-png/hotel-png-4.png"
-                alt="hotelimg"
-              />
+              <img src={image} alt="Uploaded Room" />
             </div>
-          </div>
+          )}
         </div>
         <div className="formHotelContainer__text">
           <form onSubmit={handleFormSubmit}>
