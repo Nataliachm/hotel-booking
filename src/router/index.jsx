@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/aria-role */
+/* eslint-disable react/jsx-one-expression-per-line */
 import { createBrowserRouter } from 'react-router-dom';
 import Root from '../layout/Root';
 import MainHome from '../pages/MainHome';
@@ -19,6 +21,7 @@ import ProfileConfigUser from '../pages/ProfileConfigUser';
 import UserBookedRooms from '../pages/UserBookedRooms';
 import AdminRoomEdit from '../pages/AdminRoomEdit';
 import FormRoomEdit from '../pages/FormRoomEdit';
+import PrivateRoute from '../higher-order-components/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -56,7 +59,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/hotel-config',
-        element: <MainHotelConfig />,
+        element: <PrivateRoute role="admin" redirectRoute="/login"><MainHotelConfig /></PrivateRoute>,
       },
       {
         path: '/profile-config',
