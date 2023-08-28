@@ -11,6 +11,7 @@ import './styles/base/base.scss';
 import './styles/base/reset.scss';
 import './styles/abstract/variables.scss';
 import './styles/abstract/mixins.scss';
+// import { AppContext } from '../../store/AppContext';
 // import FilterControl from './components/FilterControl';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

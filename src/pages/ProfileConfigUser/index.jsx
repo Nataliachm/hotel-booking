@@ -1,6 +1,7 @@
 /* eslint-disable comma-dangle */
 import React, { useState } from 'react';
-import PersonCard from '../../components/PersonCard';
+import { PersonCard } from '../../components/PersonCard';
+// import { AppContext } from '../../store/AppContext';
 import './ProfileConfigUser.scss';
 
 const initialDataUser = [
@@ -16,6 +17,8 @@ const initialDataUser = [
 ];
 
 const ProfileConfigUser = () => {
+  // const store = useContext(AppContext);
+  // const { email } = store;
   const [data, setData] = useState(initialDataUser);
   const [editId, setEditId] = useState(null);
   const [formData, setFormData] = useState({});

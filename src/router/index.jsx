@@ -39,19 +39,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/success',
-        element: <SuccessPayment />,
+        element: <PrivateRoute redirectRoute="/login"><SuccessPayment /></PrivateRoute>,
       },
       {
         path: '/fail-payment',
-        element: <FailPayment />,
+        element: <PrivateRoute redirectRoute="/login"><FailPayment /></PrivateRoute>,
       },
       {
         path: '/traveller-information',
-        element: <TravellerInformation />,
+        element: <PrivateRoute redirectRoute="/login"><TravellerInformation /></PrivateRoute>,
       },
       {
         path: '/payment',
-        element: <Payment />,
+        element: <PrivateRoute redirectRoute="/login"><Payment /></PrivateRoute>,
       },
       {
         path: '/view-rooms',
@@ -63,45 +63,45 @@ const router = createBrowserRouter([
       },
       {
         path: '/profile-config',
-        element: <ProfileConfig />,
+        element: <PrivateRoute role="admin" redirectRoute="/login"><ProfileConfig /></PrivateRoute>,
       },
       {
         path: '/form-hotel-registration',
-        element: <FormHotelRegistration />,
+        element: <PrivateRoute role="admin" redirectRoute="/login"><FormHotelRegistration /></PrivateRoute>,
       },
       {
         path: '/profile-config-user',
-        element: <ProfileConfigUser />,
+        element: <PrivateRoute redirectRoute="/login"><ProfileConfigUser /></PrivateRoute>,
       },
       {
         path: '/user-booked-rooms',
-        element: <UserBookedRooms />,
+        element: <PrivateRoute redirectRoute="/login"><UserBookedRooms /></PrivateRoute>,
       },
       {
         path: '/admin-room-edit',
-        element: <AdminRoomEdit />,
+        element: <PrivateRoute role="admin" redirectRoute="/login"><AdminRoomEdit /></PrivateRoute>,
       },
       {
         path: '/form-room-edit',
-        element: <FormRoomEdit />,
+        element: <PrivateRoute role="admin" redirectRoute="/login"><FormRoomEdit /></PrivateRoute>,
+      },
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/login-password/:email',
+        element: <Password />,
+      },
+      {
+        path: '/login-accountRecovery',
+        element: <AccountRecovery />,
+      },
+      {
+        path: '/login-register-password',
+        element: <RegisterPassword />,
       },
     ],
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/login-password/:email',
-    element: <Password />,
-  },
-  {
-    path: '/login-accountRecovery',
-    element: <AccountRecovery />,
-  },
-  {
-    path: '/login-register-password',
-    element: <RegisterPassword />,
   },
 ]);
 
