@@ -1,23 +1,29 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useState } from 'react';
+import { useContext } from 'react';
 import AuthWrapper from '../../HOC/AuthWrapper';
 import FormButton from '../../components/FormButton';
 import FormInput from '../../components/FormInput';
-import { findPassword } from '../../mockApi';
+// import { findPassword } from '../../mockApi';
 import './Password.scss';
+import { AppContext } from '../../store/AppContext';
 
 const Password = () => {
-  const { email } = useParams();
-  const [password, setPassword] = useState('');
+  const store = useContext(AppContext);
+  const {
+    email, handleSignIn, password, setPassword,
+  } = store;
 
-  const handleSignIn = async () => {
-    const found = await findPassword(email, password);
-    if (found) {
-      console.log('Signed in!');
-      return;
-    }
-    console.log('Wrong credentials :(');
-  };
+  // const { email } = useParams();
+  // const [password, setPassword] = useState('');
+
+  // const handleSignIn = async () => {
+  //   const found = await findPassword(email, password);
+  //   if (found) {
+  //     console.log('Signed in!');
+  //     return;
+  //   }
+  //   console.log('Wrong credentials :(');
+  // };
 
   return (
     <AuthWrapper
