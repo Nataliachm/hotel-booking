@@ -1,6 +1,6 @@
 import './FormButton.scss';
 
-const FormButton = ({ children, type = 'type', ...props }) => {
+const FormButton = ({ children, type, ...props }) => {
   return (
     <button
       {...props}
