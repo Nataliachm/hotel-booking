@@ -14,6 +14,7 @@ const MainHotelConfig = () => {
   };
 
   const closeModal = () => {
+    setSelectedHotel(null);
     setShowModal(false);
   };
 
@@ -23,11 +24,13 @@ const MainHotelConfig = () => {
 
   return (
     <div className="MainHotelConfig__container">
-      {showModal && (
+      {showModal && selectedHotel && (
         <ConfirmationModal
-          imageSrc="https://cdn.create.vista.com/api/media/small/582813668/stock-vector-trash-can-icon-isometric-water"
+          imageSrc={selectedHotel.img}
           onConfirm={handleConfirm}
           onCancel={closeModal}
+          hotelName={selectedHotel.name}
+          nameDelete="this hotel"
         />
       )}
       <PersonCard

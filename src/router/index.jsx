@@ -21,7 +21,7 @@ import ProfileConfigUser from '../pages/ProfileConfigUser';
 import UserBookedRooms from '../pages/UserBookedRooms';
 import AdminRoomEdit from '../pages/AdminRoomEdit';
 import FormRoomEdit from '../pages/FormRoomEdit';
-import PrivateRoute from '../higher-order-components/PrivateRoute';
+import PrivateRoute from '../HOC/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -38,20 +38,32 @@ const router = createBrowserRouter([
         element: <MainHotel />,
       },
       {
-        path: '/success',
-        element: <PrivateRoute redirectRoute="/login"><SuccessPayment /></PrivateRoute>,
+        path: '/success-payment',
+        element: <SuccessPayment />,
       },
       {
         path: '/fail-payment',
-        element: <PrivateRoute redirectRoute="/login"><FailPayment /></PrivateRoute>,
+        element: (
+          <PrivateRoute redirectRoute="/login">
+            <FailPayment />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/traveller-information',
-        element: <PrivateRoute redirectRoute="/login"><TravellerInformation /></PrivateRoute>,
+        element: (
+          <PrivateRoute redirectRoute="/login">
+            <TravellerInformation />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/payment',
-        element: <PrivateRoute redirectRoute="/login"><Payment /></PrivateRoute>,
+        element: (
+          <PrivateRoute redirectRoute="/login">
+            <Payment />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/view-rooms',
@@ -59,31 +71,59 @@ const router = createBrowserRouter([
       },
       {
         path: '/hotel-config',
-        element: <PrivateRoute role="admin" redirectRoute="/login"><MainHotelConfig /></PrivateRoute>,
+        element: (
+          <PrivateRoute role="admin" redirectRoute="/login">
+            <MainHotelConfig />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/profile-config',
-        element: <PrivateRoute role="admin" redirectRoute="/login"><ProfileConfig /></PrivateRoute>,
+        element: (
+          <PrivateRoute role="admin" redirectRoute="/login">
+            <ProfileConfig />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/form-hotel-registration',
-        element: <PrivateRoute role="admin" redirectRoute="/login"><FormHotelRegistration /></PrivateRoute>,
+        element: (
+          <PrivateRoute role="admin" redirectRoute="/login">
+            <FormHotelRegistration />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/profile-config-user',
-        element: <PrivateRoute redirectRoute="/login"><ProfileConfigUser /></PrivateRoute>,
+        element: (
+          <PrivateRoute redirectRoute="/login">
+            <ProfileConfigUser />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/user-booked-rooms',
-        element: <PrivateRoute redirectRoute="/login"><UserBookedRooms /></PrivateRoute>,
+        element: (
+          <PrivateRoute redirectRoute="/login">
+            <UserBookedRooms />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/admin-room-edit',
-        element: <PrivateRoute role="admin" redirectRoute="/login"><AdminRoomEdit /></PrivateRoute>,
+        element: (
+          <PrivateRoute role="admin" redirectRoute="/login">
+            <AdminRoomEdit />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/form-room-edit',
-        element: <PrivateRoute role="admin" redirectRoute="/login"><FormRoomEdit /></PrivateRoute>,
+        element: (
+          <PrivateRoute role="admin" redirectRoute="/login">
+            <FormRoomEdit />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/login',

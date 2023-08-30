@@ -1,5 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { useContext } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import AuthWrapper from '../../HOC/AuthWrapper';
 import FormButton from '../../components/FormButton';
 import FormInput from '../../components/FormInput';
@@ -9,17 +9,9 @@ import { AppContext } from '../../store/AppContext';
 
 const Login = () => {
   const store = useContext(AppContext);
-  const { email, handleEmail, setEmail } = store;
-  // const navigate = useNavigate();
-  // const [email, setEmail] = useState('');
-
-  // const handleClick = async () => {
-  //   const found = await findUser(email);
-  //   if (found) {
-  //     return navigate(`/login-Password/${found}`);
-  //   }
-  //   return navigate('/login-register-password');
-  // };
+  const {
+    email, handleEmail, setEmail,
+  } = store;
 
   return (
 
@@ -67,6 +59,7 @@ const Login = () => {
         </div>
       </section>
     </AuthWrapper>
+
   );
 };
 

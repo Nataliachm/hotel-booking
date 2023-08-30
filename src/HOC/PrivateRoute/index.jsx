@@ -13,16 +13,13 @@ const PrivateRoute = ({ role = 'user', redirectRoute = '/', children }) => {
   }
 
   if (role === 'user') {
-    // const token = localStorage.getItem('token');
     const { isExpired } = useJwt(token);
     const isAthorization = !isExpired;
     return isAthorization ? children : <Navigate to={redirectRoute} />;
   }
 
   if (role === 'admin') {
-    // const token = localStorage.getItem('token');
     const { decodedToken, isExpired } = useJwt(token);
-    // const roleAdmin = isExpired ? decodedToken.role : 'user';
     const { role_name: roleName } = decodedToken;
     const isAthorization = !isExpired;
 
