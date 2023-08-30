@@ -30,7 +30,7 @@ const FormHotelRegistration = () => {
       {
         method: 'POST',
         body: data,
-      }
+      },
     );
     const file = await res.json();
     setImage(file.secure_url);
