@@ -1,6 +1,11 @@
 import './Footer.scss';
+import { useContext } from 'react';
+import { AppContext } from '../../store/AppContext';
 
 const Footer = () => {
+  const store = useContext(AppContext);
+  const { isLoading } = store;
+  if (isLoading) return '';
   return (
     <footer>
       <div className="footerSection">

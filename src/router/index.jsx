@@ -21,7 +21,7 @@ import ProfileConfigUser from '../pages/ProfileConfigUser';
 import UserBookedRooms from '../pages/UserBookedRooms';
 import AdminRoomEdit from '../pages/AdminRoomEdit';
 import FormRoomEdit from '../pages/FormRoomEdit';
-import PrivateRoute from '../higher-order-components/PrivateRoute';
+import PrivateRoute from '../HOC/PrivateRoute';
 
 const router = createBrowserRouter([
   {

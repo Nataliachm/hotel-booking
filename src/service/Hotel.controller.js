@@ -25,14 +25,11 @@ export const verifyUserEmail = async (email) => {
     const emailUser = {
       email,
     };
-    const response = await axios.post(
-      'http://localhost:8080/api/user/verify',
-      emailUser
-    );
-    // const emailVerification = await response.json();
-    return (await response?.data?.emailUser?.email) === email;
+    const response = await axios.post('http://localhost:8080/api/user/verify', emailUser);
+    // return await response?.data?.emailUser?.email === email;
+    return response;
   } catch (error) {
-    return false;
+    return error;
   }
 };
 
