@@ -15,12 +15,17 @@
       padding: 20px;
       border-radius: 5px;
       text-align: center;
-  
+      .modal-context_container{
+        border: 2px solid #ff5733;
+        padding: 10px; 
+        border-radius: 5px; 
+        margin: 5px;
+      }
+      
       img {
         max-width: 300px;
         height: auto;
         margin-bottom: 20px;
-        border-radius: 50%;
       }
   
       .button-container {

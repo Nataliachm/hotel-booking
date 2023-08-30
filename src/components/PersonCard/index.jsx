@@ -1,12 +1,51 @@
-import React from 'react';
+import { useRef, useState } from 'react';
 import './PersonCard.scss';
 
 const PersonCard = (props) => {
+  const fileInputRef = useRef(null);
+  const [imageSrc, setImageSrc] = useState(props.img);
+
+  const handleImageChange = async (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const data = new FormData();
+      data.append('file', selectedFile);
+      data.append('upload_preset', 'hotelImages');
+      const res = await fetch(
+        'https://api.cloudinary.com/v1_1/drnclewqh/image/upload',
+        {
+          method: 'POST',
+          body: data,
+        },
+      );
+      const file = await res.json();
+      setImageSrc(file.secure_url);
+      console.log('Enlace de Cloudinary:', file.secure_url);
+    }
+  };
   return (
     <div className="person">
       <div className="person__card">
-        <div>
-          <img src={props.img} alt="Foto de perfil" className="profile-img" />
+        <div className="profile-img-container">
+          <button
+            type="button"
+            className="profile-img-button"
+            onClick={() => { return fileInputRef.current.click(); }}
+          >
+            <img
+              src={imageSrc}
+              alt="profileImg"
+              className="profile-img"
+            />
+          </button>
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            onChange={handleImageChange}
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+          />
         </div>
         <div className="person__card__info">
           <div>

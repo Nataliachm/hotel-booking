@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export const CardRooms = (props) => {
   const {
     roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice, profile,
-    country, city, hotelName, guests, checkIn, checkOut, dateIn, dateOut,
+    country, city, hotelName, guests, checkIn, checkOut, dateIn, dateOut, onCustomButtonClick,
   } = props;
 
   return (
@@ -152,6 +152,7 @@ export const CardRooms = (props) => {
               <button
                 className="container-rooms__button--delete"
                 type="button"
+                onClick={onCustomButtonClick}
               >
                 <i className="fas fa-trash-alt" />
                       &nbsp; Delete

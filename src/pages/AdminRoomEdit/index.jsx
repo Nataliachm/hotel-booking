@@ -1,11 +1,28 @@
 import './AdminRoomEdit.scss';
-
-import React from 'react';
+import React, { useState } from 'react';
+import ConfirmationModal from '../../components/ConfirmationModal';
 import { CardRooms } from '../../components/CardRooms';
 import PersonCard from '../../components/PersonCard';
 import rooms from './infoRooms';
 
 const AdminRoomEdit = () => {
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = (room) => {
+    setSelectedRoom(room);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setSelectedRoom(null);
+    setShowModal(false);
+  };
+
+  const handleConfirm = () => {
+    closeModal();
+  };
+
   return (
     <div className="room-admin-container">
       <div>
@@ -28,7 +45,15 @@ const AdminRoomEdit = () => {
             return (
             // roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice,
               <div className="room-admin-container__room" key={room.id} id={room.id}>
-
+                {showModal && selectedRoom && (
+                <ConfirmationModal
+                  imageSrc={selectedRoom.img}
+                  onConfirm={handleConfirm}
+                  onCancel={closeModal}
+                  hotelName={selectedRoom.roomName}
+                  nameDelete="this room"
+                />
+                )}
                 <CardRooms
                   key={room.id}
                   roomName={room.roomName}
@@ -46,6 +71,9 @@ const AdminRoomEdit = () => {
                   checkOut={room.checkOut}
                   dateIn={room.dateIn}
                   dateOut={room.dateOut}
+                  onCustomButtonClick={() => {
+                    return openModal(room);
+                  }}
                 />
               </div>
             );
