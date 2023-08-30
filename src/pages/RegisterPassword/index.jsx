@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import AuthWrapper from '../../HOC/AuthWrapper';
 import FormButton from '../../components/FormButton';
 import FormInput from '../../components/FormInput';
+import { AppContext } from '../../store/AppContext';
 import './RegisterPassword.scss';
 
 const RegisterPassword = () => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [showMatchWarning, setShowMatchWarning] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const store = useContext(AppContext);
+  const {
+    password, setPassword, handleRegisterUser,
+  } = store;
 
   useEffect(() => {
     if (password !== confirmPassword && confirmPassword) {
@@ -48,9 +52,11 @@ const RegisterPassword = () => {
           }}
         />
         {showMatchWarning && (
-          <span className="warning">passwords don't match</span>
+          <span className="warning">passwords dont match</span>
         )}
-        <FormButton disabled={showMatchWarning}>Create account</FormButton>
+        <FormButton disabled={showMatchWarning} onClick={handleRegisterUser}>
+          Create account
+        </FormButton>
       </div>
     </AuthWrapper>
   );
