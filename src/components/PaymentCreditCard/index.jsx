@@ -1,14 +1,4 @@
-// import React, { useState } from 'react';
-// import Cards from 'react-credit-cards-2';
-// const [state, setState] = useState({
-//   number: '',
-//   expiry: '',
-//   cvc: '',
-//   name: '',
-//   focus: '',
-// });
 import './PaymentCreditCard.scss';
-import 'react-credit-cards-2/dist/es/styles.scss';
 import {
   useElements,
   useStripe,
@@ -16,22 +6,21 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from '@stripe/react-stripe-js';
-import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FormInput from '../FormInput';
 import FormButton from '../FormButton';
+import Modal from '../Modal';
+import { pay as apiPay } from '../../service/Hotel.controller';
 
 const PaymentCreditCard = () => {
+  const [updateModal, setUpdateModal] = useState({ show: false, msg: '' });
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
 
-  const transactionErrors = {
-    'Your card has insufficient funds.': () => {
-      return alert('No tienes fondos suficientes');
-    },
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const createPaymentMethod = async () => {
+    let paymentMethodResponse;
     try {
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: 'card',
@@ -43,40 +32,39 @@ const PaymentCreditCard = () => {
       });
 
       if (error) {
-        console.log(error);
-        return;
+        setUpdateModal({ show: true, msg: error.message });
       }
 
-      const response = await axios.post('http://localhost:8080/api/checkout', {
-        paymentMethod,
-        amount: Math.floor(100 * 100),
+      paymentMethodResponse = paymentMethod;
+    } catch (error) {
+      setUpdateModal({
+        show: true,
+        msg: 'Oops, something went wrong with your card info, no worries, we didn´t debit any money from your account',
       });
+    }
+    return paymentMethodResponse;
+  };
 
-      // eslint-disable-next-line no-alert
-      alert('Gracias por tu compra');
-      // navigate(/payment-success)
-    } catch ({ response }) {
-      transactionErrors[response.data.message]();
-      // if(response.data.message === 'Your card has insufficient funds.') {
-      //   alert('No tienes fondos suficientes')
-      // }
-    } finally {
-      elements
-        .getElement(CardNumberElement, CardExpiryElement, CardCvcElement)
-        .clear();
+  const pay = async (paymentMethod) => {
+    try {
+      await apiPay(paymentMethod);
+      navigate('/success-payment');
+    } catch (error) {
+      setUpdateModal({ show: true, msg: error?.response?.data?.message });
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const paymentMethod = await createPaymentMethod();
+    if (paymentMethod) {
+      pay(paymentMethod);
     }
   };
 
   return (
     <div className="PaymentCreditCard__container">
       <h2>Payment</h2>
-      {/* <Cards
-        number={state.number}
-        expiry={state.expiry}
-        cvc={state.cvc}
-        name={state.name}
-        focused={state.focus}
-      /> */}
       <form onSubmit={handleSubmit} className="creditCard-data">
         <FormInput
           labelText="Name on card"
@@ -101,8 +89,11 @@ const PaymentCreditCard = () => {
           </div>
         </div>
 
-        <FormButton>PAY NOW</FormButton>
+        <FormButton type="submit">PAY NOW</FormButton>
       </form>
+      <Modal showModal={updateModal.show} handleShowModal={setUpdateModal}>
+        <h2>{updateModal.msg}</h2>
+      </Modal>
     </div>
   );
 };
