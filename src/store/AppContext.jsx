@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import {
   getAllHotels, verifyUserEmail, registerUser,
 } from '../service/Hotel.controller';
+import Loading from '../components/Loading';
 
 export const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [hotels, setHotels] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,10 +21,10 @@ export const AppContextProvider = ({ children }) => {
   };
 
   const handleEmail = async () => {
-    // setEmail(emailGuest);
+    setIsLoading(true);
     const found = await verifyUserEmail(email);
-    // console.log('Este es el valor de found', found);
-    if (found) {
+    setIsLoading(false);
+    if (found.data.message === 'User has been found successfully') {
       return navigate('/login-Password');
     }
     return navigate('/login-register-password');
@@ -30,8 +32,10 @@ export const AppContextProvider = ({ children }) => {
 
   const handleRegisterUser = async () => {
     try {
+      setIsLoading(true);
       const found = await registerUser(email, password);
-      console.log(found.data.dataUser);
+      setIsLoading(false);
+      // console.log(found.data.dataUser);
       const { token } = found.data.dataUser;
       localStorage.setItem('email', email);
       localStorage.setItem('token', token);
@@ -40,7 +44,6 @@ export const AppContextProvider = ({ children }) => {
     } catch {
       return navigate('/login');
     }
-    // console.log('Este es el valor de found', found);
   };
 
   // const handleSignIn = async () => {
@@ -63,15 +66,10 @@ export const AppContextProvider = ({ children }) => {
         password,
         setPassword,
         handleRegisterUser,
-        // handleVotes,
-        // handleValueTotal,
-        // totalVotos,
-        // tipoTotal,
-        // handleCheckBox,
-        // candidatesShow,
+        isLoading,
       }}
     >
-      {children}
+      {isLoading ? <Loading /> : children }
     </AppContext.Provider>
   );
 };

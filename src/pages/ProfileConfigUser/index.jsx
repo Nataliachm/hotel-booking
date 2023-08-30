@@ -17,8 +17,6 @@ const initialDataUser = [
 ];
 
 const ProfileConfigUser = () => {
-  // const store = useContext(AppContext);
-  // const { email } = store;
   const [data, setData] = useState(initialDataUser);
   const [editId, setEditId] = useState(null);
   const [formData, setFormData] = useState({});
