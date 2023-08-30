@@ -25,9 +25,12 @@ export const verifyUserEmail = async (email) => {
     const emailUser = {
       email,
     };
-    const response = await axios.post('http://localhost:8080/api/user/verify', emailUser);
+    const response = await axios.post(
+      'http://localhost:8080/api/user/verify',
+      emailUser
+    );
     // const emailVerification = await response.json();
-    return await response?.data?.emailUser?.email === email;
+    return (await response?.data?.emailUser?.email) === email;
   } catch (error) {
     return false;
   }
@@ -41,7 +44,7 @@ export const authenticationUser = async (email, password) => {
     };
     const response = await axios.post('http://localhost:8080/api/user', data);
     // const emailVerification = await response.json();
-    return await response?.data?.emailUser?.email === email;
+    return (await response?.data?.emailUser?.email) === email;
   } catch (error) {
     return false;
   }
@@ -59,4 +62,12 @@ export const registerUser = async (email, password) => {
   } catch (error) {
     return false;
   }
+};
+
+export const pay = async (paymentMethod) => {
+  const response = await axios.post('http://localhost:8080/api/payment', {
+    paymentMethod,
+    amount: Math.floor(100 * 100),
+  });
+  return response;
 };
