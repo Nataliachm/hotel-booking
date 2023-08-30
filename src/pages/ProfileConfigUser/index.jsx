@@ -1,6 +1,6 @@
 /* eslint-disable comma-dangle */
 import React, { useState } from 'react';
-import { PersonCard } from '../../components/PersonCard';
+import PersonCard from '../../components/PersonCard';
 // import { AppContext } from '../../store/AppContext';
 import './ProfileConfigUser.scss';
 
