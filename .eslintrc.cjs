@@ -28,5 +28,7 @@ module.exports = {
     'react/function-component-definition': 'off',
     'react/prop-types': 0,
     'react/jsx-props-no-spreading': 'off',
+    'linebreak-style': ['error', 'windows'],
+
   },
 };
