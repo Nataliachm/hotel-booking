@@ -61,6 +61,36 @@ export const registerUser = async (email, password) => {
   }
 };
 
+export const getUserByEmail = async (emailPerson) => {
+  try {
+    const emailUser = {
+      emailPerson,
+    };
+    const response = await axios.post('http://localhost:8080/api/user/get-info-user', emailUser);
+    // return await response?.data?.emailUser?.email === email;
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const editUserProfile = async (userToken, userInfo) => {
+  try {
+    const headers = {
+      Authorization: `Bearer ${userToken}`,
+      'Content-Type': 'application/json', // Especificamos que estamos enviando datos en formato JSON
+    };
+    const data = {
+      ...userInfo,
+    };
+    const response = await axios.put('http://localhost:8080/api/user/get-info-user', data, { headers });
+    // return await response?.data?.emailUser?.email === email;
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const pay = async (paymentMethod) => {
   const response = await axios.post('http://localhost:8080/api/payment', {
     paymentMethod,
