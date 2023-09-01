@@ -1,54 +1,86 @@
 /* eslint-disable comma-dangle */
-import React, { useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PersonCard from '../../components/PersonCard';
-// import { AppContext } from '../../store/AppContext';
+import { AppContext } from '../../store/AppContext';
 import './ProfileConfigUser.scss';
 
-const initialDataUser = [
-  {
-    id: 1,
-    name: 'Pedro Perez',
-    gender: 'Male',
-    birthday: '1990-06-19',
-    streetAddress: '123 Main St',
-    cityState: 'New York, NY',
-    zip: '10001',
-  },
-];
+// const initialDataUser = [
+//   {
+//     id: 1,
+//     name: 'Pedro Perez',
+//     gender: 'Male',
+//     birthday: '1990-06-19',
+//     streetAddress: '123 Main St',
+//     cityState: 'New York, NY',
+//     zip: '10001',
+//   },
+// ];
 
 const ProfileConfigUser = () => {
-  const [data, setData] = useState(initialDataUser);
-  const [editId, setEditId] = useState(null);
-  const [formData, setFormData] = useState({});
+  // const [userData, setUserData] = useState(initialDataUser);
+  // const [userEditId, setUserEditId] = useState(null);
+  // const [formUserData, setFormUserData] = useState({});
 
-  const handleEdit = (id) => {
-    setEditId(id);
-    setFormData(
-      data.find((item) => {
-        return item.id === id;
-      })
-    );
-  };
+  const store = useContext(AppContext);
+  const {
+    userData,
+    userEditId,
+    formUserData,
+    handleUserEdit,
+    handleInputUserChange,
+    handleInfoUserSave,
+    // setUserData,
+    handleGetUser,
+    email
+  } = store;
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => {
-      return {
-        ...prevFormData,
-        [name]: value,
-      };
-    });
-  };
+  const emptyFields = '--------';
+  // useEffect(() => {
+  //   // Definir una función asíncrona dentro de useEffect
+  //   async function fetchData() {
+  //     try {
+  //       // Simular una llamada a una API o alguna operación asíncrona
+  //       const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+  //       const jsonData = await response.json();
+  //       setData(jsonData);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   }
+  // });
 
-  const handleSave = () => {
-    setData((prevData) => {
-      return prevData.map((item) => {
-        return item.id === editId ? { ...item, ...formData } : item;
-      });
-    });
-    setEditId(null);
-    setFormData({});
-  };
+  useEffect(() => {
+    // Definir una función asíncrona dentro de useEffect
+    handleGetUser();
+    // setUserData(initialDataUser);
+  }, []);
+  // const handleUserEdit = (id) => {
+  //   setUserEditId(id);
+  //   setFormUserData(
+  //     userData.find((item) => {
+  //       return item.id === id;
+  //     })
+  //   );
+  // };
+
+  // const handleInputUserChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormUserData(
+  //     {
+  //       ...formUserData,
+  //       [name]: value,
+  //     }
+  //   );
+  // };
+
+  // const handleInfoUserSave = () => {
+  //   const newUserData = userData.map((item) => {
+  //     return item.id === userEditId ? { ...item, ...formUserData } : item;
+  //   });
+  //   setUserData([...newUserData]);
+  //   setUserEditId(null);
+  //   setFormUserData({});
+  // };
 
   return (
     <div className="ProfileConfigUser__container">
@@ -56,6 +88,7 @@ const ProfileConfigUser = () => {
         <PersonCard
           img="https://icon-library.com/images/persona-icon/persona-icon-25.jpg"
           btn2="Hotels"
+          userName={userData[0].user_name}
           className="PersonCard"
         />
       </div>
@@ -67,46 +100,46 @@ const ProfileConfigUser = () => {
           <div>
             <table>
               <tbody>
-                {data.map((item) => {
+                {userData.map((item) => {
                   return (
-                    <React.Fragment key={item.id}>
+                    <>
                       <tr>
                         <th>
                           <b>Name</b>
                         </th>
-                        <th>{item.name}</th>
+                        <th>{item.user_name || emptyFields}</th>
                       </tr>
                       <tr>
                         <th>
                           <b>Gender</b>
                         </th>
-                        <th>{item.gender}</th>
+                        <th>{item.gender || emptyFields}</th>
                       </tr>
                       <tr>
                         <th>
                           <b>Birthday</b>
                         </th>
-                        <th>{item.birthday}</th>
+                        <th>{item.birthday || emptyFields}</th>
                       </tr>
                       <tr>
                         <th>
                           <b>Street Address</b>
                         </th>
-                        <th>{item.streetAddress}</th>
+                        <th>{item.address || emptyFields}</th>
                       </tr>
                       <tr>
                         <th>
                           <b>City/State</b>
                         </th>
-                        <th>{item.cityState}</th>
+                        <th>{item.name_city || emptyFields}</th>
                       </tr>
                       <tr>
                         <th>
                           <b>Zip</b>
                         </th>
-                        <th>{item.zip}</th>
+                        <th>{item.postal_code || emptyFields}</th>
                       </tr>
-                    </React.Fragment>
+                    </>
                   );
                 })}
               </tbody>
@@ -118,14 +151,14 @@ const ProfileConfigUser = () => {
               className="ProfileConfigUser__container--buttonEditar"
               type="button"
               onClick={() => {
-                return handleEdit(data[0].id);
+                return handleUserEdit(email || localStorage.getItem('email'));
               }}
             >
               Editar
             </button>
           </div>
         </div>
-        {editId !== null && (
+        {userEditId !== null && (
           <div className="ProfileConfigUser__container--form">
             <div>
               <label htmlFor="name">
@@ -133,9 +166,9 @@ const ProfileConfigUser = () => {
                 <input
                   id="name"
                   type="text"
-                  name="name"
-                  value={formData.name || ''}
-                  onChange={handleInputChange}
+                  name="user_name"
+                  value={formUserData.user_name}
+                  onChange={handleInputUserChange}
                 />
               </label>
             </div>
@@ -146,8 +179,8 @@ const ProfileConfigUser = () => {
                   id="gender"
                   type="text"
                   name="gender"
-                  value={formData.gender || ''}
-                  onChange={handleInputChange}
+                  value={formUserData.gender}
+                  onChange={handleInputUserChange}
                 />
               </label>
             </div>
@@ -158,8 +191,8 @@ const ProfileConfigUser = () => {
                   id="birthday"
                   type="date"
                   name="birthday"
-                  value={formData.birthday || ''}
-                  onChange={handleInputChange}
+                  value={formUserData.birthday}
+                  onChange={handleInputUserChange}
                 />
               </label>
             </div>
@@ -169,9 +202,9 @@ const ProfileConfigUser = () => {
                 <input
                   id="address"
                   type="text"
-                  name="streetAddress"
-                  value={formData.streetAddress || ''}
-                  onChange={handleInputChange}
+                  name="address"
+                  value={formUserData.address}
+                  onChange={handleInputUserChange}
                 />
               </label>
             </div>
@@ -181,9 +214,9 @@ const ProfileConfigUser = () => {
                 <input
                   id="city"
                   type="text"
-                  name="cityState"
-                  value={formData.cityState || ''}
-                  onChange={handleInputChange}
+                  name="name_city"
+                  value={formUserData.name_city}
+                  onChange={handleInputUserChange}
                 />
               </label>
             </div>
@@ -193,14 +226,14 @@ const ProfileConfigUser = () => {
                 <input
                   id="zip"
                   type="text"
-                  name="zip"
-                  value={formData.zip || ''}
-                  onChange={handleInputChange}
+                  name="postal_code"
+                  value={formUserData.postal_code}
+                  onChange={handleInputUserChange}
                 />
               </label>
             </div>
             <div>
-              <button type="button" onClick={handleSave}>
+              <button type="button" onClick={handleInfoUserSave}>
                 Guardar
               </button>
             </div>

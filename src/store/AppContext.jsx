@@ -1,8 +1,9 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-constructed-context-values */
 import { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  getAllHotels, verifyUserEmail, registerUser,
+  getAllHotels, verifyUserEmail, registerUser, getUserByEmail,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -14,6 +15,9 @@ export const AppContextProvider = ({ children }) => {
   const [hotels, setHotels] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userData, setUserData] = useState([{}]);
+  const [userEditId, setUserEditId] = useState(null);
+  const [formUserData, setFormUserData] = useState({});
 
   const handleHotel = async () => {
     const allHotels = await getAllHotels();
@@ -35,7 +39,6 @@ export const AppContextProvider = ({ children }) => {
       setIsLoading(true);
       const found = await registerUser(email, password);
       setIsLoading(false);
-      // console.log(found.data.dataUser);
       const { token } = found.data.dataUser;
       localStorage.setItem('email', email);
       localStorage.setItem('token', token);
@@ -43,6 +46,41 @@ export const AppContextProvider = ({ children }) => {
       return navigate('/profile-config-user');
     } catch {
       return navigate('/login');
+    }
+  };
+
+  const handleUserEdit = (userName) => {
+    setUserEditId(userName);
+
+    setFormUserData(
+      userData[0],
+    );
+  };
+
+  const handleInputUserChange = (e) => {
+    const { name, value } = e.target;
+    setFormUserData(
+      {
+        ...formUserData,
+        [name]: value,
+      },
+    );
+  };
+
+  const handleInfoUserSave = () => {
+    setUserData([formUserData]);
+    setUserEditId(null);
+    setFormUserData({});
+  };
+
+  const handleGetUser = async () => {
+    try {
+      const found = await getUserByEmail(email || localStorage.getItem('email'));
+      localStorage.setItem('userData', JSON.stringify(found.data.user));
+      // JSON.parse(localStorage.getItem('userData'))
+      setUserData([{ ...found.data.user }]);
+    } catch (error) {
+      return error;
     }
   };
 
@@ -67,6 +105,14 @@ export const AppContextProvider = ({ children }) => {
         setPassword,
         handleRegisterUser,
         isLoading,
+        userData,
+        userEditId,
+        formUserData,
+        handleUserEdit,
+        handleInputUserChange,
+        handleInfoUserSave,
+        setUserData,
+        handleGetUser,
       }}
     >
       {isLoading ? <Loading /> : children }
