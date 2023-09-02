@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import './PersonCard.scss';
 
 const PersonCard = (props) => {
-  const { img, btn2 } = props;
+  const { img, btn2, userName } = props;
   const fileInputRef = useRef(null);
   const [imageSrc, setImageSrc] = useState(img);
 
@@ -49,7 +49,7 @@ const PersonCard = (props) => {
         </div>
         <div className="person__card__info">
           <div>
-            <h2 className="card__name">Nombre del usuario</h2>
+            <h2 className="card__name">{userName}</h2>
           </div>
           <div>
             <h3 className="email">{localStorage.email}</h3>
