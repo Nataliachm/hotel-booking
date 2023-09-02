@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { CardCarrousel } from '../../components/CardCarrousel';
 import './MainHome.scss';
 import CardDestination from '../../components/CardDestination';
@@ -7,6 +8,8 @@ import CardBlog from '../../components/CardBlog';
 import SubscribeHome from '../../components/SubscribeHome';
 
 const MainHome = () => {
+  const { user } = useAuth0();
+  console.log(' user:', user);
   return (
     <div className="main">
       <div className="main__corrousel">
@@ -20,7 +23,6 @@ const MainHome = () => {
         <div className="main__card-destination">
           <CardDestination />
         </div>
-
       </div>
       <div className="main__information">
         <CardInformation />
