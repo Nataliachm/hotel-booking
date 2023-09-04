@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Header.scss';
 import { faBars, faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -18,11 +19,13 @@ function Header() {
   return (
     <div className="container-header">
       <header className="header">
-        <img
-          className="logo"
-          src="https://themes.pixelstrap.com/rica/assets/images/icon/footer-logo.png"
-          alt="logo"
-        />
+        <Link to="/">
+          <img
+            className="logo"
+            src="https://themes.pixelstrap.com/rica/assets/images/icon/footer-logo.png"
+            alt="logo"
+          />
+        </Link>
         <div className="containerIcons">
           <FontAwesomeIcon
             className="menu"
@@ -49,7 +52,7 @@ function Header() {
             size="2x"
           />
           <hr />
-          <a href="#">Iniciar sesión</a>
+          <Link to="/login">Iniciar sesión</Link>
           <a href="#">Regístrarte</a>
         </div>
         <div
