@@ -3,7 +3,7 @@
 import { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  getAllHotels, verifyUserEmail, registerUser, getUserByEmail,
+  getAllHotels, verifyUserEmail, registerUser, getUserByEmail, createHotelsAdmin,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -18,7 +18,28 @@ export const AppContextProvider = ({ children }) => {
   const [userData, setUserData] = useState([{}]);
   const [userEditId, setUserEditId] = useState(null);
   const [formUserData, setFormUserData] = useState({});
-
+  // mainHotelConfig
+  const [selectedHotelForModal, setSelectedHotelForModal] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  // formHotelRegistration
+  const [imageHotelCloudinary, setImageHotelCloudinary] = useState('');
+  const [selectedImagesFormHotel, setSelectedImagesFormHotel] = useState([]);
+  const [hotelsDataCreateHotel, setHotelsDataCreateHotel] = useState([]);
+  const [formDataCreateHotel, setFormDataCreateHotel] = useState({
+    index: '',
+    name: '',
+    country: '',
+    city: '',
+    address: '',
+    phone: '',
+    description: '',
+    stars: '',
+    normalPrice: '',
+    salePrice: '',
+    label1: '',
+    label2: '',
+    status: '',
+  });
   const handleHotel = async () => {
     const allHotels = await getAllHotels();
     setHotels(allHotels);
@@ -92,7 +113,93 @@ export const AppContextProvider = ({ children }) => {
   //   }
   //   console.log('Wrong credentials :(');
   // };
+  // mainHotelConfig
+  const openModal = (hotel) => {
+    setSelectedHotelForModal(hotel);
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setSelectedHotelForModal(null);
+    setShowModal(false);
+  };
+  const handleConfirm = () => {
+    closeModal();
+  };
+  // formHotelRegistration
+  const uploadImage = async (event) => {
+    const filesa = event.target.files;
+    const data = new FormData();
+    data.append('file', filesa[0]);
+    data.append('upload_preset', 'hotelImages');
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/drnclewqh/image/upload',
+      {
+        method: 'POST',
+        body: data,
+      },
+    );
+    const file = await res.json();
+    setImageHotelCloudinary(file.secure_url);
+  };
+  const handleImageChange = (event) => {
+    const images = event.target.files;
+    const imageUrls = [];
+    for (let i = 0; i < images.length; i += 1) {
+      const imageUrl = URL.createObjectURL(images[i]);
+      imageUrls.push(imageUrl);
+    }
+    setSelectedImagesFormHotel(imageUrls);
+    uploadImage(event);
+  };
+  const handleSubmitInfoCreateHotel = async () => {
+    try {
+      const response = await createHotelsAdmin([formDataCreateHotel]);
+      console.log('hotelcreado: ', response);
+    } catch (error) {
+      console.error('error al crear el hotel: ', error);
+    }
+  };
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const newHotel = {
+      ...formDataCreateHotel,
+      images: imageHotelCloudinary,
+    };
+    // setHotelsData((prevHotels) => {
+    //   return [...prevHotels, newHotel];
+    // });
+    setHotelsDataCreateHotel([newHotel]);
+    // localStorage.setItem('newHotel', JSON.stringify(newHotel));
+    setFormDataCreateHotel({
+      index: '',
+      name: '',
+      country: '',
+      city: '',
+      address: '',
+      phone: '',
+      description: '',
+      stars: '',
+      normalPrice: '',
+      salePrice: '',
+      label1: '',
+      label2: '',
+      status: '',
+    });
 
+    setSelectedImagesFormHotel([]);
+    handleSubmitInfoCreateHotel();
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormDataCreateHotel((prevData) => {
+      return {
+        ...prevData,
+        [name]: value,
+      };
+    });
+  };
+  console.log(hotelsDataCreateHotel);
   return (
     <AppContext.Provider
       value={{
@@ -113,9 +220,31 @@ export const AppContextProvider = ({ children }) => {
         handleInfoUserSave,
         setUserData,
         handleGetUser,
+        // mainHotelConfig
+        openModal,
+        closeModal,
+        selectedHotelForModal,
+        setSelectedHotelForModal,
+        showModal,
+        setShowModal,
+        handleConfirm,
+        // formHotelRegistration
+        imageHotelCloudinary,
+        setImageHotelCloudinary,
+        selectedImagesFormHotel,
+        setSelectedImagesFormHotel,
+        hotelsDataCreateHotel,
+        setHotelsDataCreateHotel,
+        formDataCreateHotel,
+        setFormDataCreateHotel,
+        uploadImage,
+        handleImageChange,
+        handleFormSubmit,
+        handleInputChange,
       }}
     >
       {isLoading ? <Loading /> : children }
     </AppContext.Provider>
+
   );
 };

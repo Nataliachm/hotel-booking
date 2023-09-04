@@ -98,3 +98,12 @@ export const pay = async (paymentMethod) => {
   });
   return response;
 };
+
+export const createHotelsAdmin = async (hotelsData) => {
+  try {
+    const response = await axiosInstance.post('/api/hotel', hotelsData);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
