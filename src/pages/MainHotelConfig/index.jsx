@@ -1,35 +1,46 @@
-import React, { useState } from 'react';
+import { useContext } from 'react';
+import { AppContext } from '../../store/AppContext';
 import './MainHotelConfig.scss';
 import PersonCard from '../../components/PersonCard';
 import hotels from '../MainHotel/hotels';
 import ConfirmationModal from '../../components/ConfirmationModal';
 
 const MainHotelConfig = () => {
-  const [selectedHotel, setSelectedHotel] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const store = useContext(AppContext);
+  const {
+    showModal,
+    // setShowModal,
+    selectedHotelForModal,
+    // setSelectedHotelForModal,
+    openModal,
+    closeModal,
+    handleConfirm,
+  } = store;
+  // const [selectedHotel, setSelectedHotel] = useState(null);
+  // const [showModal, setShowModal] = useState(false);
 
-  const openModal = (hotel) => {
-    setSelectedHotel(hotel);
-    setShowModal(true);
-  };
+  // const openModal = (hotel) => {
+  //   setSelectedHotel(hotel);
+  //   setShowModal(true);
+  // };
 
-  const closeModal = () => {
-    setSelectedHotel(null);
-    setShowModal(false);
-  };
+  // const closeModal = () => {
+  //   setSelectedHotel(null);
+  //   setShowModal(false);
+  // };
 
-  const handleConfirm = () => {
-    closeModal();
-  };
+  // const handleConfirm = () => {
+  //   closeModal();
+  // };
 
   return (
     <div className="MainHotelConfig__container">
-      {showModal && selectedHotel && (
+      {showModal && selectedHotelForModal && (
         <ConfirmationModal
-          imageSrc={selectedHotel.img}
+          imageSrc={selectedHotelForModal.img}
           onConfirm={handleConfirm}
           onCancel={closeModal}
-          hotelName={selectedHotel.name}
+          hotelName={selectedHotelForModal.name}
           nameDelete="this hotel"
         />
       )}

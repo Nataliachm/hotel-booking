@@ -3,7 +3,12 @@
 import { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  getAllHotels, verifyUserEmail, registerUser, getUserByEmail, createHotelsAdmin,
+  getAllHotels,
+  verifyUserEmail,
+  registerUser,
+  getUserByEmail,
+  createHotelsAdmin,
+  // getAllHotelsAdminPage,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -24,7 +29,7 @@ export const AppContextProvider = ({ children }) => {
   // formHotelRegistration
   const [imageHotelCloudinary, setImageHotelCloudinary] = useState('');
   const [selectedImagesFormHotel, setSelectedImagesFormHotel] = useState([]);
-  const [hotelsDataCreateHotel, setHotelsDataCreateHotel] = useState([]);
+  const [hotelsDataCreateHotel, setHotelsDataCreateHotel] = useState({});
   const [formDataCreateHotel, setFormDataCreateHotel] = useState({
     index: '',
     name: '',
@@ -126,10 +131,9 @@ export const AppContextProvider = ({ children }) => {
     closeModal();
   };
   // formHotelRegistration
-  const uploadImage = async (event) => {
-    const filesa = event.target.files;
+  const uploadImage = async (image) => {
     const data = new FormData();
-    data.append('file', filesa[0]);
+    data.append('file', image);
     data.append('upload_preset', 'hotelImages');
     const res = await fetch(
       'https://api.cloudinary.com/v1_1/drnclewqh/image/upload',
@@ -142,33 +146,39 @@ export const AppContextProvider = ({ children }) => {
     setImageHotelCloudinary(file.secure_url);
   };
   const handleImageChange = (event) => {
-    const images = event.target.files;
-    const imageUrls = [];
-    for (let i = 0; i < images.length; i += 1) {
-      const imageUrl = URL.createObjectURL(images[i]);
-      imageUrls.push(imageUrl);
-    }
-    setSelectedImagesFormHotel(imageUrls);
-    uploadImage(event);
+    const image = event.target.files[0];
+    const imageUrl = URL.createObjectURL(image);
+    setSelectedImagesFormHotel([imageUrl]);
+    uploadImage(image);
   };
-  const handleSubmitInfoCreateHotel = async () => {
-    try {
-      const response = await createHotelsAdmin([formDataCreateHotel]);
-      console.log('hotelcreado: ', response);
-    } catch (error) {
-      console.error('error al crear el hotel: ', error);
-    }
-  };
-  const handleFormSubmit = (event) => {
+  // const handleSubmitInfoCreateHotel = async () => {
+  //   try {
+  //     const response = await createHotelsAdmin(formDataCreateHotel);
+  //     console.log('hotelcreado: ', response);
+  //   } catch (error) {
+  //     console.error('error al crear el hotel: ', error);
+  //   }
+  // };
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     const newHotel = {
       ...formDataCreateHotel,
       images: imageHotelCloudinary,
     };
+    try {
+      const response = await createHotelsAdmin(newHotel);
+      console.log('hotelcreado: ', response);
+    } catch (error) {
+      console.error('error al crear el hotel: ', error);
+    }
     // setHotelsData((prevHotels) => {
     //   return [...prevHotels, newHotel];
     // });
-    setHotelsDataCreateHotel([newHotel]);
+    // setHotelsDataCreateHotel(() => {
+    //   return {
+    //     ...newHotel,
+    //   };
+    // });
     // localStorage.setItem('newHotel', JSON.stringify(newHotel));
     setFormDataCreateHotel({
       index: '',
@@ -185,9 +195,9 @@ export const AppContextProvider = ({ children }) => {
       label2: '',
       status: '',
     });
-
+    setImageHotelCloudinary('');
     setSelectedImagesFormHotel([]);
-    handleSubmitInfoCreateHotel();
+    // handleSubmitInfoCreateHotel();
   };
 
   const handleInputChange = (event) => {
@@ -199,7 +209,7 @@ export const AppContextProvider = ({ children }) => {
       };
     });
   };
-  console.log(hotelsDataCreateHotel);
+  // const getAllHotelsAdminPageData = () => {};
   return (
     <AppContext.Provider
       value={{

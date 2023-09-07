@@ -101,7 +101,16 @@ export const pay = async (paymentMethod) => {
 
 export const createHotelsAdmin = async (hotelsData) => {
   try {
-    const response = await axiosInstance.post('/api/hotel', hotelsData);
+    const response = await axios.post('http://localhost:8080/api/hotel', hotelsData);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAllHotelsAdminPage = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/api/hotels'); // Asume que hay una ruta en el servidor para obtener todos los hoteles
     return response.data;
   } catch (error) {
     return error;

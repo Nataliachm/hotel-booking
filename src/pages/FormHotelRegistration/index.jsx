@@ -6,7 +6,7 @@ import { AppContext } from '../../store/AppContext';
 const FormHotelRegistration = () => {
   const store = useContext(AppContext);
   const {
-    imageHotelCloudinary,
+    selectedImagesFormHotel,
     // setImage,
     // selectedImages,
     // setSelectedImages,
@@ -16,9 +16,7 @@ const FormHotelRegistration = () => {
     handleImageChange,
     handleFormSubmit,
     handleInputChange,
-    hotelsDataCreateHotel,
   } = store;
-  console.log(hotelsDataCreateHotel);
   // const [image, setImage] = useState('');
   // const [selectedImages, setSelectedImages] = useState([]);
   // const [hotelsData, setHotelsData] = useState([]);
@@ -120,14 +118,19 @@ const FormHotelRegistration = () => {
               />
             </label>
           </div>
-          {imageHotelCloudinary && (
+          {selectedImagesFormHotel.length > 0 && (
             <div>
-              <img src={imageHotelCloudinary} alt="Uploaded Room" />
+              {selectedImagesFormHotel.map((imageUrl, id) => {
+                return (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <img key={id} src={imageUrl} alt={`Uploaded Room ${id}`} />
+                );
+              })}
             </div>
           )}
         </div>
         <div className="formHotelContainer__text">
-          <form onSubmit={(e) => { return handleFormSubmit(e); }}>
+          <form onSubmit={handleFormSubmit}>
             <div>
               <label htmlFor="index">
                 Index:
