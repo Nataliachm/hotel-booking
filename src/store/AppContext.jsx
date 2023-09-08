@@ -8,7 +8,10 @@ import {
   registerUser,
   getUserByEmail,
   createHotelsAdmin,
-  // getAllHotelsAdminPage,
+  getAllHotelsAdminPage,
+  getHotelAdminPageById,
+  updateHotelAdminPageById,
+  deleteHotelAdminPageById,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -127,9 +130,10 @@ export const AppContextProvider = ({ children }) => {
     setSelectedHotelForModal(null);
     setShowModal(false);
   };
-  const handleConfirm = () => {
-    closeModal();
-  };
+  // const handleConfirm = () => {
+  //   closeModal();
+  //   deleteHotelAdminPageByIdFunction(id)
+  // };
   // formHotelRegistration
   const uploadImage = async (image) => {
     const data = new FormData();
@@ -159,27 +163,20 @@ export const AppContextProvider = ({ children }) => {
   //     console.error('error al crear el hotel: ', error);
   //   }
   // };
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = async (event, id) => {
     event.preventDefault();
     const newHotel = {
       ...formDataCreateHotel,
       images: imageHotelCloudinary,
     };
     try {
-      const response = await createHotelsAdmin(newHotel);
+      const response = await
+      (id ? updateHotelAdminPageById(id, newHotel) : createHotelsAdmin(newHotel));
       console.log('hotelcreado: ', response);
+      navigate('/hotel-config');
     } catch (error) {
       console.error('error al crear el hotel: ', error);
     }
-    // setHotelsData((prevHotels) => {
-    //   return [...prevHotels, newHotel];
-    // });
-    // setHotelsDataCreateHotel(() => {
-    //   return {
-    //     ...newHotel,
-    //   };
-    // });
-    // localStorage.setItem('newHotel', JSON.stringify(newHotel));
     setFormDataCreateHotel({
       index: '',
       name: '',
@@ -197,8 +194,58 @@ export const AppContextProvider = ({ children }) => {
     });
     setImageHotelCloudinary('');
     setSelectedImagesFormHotel([]);
-    // handleSubmitInfoCreateHotel();
   };
+  const getAllHotelsAdminPageData = async () => {
+    try {
+      const response = await getAllHotelsAdminPage();
+      // console.log('hotelestraidos: ', response);
+      return response;
+    } catch (error) {
+      // console.error('error al traer hotel: ', error);
+      return error;
+    }
+  };
+  const getHotelAdminPageDataById = async (id) => {
+    try {
+      const response = await getHotelAdminPageById(id);
+      console.log('hotelByID: ', response);
+      return response;
+    } catch (error) {
+      console.error('error al traer hotelById: ', error);
+      return error;
+    }
+  };
+  const deleteHotelAdminPageByIdFunction = async (id) => {
+    try {
+      const response = await deleteHotelAdminPageById(id);
+      console.log('deleteHotelById: ', response);
+      return response;
+    } catch (error) {
+      console.error('error al borrar hotelById: ', error);
+      return error;
+    }
+  };
+
+  const handleConfirm = async () => {
+    try {
+      if (selectedHotelForModal) {
+        const hotelId = selectedHotelForModal.id;
+        const response = await deleteHotelAdminPageByIdFunction(hotelId);
+        console.log('hotel borrado ', response);
+        closeModal();
+        setHotels((prevHotels) => {
+          return prevHotels.map(
+            (hotel) => { return (hotel.id === hotelId ? { ...hotel, isDeleted: true } : hotel); },
+          );
+        });
+      }
+    } catch (error) {
+      console.error('error al borrar ', error);
+    }
+
+    // deleteHotelAdminPageByIdFunction(hotelId);
+  };
+  // console.log(selectedHotelForModal.id);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -209,7 +256,7 @@ export const AppContextProvider = ({ children }) => {
       };
     });
   };
-  // const getAllHotelsAdminPageData = () => {};
+
   return (
     <AppContext.Provider
       value={{
@@ -251,6 +298,9 @@ export const AppContextProvider = ({ children }) => {
         handleImageChange,
         handleFormSubmit,
         handleInputChange,
+        getAllHotelsAdminPageData,
+        getHotelAdminPageDataById,
+        // deleteHotelAdminPageByIdFunction,
       }}
     >
       {isLoading ? <Loading /> : children }

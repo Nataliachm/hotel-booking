@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 // import { createHotelsAdmin } from '../../service/Hotel.controller';
 import './FormHotelRegistration.scss';
 import { AppContext } from '../../store/AppContext';
@@ -12,90 +13,63 @@ const FormHotelRegistration = () => {
     // setSelectedImages,
     // setHotelsData,
     formDataCreateHotel,
+    setFormDataCreateHotel,
     // setFormData,
     handleImageChange,
     handleFormSubmit,
     handleInputChange,
+    getHotelAdminPageDataById,
+    imageHotelCloudinary,
+    setImageHotelCloudinary,
   } = store;
-  // const [image, setImage] = useState('');
-  // const [selectedImages, setSelectedImages] = useState([]);
-  // const [hotelsData, setHotelsData] = useState([]);
-  // const [formData, setFormData] = useState({
-  //   index: '',
-  //   name: '',
-  //   country: '',
-  //   city: '',
-  //   address: '',
-  //   phone: '',
-  //   description: '',
-  //   stars: '',
-  //   normalPrice: '',
-  //   salePrice: '',
-  //   label1: '',
-  //   label2: '',
-  //   status: '',
-  // });
-  // const uploadImage = async (event) => {
-  //   const filesa = event.target.files;
-  //   const data = new FormData();
-  //   data.append('file', filesa[0]);
-  //   data.append('upload_preset', 'hotelImages');
-  //   const res = await fetch(
-  //     'https://api.cloudinary.com/v1_1/drnclewqh/image/upload',
-  //     {
-  //       method: 'POST',
-  //       body: data,
-  //     },
-  //   );
-  //   const file = await res.json();
-  //   setImage(file.secure_url);
-  //   console.log(file.secure_url);
-  // };
-  // const handleImageChange = (event) => {
-  //   const images = event.target.files;
-  //   const imageUrls = [];
-  //   for (let i = 0; i < images.length; i += 1) {
-  //     const imageUrl = URL.createObjectURL(images[i]);
-  //     imageUrls.push(imageUrl);
-  //   }
-  //   setSelectedImages(imageUrls);
-  //   uploadImage(event);
-  // };
-  // const handleFormSubmit = (event) => {
-  //   event.preventDefault();
-  //   const newHotel = {
-  //     ...formData,
-  //     images: selectedImages,
-  //   };
-  //   setHotelsData((prevHotelsData) => {
-  //     return [...prevHotelsData, newHotel];
-  //   });
-  //   setFormData({
-  //     index: '',
-  //     name: '',
-  //     country: '',
-  //     city: '',
-  //     address: '',
-  //     description: '',
-  //     stars: '',
-  //     normalPrice: '',
-  //     salePrice: '',
-  //     label1: '',
-  //     label2: '',
-  //     status: '',
-  //   });
+  console.log(imageHotelCloudinary);
+  const ratingToStars = (rating) => {
+    switch (rating) {
+      case 'one': return 1;
+      case 'two': return 2;
+      case 'three': return 3;
+      case 'four': return 4;
+      case 'five': return 5;
+      default: return 0;
+    }
+  };
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const hotelId = queryParams.get('id');
+  console.log(hotelId);
 
-  //   setSelectedImages([]);
-  // };
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData((prevData) => {
-  //     return {
-  //       ...prevData,
-  //       [name]: value,
-  //     };
-  //   });
-  // };
+  useEffect(() => {
+    const fetchHotelById = async () => {
+      if (hotelId) {
+        try {
+          const hotel = await getHotelAdminPageDataById(hotelId);
+          setFormDataCreateHotel({
+            // index: hotel.id,
+            name: hotel.hotel_name,
+            // country: hotel.country,
+            // city: hotel.city,
+            // address: hotel.address,
+            phone: hotel.phone,
+            description: hotel.description,
+            stars: ratingToStars(hotel.hotel_rating),
+            normalPrice: hotel.previous_price,
+            salePrice: hotel.new_price,
+            label1: hotel.label1,
+            label2: hotel.label2,
+            status: hotel.labels,
+            // image: '',
+          });
+          setImageHotelCloudinary(hotel.imageHotelCloudinary);
+        } catch (error) {
+          console.error('Error al obtener datos del hotel: ', error);
+        }
+      }
+    };
+
+    if (hotelId) {
+      fetchHotelById();
+    }
+  }, [hotelId]);
   return (
     <div className="formHotel">
       <div className="tittleForm">
@@ -130,7 +104,7 @@ const FormHotelRegistration = () => {
           )}
         </div>
         <div className="formHotelContainer__text">
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={(e) => { return handleFormSubmit(e, hotelId); }}>
             <div>
               <label htmlFor="index">
                 Index:

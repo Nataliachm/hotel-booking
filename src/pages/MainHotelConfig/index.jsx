@@ -1,12 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../store/AppContext';
 import './MainHotelConfig.scss';
 import PersonCard from '../../components/PersonCard';
-import hotels from '../MainHotel/hotels';
+// import hotels from '../MainHotel/hotels';
 import ConfirmationModal from '../../components/ConfirmationModal';
 
 const MainHotelConfig = () => {
   const store = useContext(AppContext);
+  const navigate = useNavigate();
   const {
     showModal,
     // setShowModal,
@@ -15,32 +17,72 @@ const MainHotelConfig = () => {
     openModal,
     closeModal,
     handleConfirm,
+    getAllHotelsAdminPageData,
+    // deleteHotelAdminPageByIdFunction,
   } = store;
-  // const [selectedHotel, setSelectedHotel] = useState(null);
-  // const [showModal, setShowModal] = useState(false);
+  const [hotels, setHotels] = useState([]);
 
-  // const openModal = (hotel) => {
-  //   setSelectedHotel(hotel);
-  //   setShowModal(true);
-  // };
+  useEffect(() => {
+    const fetchHotels = async () => {
+      const response = await getAllHotelsAdminPageData();
+      console.log(response);
+      setHotels(response);
+    };
+    fetchHotels();
+  }, []);
+  // useEffect(() => {
+  //   const handleHotelDeleted = async () => {
+  //     const response = await getAllHotelsAdminPageData();
+  //     setHotels(response);
+  //   };
+  //   if (showModal && selectedHotelForModal) {
+  //     handleConfirm()
+  //       .then(() => {
+  //         handleHotelDeleted();
+  //       })
+  //       .catch((error) => {
+  //         console.error('error al borrar', error);
+  //       });
+  //   }
+  // }, [showModal, selectedHotelForModal]);
+  const ratingToStars = (rating) => {
+    switch (rating) {
+      case 'one': return 1;
+      case 'two': return 2;
+      case 'three': return 3;
+      case 'four': return 4;
+      case 'five': return 5;
+      default: return 0;
+    }
+  };
+  const handleDeleteHotel = (hotel) => {
+    openModal(hotel);
+  };
 
-  // const closeModal = () => {
-  //   setSelectedHotel(null);
-  //   setShowModal(false);
-  // };
-
-  // const handleConfirm = () => {
-  //   closeModal();
-  // };
+  const handleConfirmDelete = async () => {
+    if (selectedHotelForModal) {
+      try {
+        await handleConfirm();
+        closeModal();
+      } catch (error) {
+        console.error('Error al borrar', error);
+      }
+    }
+  };
 
   return (
     <div className="MainHotelConfig__container">
       {showModal && selectedHotelForModal && (
         <ConfirmationModal
-          imageSrc={selectedHotelForModal.img}
-          onConfirm={handleConfirm}
+          imageSrc={selectedHotelForModal.hotel_img}
+          onConfirm={async () => {
+            await handleConfirm();
+            closeModal();
+            const updatedHotels = await getAllHotelsAdminPageData();
+            setHotels(updatedHotels);
+          }}
           onCancel={closeModal}
-          hotelName={selectedHotelForModal.name}
+          hotelName={selectedHotelForModal.hotel_name}
           nameDelete="this hotel"
         />
       )}
@@ -49,7 +91,7 @@ const MainHotelConfig = () => {
         img="https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
       />
       <div className="MainHotelConfig__container--button">
-        <button type="button">
+        <button onClick={() => { return navigate('/form-hotel-registration'); }} type="button">
           <i className="fas fa-plus-circle" />
           &nbsp; Add Hottel
         </button>
@@ -61,7 +103,7 @@ const MainHotelConfig = () => {
               <div className="card" key={hotel.id}>
                 <div className="card__digital">
                   <div className="card__digital--img">
-                    <img src={hotel.img} alt={`hotel ${hotel.id}`} />
+                    <img src={hotel.hotel_img} alt={`hotel ${hotel.id}`} />
                     <div className="card__digital--heartIcon">
                       <i className="far fa-heart" />
                     </div>
@@ -70,7 +112,7 @@ const MainHotelConfig = () => {
                 <div className="card__text">
                   <div className="card__text--titles">
                     <div>
-                      <h2>{hotel.name}</h2>
+                      <h2>{hotel.hotel_name}</h2>
                     </div>
                     <div>
                       <h6>
@@ -85,27 +127,31 @@ const MainHotelConfig = () => {
                   </div>
                   <div className="card__text--review">
                     <div className="star-icons">
-                      <i className="fas fa-star star-icon filled" />
-                      <i className="fas fa-star star-icon filled" />
-                      <i className="fas fa-star star-icon filled" />
-                      <i className="fas fa-star star-icon filled" />
-                      <i className="far fa-star star-icon" />
+                      <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 1 ? 'fas filled' : 'far'}`} />
+                      <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 2 ? 'fas filled' : 'far'}`} />
+                      <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 3 ? 'fas filled' : 'far'}`} />
+                      <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 4 ? 'fas filled' : 'far'}`} />
+                      <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 5 ? 'fas filled' : 'far'}`} />
                     </div>
                     <div>
-                      <h6>{hotel.stars}</h6>
+                      <h6>
+                        {`${hotel.hotel_rating} 
+                        stars`}
+                      </h6>
                     </div>
                   </div>
                   <div className="card__text--price">
                     <div>
                       <h5>
                         {`$
-                  ${hotel.previousPrice}`}
+                  ${hotel.previous_price}`}
                       </h5>
                     </div>
                     <div>
                       <span>
                         {`$
-                    ${hotel.newPrice}`}
+                    ${hotel.new_price
+                    }`}
                       </span>
                     </div>
                   </div>
@@ -120,7 +166,7 @@ const MainHotelConfig = () => {
                 </div>
                 <div className="card__botons">
                   <div>
-                    <button className="btn1" type="button">
+                    <button className="btn1" type="button" onClick={() => { return navigate(`/form-hotel-registration?id=${hotel.id}`); }}>
                       <i className="fas fa-cog" />
                       &nbsp; Edit Hotel
                     </button>
@@ -136,7 +182,7 @@ const MainHotelConfig = () => {
                       className="btn3"
                       type="button"
                       onClick={() => {
-                        return openModal(hotel);
+                        return handleDeleteHotel(hotel);
                       }}
                     >
                       <i className="fas fa-trash-alt" />

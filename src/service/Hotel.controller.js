@@ -110,7 +110,34 @@ export const createHotelsAdmin = async (hotelsData) => {
 
 export const getAllHotelsAdminPage = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/hotels'); // Asume que hay una ruta en el servidor para obtener todos los hoteles
+    const response = await axios.get('http://localhost:8080/api/hotel');
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getHotelAdminPageById = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/hotel/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateHotelAdminPageById = async (id, hotelData) => {
+  try {
+    const response = await axios.put(`http://localhost:8080/api/hotel/${id}`, hotelData);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteHotelAdminPageById = async (id) => {
+  try {
+    const response = await axios.delete(`http://localhost:8080/api/hotel/${id}`);
     return response.data;
   } catch (error) {
     return error;
