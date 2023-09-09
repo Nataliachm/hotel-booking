@@ -83,7 +83,24 @@ export const editUserProfile = async (userToken, userInfo) => {
     const data = {
       ...userInfo,
     };
-    const response = await axios.put('http://localhost:8080/api/user/get-info-user', data, { headers });
+    const response = await axios.put('http://localhost:8080/api/user', data, { headers });
+    // return await response?.data?.emailUser?.email === email;
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const editUserImage = async (userToken, userImage) => {
+  try {
+    const headers = {
+      Authorization: `Bearer ${userToken}`,
+      'Content-Type': 'application/json', // Especificamos que estamos enviando datos en formato JSON
+    };
+    const data = {
+      user_img: userImage,
+    };
+    const response = await axios.put('http://localhost:8080/api/user/image', data, { headers });
     // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {

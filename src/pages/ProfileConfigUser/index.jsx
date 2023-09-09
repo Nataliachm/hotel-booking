@@ -4,23 +4,7 @@ import PersonCard from '../../components/PersonCard';
 import { AppContext } from '../../store/AppContext';
 import './ProfileConfigUser.scss';
 
-// const initialDataUser = [
-//   {
-//     id: 1,
-//     name: 'Pedro Perez',
-//     gender: 'Male',
-//     birthday: '1990-06-19',
-//     streetAddress: '123 Main St',
-//     cityState: 'New York, NY',
-//     zip: '10001',
-//   },
-// ];
-
 const ProfileConfigUser = () => {
-  // const [userData, setUserData] = useState(initialDataUser);
-  // const [userEditId, setUserEditId] = useState(null);
-  // const [formUserData, setFormUserData] = useState({});
-
   const store = useContext(AppContext);
   const {
     userData,
@@ -29,64 +13,20 @@ const ProfileConfigUser = () => {
     handleUserEdit,
     handleInputUserChange,
     handleInfoUserSave,
-    // setUserData,
     handleGetUser,
     email
   } = store;
 
   const emptyFields = '--------';
-  // useEffect(() => {
-  //   // Definir una función asíncrona dentro de useEffect
-  //   async function fetchData() {
-  //     try {
-  //       // Simular una llamada a una API o alguna operación asíncrona
-  //       const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-  //       const jsonData = await response.json();
-  //       setData(jsonData);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   }
-  // });
 
   useEffect(() => {
-    // Definir una función asíncrona dentro de useEffect
     handleGetUser();
-    // setUserData(initialDataUser);
   }, []);
-  // const handleUserEdit = (id) => {
-  //   setUserEditId(id);
-  //   setFormUserData(
-  //     userData.find((item) => {
-  //       return item.id === id;
-  //     })
-  //   );
-  // };
-
-  // const handleInputUserChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormUserData(
-  //     {
-  //       ...formUserData,
-  //       [name]: value,
-  //     }
-  //   );
-  // };
-
-  // const handleInfoUserSave = () => {
-  //   const newUserData = userData.map((item) => {
-  //     return item.id === userEditId ? { ...item, ...formUserData } : item;
-  //   });
-  //   setUserData([...newUserData]);
-  //   setUserEditId(null);
-  //   setFormUserData({});
-  // };
 
   return (
     <div className="ProfileConfigUser__container">
       <div>
         <PersonCard
-          img="https://icon-library.com/images/persona-icon/persona-icon-25.jpg"
           btn2="Hotels"
           userName={userData[0].user_name}
           className="PersonCard"

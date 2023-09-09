@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { createContext, useState } from 'react';
+import { createContext, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   getAllHotels,
@@ -12,6 +12,8 @@ import {
   getHotelAdminPageById,
   updateHotelAdminPageById,
   deleteHotelAdminPageById,
+  editUserProfile,
+  editUserImage,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -20,6 +22,7 @@ export const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [imageIsLoading, setImageIsLoading] = useState(false);
   const [hotels, setHotels] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -48,6 +51,10 @@ export const AppContextProvider = ({ children }) => {
     label2: '',
     status: '',
   });
+
+  const [imageUser, setImageUser] = useState('https://icon-library.com/images/persona-icon/persona-icon-25.jpg');
+  const fileInputRef = useRef(null);
+
   const handleHotel = async () => {
     const allHotels = await getAllHotels();
     setHotels(allHotels);
@@ -96,17 +103,26 @@ export const AppContextProvider = ({ children }) => {
     );
   };
 
-  const handleInfoUserSave = () => {
+  const handleInfoUserSave = async () => {
+    localStorage.removeItem('userData');
     setUserData([formUserData]);
+    const token = localStorage.getItem('token');
+    await editUserProfile(token, formUserData);
     setUserEditId(null);
     setFormUserData({});
   };
 
   const handleGetUser = async () => {
     try {
-      const found = await getUserByEmail(email || localStorage.getItem('email'));
-      localStorage.setItem('userData', JSON.stringify(found.data.user));
-      setUserData([{ ...found.data.user }]);
+      const infoLocalUser = localStorage.getItem('userData');
+      if (!infoLocalUser) {
+        const found = await getUserByEmail(email || localStorage.getItem('email'));
+        localStorage.setItem('userData', JSON.stringify(found.data.user));
+        // JSON.parse(localStorage.getItem('userData'))
+        setUserData([{ ...found.data.user }]);
+      } else {
+        setUserData([JSON.parse(infoLocalUser)]);
+      }
     } catch (error) {
       return error;
     }
@@ -223,6 +239,42 @@ export const AppContextProvider = ({ children }) => {
       };
     });
   };
+  const handleUserImageChange = async (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setImageIsLoading(true);
+      const data = new FormData();
+      data.append('file', selectedFile);
+      data.append('upload_preset', 'hotelImages');
+      const res = await fetch(
+        'https://api.cloudinary.com/v1_1/drnclewqh/image/upload',
+        {
+          method: 'POST',
+          body: data,
+        },
+      );
+      const file = await res.json();
+      const token = localStorage.getItem('token');
+      await editUserImage(token, file.secure_url);
+      localStorage.removeItem('userData');
+
+      const found = await getUserByEmail(email || localStorage.getItem('email'));
+      localStorage.setItem('userData', JSON.stringify(found.data.user));
+      setUserData([{ ...found.data.user }]);
+      setImageIsLoading(false);
+
+      setImageUser(file.secure_url);
+    }
+  };
+
+  // const handleSignIn = async () => {
+  //   const found = await authenticationUser(email, password);
+  //   if (found) {
+  //     console.log('Signed in!');
+  //     return;
+  //   }
+  //   console.log('Wrong credentials :(');
+  // };
 
   return (
     <AppContext.Provider
@@ -265,6 +317,10 @@ export const AppContextProvider = ({ children }) => {
         handleInputChange,
         getAllHotelsAdminPageData,
         getHotelAdminPageDataById,
+        imageUser,
+        fileInputRef,
+        handleUserImageChange,
+        imageIsLoading,
       }}
     >
       {isLoading ? <Loading /> : children }

@@ -1,51 +1,44 @@
-import { useRef, useState } from 'react';
+import { useContext } from 'react';
+import { AppContext } from '../../store/AppContext';
+import ImageLoading from '../ImageLoading';
 import './PersonCard.scss';
 
 const PersonCard = (props) => {
-  const { img, btn2, userName } = props;
-  const fileInputRef = useRef(null);
-  const [imageSrc, setImageSrc] = useState(img);
+  const store = useContext(AppContext);
+  const {
+    userData, fileInputRef, handleUserImageChange, imageIsLoading,
+  } = store;
+  const { btn2, userName } = props;
 
-  const handleImageChange = async (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      const data = new FormData();
-      data.append('file', selectedFile);
-      data.append('upload_preset', 'hotelImages');
-      const res = await fetch(
-        'https://api.cloudinary.com/v1_1/drnclewqh/image/upload',
-        {
-          method: 'POST',
-          body: data,
-        },
-      );
-      const file = await res.json();
-      setImageSrc(file.secure_url);
-    }
-  };
   return (
     <div className="person">
       <div className="person__card">
         <div className="profile-img-container">
-          <button
-            type="button"
-            className="profile-img-button"
-            onClick={() => { return fileInputRef.current.click(); }}
-          >
-            <img
-              src={imageSrc}
-              alt="profileImg"
-              className="profile-img"
-            />
-          </button>
-          <input
-            type="file"
-            id="fileInput"
-            accept="image/*"
-            onChange={handleImageChange}
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-          />
+          {imageIsLoading ? <ImageLoading />
+            : (
+              <>
+                <button
+                  type="button"
+                  className="profile-img-button"
+                  onClick={() => { return fileInputRef.current.click(); }}
+                >
+                  <img
+                    src={userData[0].user_img || 'https://icon-library.com/images/persona-icon/persona-icon-25.jpg'}
+                    alt="profileImg"
+                    className="profile-img"
+                  />
+                </button>
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept="image/*"
+                  onChange={handleUserImageChange}
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}
+                />
+              </>
+            )}
+
         </div>
         <div className="person__card__info">
           <div>
