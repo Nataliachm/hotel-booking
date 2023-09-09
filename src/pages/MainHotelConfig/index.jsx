@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../store/AppContext';
 import './MainHotelConfig.scss';
 import PersonCard from '../../components/PersonCard';
-// import hotels from '../MainHotel/hotels';
 import ConfirmationModal from '../../components/ConfirmationModal';
 
 const MainHotelConfig = () => {
@@ -11,40 +10,21 @@ const MainHotelConfig = () => {
   const navigate = useNavigate();
   const {
     showModal,
-    // setShowModal,
     selectedHotelForModal,
-    // setSelectedHotelForModal,
     openModal,
     closeModal,
     handleConfirm,
     getAllHotelsAdminPageData,
-    // deleteHotelAdminPageByIdFunction,
   } = store;
   const [hotels, setHotels] = useState([]);
 
   useEffect(() => {
     const fetchHotels = async () => {
       const response = await getAllHotelsAdminPageData();
-      console.log(response);
       setHotels(response);
     };
     fetchHotels();
   }, []);
-  // useEffect(() => {
-  //   const handleHotelDeleted = async () => {
-  //     const response = await getAllHotelsAdminPageData();
-  //     setHotels(response);
-  //   };
-  //   if (showModal && selectedHotelForModal) {
-  //     handleConfirm()
-  //       .then(() => {
-  //         handleHotelDeleted();
-  //       })
-  //       .catch((error) => {
-  //         console.error('error al borrar', error);
-  //       });
-  //   }
-  // }, [showModal, selectedHotelForModal]);
   const ratingToStars = (rating) => {
     switch (rating) {
       case 'one': return 1;
@@ -57,17 +37,6 @@ const MainHotelConfig = () => {
   };
   const handleDeleteHotel = (hotel) => {
     openModal(hotel);
-  };
-
-  const handleConfirmDelete = async () => {
-    if (selectedHotelForModal) {
-      try {
-        await handleConfirm();
-        closeModal();
-      } catch (error) {
-        console.error('Error al borrar', error);
-      }
-    }
   };
 
   return (

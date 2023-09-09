@@ -6,15 +6,14 @@ import { AppContext } from '../../store/AppContext';
 
 const FormHotelRegistration = () => {
   const store = useContext(AppContext);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const hotelId = queryParams.get('id');
   const {
     selectedImagesFormHotel,
-    // setImage,
-    // selectedImages,
-    // setSelectedImages,
-    // setHotelsData,
+    setSelectedImagesFormHotel,
     formDataCreateHotel,
     setFormDataCreateHotel,
-    // setFormData,
     handleImageChange,
     handleFormSubmit,
     handleInputChange,
@@ -22,7 +21,6 @@ const FormHotelRegistration = () => {
     imageHotelCloudinary,
     setImageHotelCloudinary,
   } = store;
-  console.log(imageHotelCloudinary);
   const ratingToStars = (rating) => {
     switch (rating) {
       case 'one': return 1;
@@ -33,22 +31,13 @@ const FormHotelRegistration = () => {
       default: return 0;
     }
   };
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const hotelId = queryParams.get('id');
-  console.log(hotelId);
-
   useEffect(() => {
     const fetchHotelById = async () => {
       if (hotelId) {
         try {
           const hotel = await getHotelAdminPageDataById(hotelId);
           setFormDataCreateHotel({
-            // index: hotel.id,
             name: hotel.hotel_name,
-            // country: hotel.country,
-            // city: hotel.city,
-            // address: hotel.address,
             phone: hotel.phone,
             description: hotel.description,
             stars: ratingToStars(hotel.hotel_rating),
@@ -57,9 +46,10 @@ const FormHotelRegistration = () => {
             label1: hotel.label1,
             label2: hotel.label2,
             status: hotel.labels,
-            // image: '',
+            images: imageHotelCloudinary,
           });
-          setImageHotelCloudinary(hotel.imageHotelCloudinary);
+          setImageHotelCloudinary(hotel.hotel_img);
+          setSelectedImagesFormHotel([hotel.hotel_img]);
         } catch (error) {
           console.error('Error al obtener datos del hotel: ', error);
         }

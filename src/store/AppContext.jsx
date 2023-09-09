@@ -106,22 +106,11 @@ export const AppContextProvider = ({ children }) => {
     try {
       const found = await getUserByEmail(email || localStorage.getItem('email'));
       localStorage.setItem('userData', JSON.stringify(found.data.user));
-      // JSON.parse(localStorage.getItem('userData'))
       setUserData([{ ...found.data.user }]);
     } catch (error) {
       return error;
     }
   };
-
-  // const handleSignIn = async () => {
-  //   const found = await authenticationUser(email, password);
-  //   if (found) {
-  //     console.log('Signed in!');
-  //     return;
-  //   }
-  //   console.log('Wrong credentials :(');
-  // };
-  // mainHotelConfig
   const openModal = (hotel) => {
     setSelectedHotelForModal(hotel);
     setShowModal(true);
@@ -130,11 +119,6 @@ export const AppContextProvider = ({ children }) => {
     setSelectedHotelForModal(null);
     setShowModal(false);
   };
-  // const handleConfirm = () => {
-  //   closeModal();
-  //   deleteHotelAdminPageByIdFunction(id)
-  // };
-  // formHotelRegistration
   const uploadImage = async (image) => {
     const data = new FormData();
     data.append('file', image);
@@ -155,14 +139,6 @@ export const AppContextProvider = ({ children }) => {
     setSelectedImagesFormHotel([imageUrl]);
     uploadImage(image);
   };
-  // const handleSubmitInfoCreateHotel = async () => {
-  //   try {
-  //     const response = await createHotelsAdmin(formDataCreateHotel);
-  //     console.log('hotelcreado: ', response);
-  //   } catch (error) {
-  //     console.error('error al crear el hotel: ', error);
-  //   }
-  // };
   const handleFormSubmit = async (event, id) => {
     event.preventDefault();
     const newHotel = {
@@ -172,56 +148,50 @@ export const AppContextProvider = ({ children }) => {
     try {
       const response = await
       (id ? updateHotelAdminPageById(id, newHotel) : createHotelsAdmin(newHotel));
-      console.log('hotelcreado: ', response);
       navigate('/hotel-config');
+      setFormDataCreateHotel({
+        index: '',
+        name: '',
+        country: '',
+        city: '',
+        address: '',
+        phone: '',
+        description: '',
+        stars: '',
+        normalPrice: '',
+        salePrice: '',
+        label1: '',
+        label2: '',
+        status: '',
+      });
+      setImageHotelCloudinary('');
+      setSelectedImagesFormHotel([]);
+      return response;
     } catch (error) {
-      console.error('error al crear el hotel: ', error);
+      return error;
     }
-    setFormDataCreateHotel({
-      index: '',
-      name: '',
-      country: '',
-      city: '',
-      address: '',
-      phone: '',
-      description: '',
-      stars: '',
-      normalPrice: '',
-      salePrice: '',
-      label1: '',
-      label2: '',
-      status: '',
-    });
-    setImageHotelCloudinary('');
-    setSelectedImagesFormHotel([]);
   };
   const getAllHotelsAdminPageData = async () => {
     try {
       const response = await getAllHotelsAdminPage();
-      // console.log('hotelestraidos: ', response);
       return response;
     } catch (error) {
-      // console.error('error al traer hotel: ', error);
       return error;
     }
   };
   const getHotelAdminPageDataById = async (id) => {
     try {
       const response = await getHotelAdminPageById(id);
-      console.log('hotelByID: ', response);
       return response;
     } catch (error) {
-      console.error('error al traer hotelById: ', error);
       return error;
     }
   };
   const deleteHotelAdminPageByIdFunction = async (id) => {
     try {
       const response = await deleteHotelAdminPageById(id);
-      console.log('deleteHotelById: ', response);
       return response;
     } catch (error) {
-      console.error('error al borrar hotelById: ', error);
       return error;
     }
   };
@@ -231,21 +201,18 @@ export const AppContextProvider = ({ children }) => {
       if (selectedHotelForModal) {
         const hotelId = selectedHotelForModal.id;
         const response = await deleteHotelAdminPageByIdFunction(hotelId);
-        console.log('hotel borrado ', response);
         closeModal();
         setHotels((prevHotels) => {
           return prevHotels.map(
             (hotel) => { return (hotel.id === hotelId ? { ...hotel, isDeleted: true } : hotel); },
           );
         });
+        return response;
       }
     } catch (error) {
-      console.error('error al borrar ', error);
+      return error;
     }
-
-    // deleteHotelAdminPageByIdFunction(hotelId);
   };
-  // console.log(selectedHotelForModal.id);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -277,7 +244,6 @@ export const AppContextProvider = ({ children }) => {
         handleInfoUserSave,
         setUserData,
         handleGetUser,
-        // mainHotelConfig
         openModal,
         closeModal,
         selectedHotelForModal,
@@ -285,7 +251,6 @@ export const AppContextProvider = ({ children }) => {
         showModal,
         setShowModal,
         handleConfirm,
-        // formHotelRegistration
         imageHotelCloudinary,
         setImageHotelCloudinary,
         selectedImagesFormHotel,
@@ -300,7 +265,6 @@ export const AppContextProvider = ({ children }) => {
         handleInputChange,
         getAllHotelsAdminPageData,
         getHotelAdminPageDataById,
-        // deleteHotelAdminPageByIdFunction,
       }}
     >
       {isLoading ? <Loading /> : children }
