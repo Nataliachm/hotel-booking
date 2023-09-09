@@ -1,20 +1,50 @@
+import { useContext, useEffect, useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../store/AppContext';
 import './MainHotel.scss';
-import hotels from './hotels';
+// import { useNavigate } from 'react-router-dom';
+// import hotels from './hotels';
 
 const MainHotel = () => {
+  const store = useContext(AppContext);
+  // const navigate = useNavigate();
+  const {
+    getAllHotelsAdminPageData,
+  } = store;
+  const [hotelsListUser, setHotelsListUser] = useState([]);
+  useEffect(() => {
+    const fetchHotels = async () => {
+      const response = await getAllHotelsAdminPageData();
+
+      console.log(response);
+      setHotelsListUser(response);
+    };
+    fetchHotels();
+  }, []);
+  const ratingToStars = (rating) => {
+    switch (rating) {
+      case 'one': return 1;
+      case 'two': return 2;
+      case 'three': return 3;
+      case 'four': return 4;
+      case 'five': return 5;
+      default: return 0;
+    }
+  };
+
   return (
     <div className="MainHotel__container">
-      {hotels.map((hotel) => {
+      {hotelsListUser.map((hotel) => {
         return (
           <div className="card" key={hotel.id}>
             <div className="card__digital">
               <div className="card__digital--img">
-                {hotel.status && (
+                {hotel.labels && (
                   <div className="card__digital--Recommended">
-                    {hotel.status}
+                    <h4>{hotel.labels}</h4>
                   </div>
                 )}
-                <img src={hotel.img} alt={`hotel ${hotel.id}`} />
+                <img src={hotel.hotel_img} alt={`hotel ${hotel.id}`} />
                 <div className="card__digital--heartIcon">
                   <i className="far fa-heart" />
                 </div>
@@ -23,7 +53,7 @@ const MainHotel = () => {
             <div className="card__text">
               <div className="card__text--titles">
                 <div>
-                  <h2>{hotel.name}</h2>
+                  <h2>{hotel.hotel_name}</h2>
                 </div>
                 <div>
                   <h6>
@@ -38,27 +68,31 @@ const MainHotel = () => {
               </div>
               <div className="card__text--review">
                 <div className="star-icons">
-                  <i className="fas fa-star star-icon filled" />
-                  <i className="fas fa-star star-icon filled" />
-                  <i className="fas fa-star star-icon filled" />
-                  <i className="fas fa-star star-icon filled" />
-                  <i className="far fa-star star-icon" />
+                  <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 1 ? 'fas filled' : 'far'}`} />
+                  <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 2 ? 'fas filled' : 'far'}`} />
+                  <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 3 ? 'fas filled' : 'far'}`} />
+                  <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 4 ? 'fas filled' : 'far'}`} />
+                  <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 5 ? 'fas filled' : 'far'}`} />
                 </div>
                 <div>
-                  <h6>{hotel.review}</h6>
+                  <h6>
+                    {`${hotel.hotel_rating} 
+                        stars`}
+
+                  </h6>
                 </div>
               </div>
               <div className="card__text--price">
                 <div>
                   <h5>
                     {`$
-                  ${hotel.previousPrice}`}
+                  ${hotel.previous_price}`}
                   </h5>
                 </div>
                 <div>
                   <span>
                     {`$
-                    ${hotel.newPrice}`}
+                    ${hotel.new_price}`}
                   </span>
                 </div>
               </div>

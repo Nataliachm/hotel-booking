@@ -72,9 +72,9 @@ const router = createBrowserRouter([
       {
         path: '/hotel-config',
         element: (
-          <PrivateRoute role="admin" redirectRoute="/login">
-            <MainHotelConfig />
-          </PrivateRoute>
+        // <PrivateRoute role="admin" redirectRoute="/login">
+          <MainHotelConfig />
+        // </PrivateRoute>
         ),
       },
       {
@@ -88,9 +88,9 @@ const router = createBrowserRouter([
       {
         path: '/form-hotel-registration',
         element: (
-          <PrivateRoute role="admin" redirectRoute="/login">
-            <FormHotelRegistration />
-          </PrivateRoute>
+        // <PrivateRoute role="admin" redirectRoute="/login">
+          <FormHotelRegistration />
+        // </PrivateRoute>
         ),
       },
       {
