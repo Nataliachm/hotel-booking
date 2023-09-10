@@ -98,8 +98,28 @@ export const editUserProfile = async (userToken, userInfo) => {
     const data = {
       ...userInfo,
     };
+
+    const response = await axios.put('http://localhost:8080/api/user', data, {
+      headers,
+    });
+    // return await response?.data?.emailUser?.email === email;
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const editUserImage = async (userToken, userImage) => {
+  try {
+    const headers = {
+      Authorization: `Bearer ${userToken}`,
+      'Content-Type': 'application/json', // Especificamos que estamos enviando datos en formato JSON
+    };
+    const data = {
+      user_img: userImage,
+    };
     const response = await axios.put(
-      'http://localhost:8080/api/user/get-info-user',
+      'http://localhost:8080/api/user/image',
       data,
       { headers }
     );
@@ -116,4 +136,57 @@ export const pay = async (paymentMethod) => {
     amount: Math.floor(100 * 100),
   });
   return response;
+};
+
+export const createHotelsAdmin = async (hotelsData) => {
+  try {
+    const response = await axios.post(
+      'http://localhost:8080/api/hotel',
+      hotelsData
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAllHotelsAdminPage = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/api/hotel');
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getHotelAdminPageById = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/hotel/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateHotelAdminPageById = async (id, hotelData) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:8080/api/hotel/${id}`,
+      hotelData
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteHotelAdminPageById = async (id) => {
+  try {
+    const response = await axios.delete(
+      `http://localhost:8080/api/hotel/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 };
