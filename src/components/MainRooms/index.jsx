@@ -2,10 +2,13 @@
 import './MainRooms.scss';
 import React, { useState } from 'react';
 import { CardRooms } from '../CardRooms';
-import rooms from './infoRooms';
+// import rooms from './infoRooms';
 import FormRooms from '../FormRooms';
 
-const MainRooms = () => {
+const MainRooms = ({ rooms }) => {
+  if (typeof rooms !== 'object' || rooms === null) {
+    return <div>No hay información de habitaciones disponible.</div>;
+  }
   const [selected, setSelected] = useState('Rooms');
 
   const handleSelectedItem = (item) => {
@@ -16,34 +19,31 @@ const MainRooms = () => {
     <main className="main-rooms-container">
       <div className="main-rooms">
         <ul className="main-rooms__options">
-          <li className={selected === 'Rooms' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Rooms'); }}>Rooms</li>
-          <li className={selected === 'About' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('About'); }}>About</li>
-          <li className={selected === 'Facility' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Facility'); }}>Facility</li>
-          <li className={selected === 'Location' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Location'); }}>Location</li>
-          <li className={selected === 'Reviews' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Reviews'); }}>Reviews</li>
-          <li className={selected === 'Policies' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Policies'); }}>Policies</li>
+          <li
+            className={selected === 'Rooms' ? 'selected-item' : 'no-selected'}
+            onClick={() => {
+              return handleSelectedItem('Rooms');
+            }}
+          >
+            Rooms
+          </li>
         </ul>
         <div className="main-rooms__content-container">
           <div className="container-rooms">
             {rooms.map((room) => {
               return (
-              // roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice,
-
                 <CardRooms
                   key={room.id}
-                  roomName={room.roomName}
-                  urlImage={room.img}
-                  arrayAmenities={room.amenities}
-                  arrayInclusions={room.inclusion}
-                  previousPrice={room.previousPrice}
-                  newPrice={room.newPrice}
-                  profile="room"
-
+                  roomName={room.room_name}
+                  urlImage={room.room_img}
+                  arrayAmenities={room.Amenity_room}
+                  arrayInclusions={room.Inclusion_room}
+                  previousPrice={room.previous_price}
+                  newPrice={room.new_price}
                 />
               );
             })}
           </div>
-
         </div>
       </div>
       <section className="main-rooms__calendar-container">

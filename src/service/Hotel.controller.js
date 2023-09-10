@@ -12,9 +12,18 @@ const axiosInstance = axios.create({
 
 export const getAllHotels = async () => {
   try {
-    const response = await axiosInstance('/api/hotel');
+    const response = await axiosInstance.get('/api/hotel');
     const productData = await response.json();
     return await productData.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getHotel = async (hotelId) => {
+  try {
+    const response = await axiosInstance(`/api/hotel/${hotelId}`);
+    return response.data;
   } catch (error) {
     return error;
   }
@@ -25,7 +34,10 @@ export const verifyUserEmail = async (email) => {
     const emailUser = {
       email,
     };
-    const response = await axios.post('http://localhost:8080/api/user/verify', emailUser);
+    const response = await axios.post(
+      'http://localhost:8080/api/user/verify',
+      emailUser
+    );
     // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {
@@ -66,7 +78,10 @@ export const getUserByEmail = async (emailPerson) => {
     const emailUser = {
       emailPerson,
     };
-    const response = await axios.post('http://localhost:8080/api/user/get-info-user', emailUser);
+    const response = await axios.post(
+      'http://localhost:8080/api/user/get-info-user',
+      emailUser
+    );
     // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {
@@ -83,7 +98,11 @@ export const editUserProfile = async (userToken, userInfo) => {
     const data = {
       ...userInfo,
     };
-    const response = await axios.put('http://localhost:8080/api/user/get-info-user', data, { headers });
+    const response = await axios.put(
+      'http://localhost:8080/api/user/get-info-user',
+      data,
+      { headers }
+    );
     // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {
