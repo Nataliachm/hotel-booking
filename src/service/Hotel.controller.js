@@ -115,3 +115,48 @@ export const pay = async (paymentMethod) => {
   });
   return response;
 };
+
+export const createHotelsAdmin = async (hotelsData) => {
+  try {
+    const response = await axios.post('http://localhost:8080/api/hotel', hotelsData);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAllHotelsAdminPage = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/api/hotel');
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getHotelAdminPageById = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/hotel/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateHotelAdminPageById = async (id, hotelData) => {
+  try {
+    const response = await axios.put(`http://localhost:8080/api/hotel/${id}`, hotelData);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteHotelAdminPageById = async (id) => {
+  try {
+    const response = await axios.delete(`http://localhost:8080/api/hotel/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
