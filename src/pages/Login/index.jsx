@@ -1,16 +1,19 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-extraneous-dependencies */
 import { useContext } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import AuthWrapper from '../../HOC/AuthWrapper';
 import FormButton from '../../components/FormButton';
 import FormInput from '../../components/FormInput';
 import './Login.scss';
 import { AppContext } from '../../store/AppContext';
-import { useAuth0 } from '@auth0/auth0-react';
 
 const Login = () => {
   const store = useContext(AppContext);
   const { email, handleEmail, setEmail } = store;
-  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+  const {
+    loginWithRedirect, isAuthenticated, logout, user,
+  } = useAuth0();
 
   const handleGoogleLogin = () => {
     const options = {

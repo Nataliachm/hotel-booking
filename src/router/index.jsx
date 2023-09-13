@@ -130,7 +130,8 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: '/login-password/:email',
+        // path: '/login-password/:email',
+        path: '/login-password',
         element: <Password />,
       },
       {

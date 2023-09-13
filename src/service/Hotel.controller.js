@@ -39,9 +39,9 @@ export const authenticationUser = async (email, password) => {
       email,
       password,
     };
-    const response = await axios.post('http://localhost:8080/api/user', data);
+    const response = await axios.post('http://localhost:8080/api/user/login', data);
     // const emailVerification = await response.json();
-    return (await response?.data?.emailUser?.email) === email;
+    return response;
   } catch (error) {
     return false;
   }

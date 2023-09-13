@@ -4,6 +4,7 @@ import { createContext, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   getAllHotels, verifyUserEmail, registerUser, getUserByEmail, editUserProfile, editUserImage,
+  authenticationUser,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -19,6 +20,7 @@ export const AppContextProvider = ({ children }) => {
   const [userData, setUserData] = useState([{}]);
   const [userEditId, setUserEditId] = useState(null);
   const [formUserData, setFormUserData] = useState({});
+  const [validCredentials, setValidCredentials] = useState(false);
 
   const [imageUser, setImageUser] = useState('https://icon-library.com/images/persona-icon/persona-icon-25.jpg');
   const fileInputRef = useRef(null);
@@ -33,6 +35,7 @@ export const AppContextProvider = ({ children }) => {
     const found = await verifyUserEmail(email);
     setIsLoading(false);
     if (found.data.message === 'User has been found successfully') {
+      localStorage.setItem('email', email);
       return navigate('/login-Password');
     }
     return navigate('/login-register-password');
@@ -124,14 +127,43 @@ export const AppContextProvider = ({ children }) => {
     }
   };
 
-  // const handleSignIn = async () => {
-  //   const found = await authenticationUser(email, password);
-  //   if (found) {
-  //     console.log('Signed in!');
-  //     return;
-  //   }
-  //   console.log('Wrong credentials :(');
-  // };
+  const handleSignIn = async () => {
+    try {
+      setIsLoading(true);
+      const found = await authenticationUser(email, password);
+
+      if (found.status === 200) {
+        // Acción si la autenticación es exitosa (status 200)
+        const { user, token } = found.data;
+        localStorage.setItem('userData', JSON.stringify(user));
+        localStorage.setItem('token', JSON.stringify(token));
+        navigate('/');
+      } if (found === false) {
+        setValidCredentials(true);
+      } else {
+        // Manejar otros posibles códigos de estado
+        console.log('Error desconocido:', found.status);
+      }
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+    }
+    setIsLoading(false);
+  };
+
+  const handleSignOut = async () => {
+    if (JSON.parse(localStorage.getItem('userData'))) {
+      localStorage.removeItem('userData');
+    }
+
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+    }
+
+    if (localStorage.getItem('email')) {
+      localStorage.removeItem('email');
+    }
+    navigate('/login');
+  };
 
   return (
     <AppContext.Provider
@@ -157,6 +189,10 @@ export const AppContextProvider = ({ children }) => {
         fileInputRef,
         handleUserImageChange,
         imageIsLoading,
+        handleSignIn,
+        validCredentials,
+        setValidCredentials,
+        handleSignOut,
       }}
     >
       {isLoading ? <Loading /> : children }
