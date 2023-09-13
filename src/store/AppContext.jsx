@@ -17,6 +17,7 @@ import {
   createRoomsAdmin,
   getAllRoomsAdminPage,
   getRoomsByHotelId,
+  // updateRoomAdminPageById,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -231,6 +232,16 @@ export const AppContextProvider = ({ children }) => {
       return error;
     }
   };
+  const getRoomsByIdHotel = async (id) => {
+    try {
+      const rooms = await getRoomsByHotelId(id);
+      console.log('rooms by hotel: ', rooms);
+      return rooms;
+    } catch (error) {
+      console.error('error rooms: ', error);
+      return error;
+    }
+  };
   const deleteHotelAdminPageByIdFunction = async (id) => {
     try {
       const response = await deleteHotelAdminPageById(id);
@@ -394,14 +405,14 @@ export const AppContextProvider = ({ children }) => {
   //   console.log('Data to send:', dataToSend);
   // };
 
-  const handleSubmitCreateRoom = async (event) => {
+  const handleSubmitCreateRoom = async (hotelId, event) => {
     event.preventDefault();
     const newRoom = {
       ...formValuesCreateRoom,
       imageCreateRoom,
     };
     try {
-      const response = await createRoomsAdmin(newRoom);
+      const response = await createRoomsAdmin(hotelId, newRoom);
       setFormValuesCreateRoom({
         name: '',
         guests: '',
@@ -425,18 +436,6 @@ export const AppContextProvider = ({ children }) => {
       return error;
     }
   };
-
-  const getRoomsByIdHotel = async () => {
-    try {
-      const rooms = await getRoomsByHotelId();
-      console.log('rooms by hotel: ', rooms);
-      return rooms;
-    } catch (error) {
-      console.error('error rooms: ', error);
-      return error;
-    }
-  };
-
   return (
     <AppContext.Provider
       value={{

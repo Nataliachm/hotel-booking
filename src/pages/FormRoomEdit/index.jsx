@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AppContext } from '../../store/AppContext';
 import './FormRoomEdit.scss';
 
@@ -13,6 +14,9 @@ const FormRoomEdit = () => {
     uploadImageCreateRoom,
     handleSubmitCreateRoom,
   } = store;
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const hotelId = queryParams.get('hotelId');
   const availableAmenities = [
     'King/Twin',
     'Pool View',
@@ -55,7 +59,7 @@ const FormRoomEdit = () => {
           )}
         </div>
         <div className="formRoomContainer__text">
-          <form onSubmit={handleSubmitCreateRoom}>
+          <form onSubmit={(e) => { return handleSubmitCreateRoom(hotelId, e); }}>
             <div className="inputText">
               <div>
                 <label htmlFor="name">

@@ -2,6 +2,7 @@
 /* eslint-disable react/button-has-type */
 import './CardRooms.scss';
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   faBed, faShower, faTv, faCouch, faCheck, faWater,
 } from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +13,10 @@ export const CardRooms = (props) => {
     roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice, profile,
     country, city, hotelName, guests, checkIn, checkOut, dateIn, dateOut, onCustomButtonClick,
   } = props;
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const roomId = queryParams.get('id');
+  const navigate = useNavigate();
 
   return (
     <div className="container-rooms__card">
@@ -143,7 +148,7 @@ export const CardRooms = (props) => {
           <span>per night</span>
           <div className="container-rooms__botons-container">
             <div>
-              <button className="container-rooms__button--edit" type="button">
+              <button onClick={() => { return navigate(`/form-room-edit?roomId=${roomId}`); }} className="container-rooms__button--edit" type="button">
                 <i className="fas fa-cog" />
                       &nbsp; Edit
               </button>

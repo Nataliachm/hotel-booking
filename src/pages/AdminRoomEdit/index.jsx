@@ -1,6 +1,6 @@
 import './AdminRoomEdit.scss';
 import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AppContext } from '../../store/AppContext';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import { CardRooms } from '../../components/CardRooms';
@@ -9,6 +9,9 @@ import PersonCard from '../../components/PersonCard';
 
 const AdminRoomEdit = () => {
   const store = useContext(AppContext);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get('id');
   const navigate = useNavigate();
   const {
     selectedRoom,
@@ -16,17 +19,24 @@ const AdminRoomEdit = () => {
     openModalForRooms,
     handleConfirmForRooms,
     closeModalForRooms,
-    getAllRoomsAdminPageData,
+    // getAllRoomsAdminPageData,
+    getRoomsByIdHotel,
   } = store;
-  const [rooms, setRooms] = useState([]);
+  const [roomsList, setRoomsList] = useState([]);
 
   useEffect(() => {
     const fetchRooms = async () => {
-      const response = await getAllRoomsAdminPageData();
-      setRooms(response);
+      try {
+        console.log('este es el: ', id);
+        const response = await getRoomsByIdHotel(id);
+        console.log(response);
+        setRoomsList(response);
+      } catch (error) {
+        console.error('error al obtener: ', error);
+      }
     };
     fetchRooms();
-  }, []);
+  }, [id]);
 
   return (
     <div className="room-admin-container">
@@ -38,7 +48,7 @@ const AdminRoomEdit = () => {
         />
       </div>
       <div className="room-admin-container__button">
-        <button onClick={() => { return navigate('/form-room-edit'); }} type="button">
+        <button onClick={() => { return navigate(`/form-room-edit?hotelId=${id}`); }} type="button">
           <i className="fas fa-plus-circle" />
           &nbsp; Add Room
         </button>
@@ -46,7 +56,7 @@ const AdminRoomEdit = () => {
       <div className="room-admin-container__main-rooms">
 
         <div className="room-admin-container__container-rooms">
-          {rooms.map((room) => {
+          {roomsList.map((room) => {
             return (
             // roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice,
               <div className="room-admin-container__room" key={room.id} id={room.id}>
