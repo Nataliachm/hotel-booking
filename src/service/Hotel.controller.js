@@ -160,3 +160,29 @@ export const deleteHotelAdminPageById = async (id) => {
     return error;
   }
 };
+export const createRoomsAdmin = async (roomData) => {
+  try {
+    const response = await axios.post('http://localhost:8080/api/room', roomData);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAllRoomsAdminPage = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/api/room');
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getRoomsByHotelId = async (hotelId) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/hotel/${hotelId}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

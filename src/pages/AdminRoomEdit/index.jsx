@@ -1,27 +1,32 @@
 import './AdminRoomEdit.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../store/AppContext';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import { CardRooms } from '../../components/CardRooms';
 import PersonCard from '../../components/PersonCard';
-import rooms from './infoRooms';
+// import rooms from './infoRooms';
 
 const AdminRoomEdit = () => {
-  const [selectedRoom, setSelectedRoom] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const store = useContext(AppContext);
+  const navigate = useNavigate();
+  const {
+    selectedRoom,
+    showModalForRooms,
+    openModalForRooms,
+    handleConfirmForRooms,
+    closeModalForRooms,
+    getAllRoomsAdminPageData,
+  } = store;
+  const [rooms, setRooms] = useState([]);
 
-  const openModal = (room) => {
-    setSelectedRoom(room);
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setSelectedRoom(null);
-    setShowModal(false);
-  };
-
-  const handleConfirm = () => {
-    closeModal();
-  };
+  useEffect(() => {
+    const fetchRooms = async () => {
+      const response = await getAllRoomsAdminPageData();
+      setRooms(response);
+    };
+    fetchRooms();
+  }, []);
 
   return (
     <div className="room-admin-container">
@@ -33,7 +38,7 @@ const AdminRoomEdit = () => {
         />
       </div>
       <div className="room-admin-container__button">
-        <button type="button">
+        <button onClick={() => { return navigate('/form-room-edit'); }} type="button">
           <i className="fas fa-plus-circle" />
           &nbsp; Add Room
         </button>
@@ -45,34 +50,34 @@ const AdminRoomEdit = () => {
             return (
             // roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice,
               <div className="room-admin-container__room" key={room.id} id={room.id}>
-                {showModal && selectedRoom && (
+                {showModalForRooms && selectedRoom && (
                 <ConfirmationModal
                   imageSrc={selectedRoom.img}
-                  onConfirm={handleConfirm}
-                  onCancel={closeModal}
+                  onConfirm={handleConfirmForRooms}
+                  onCancel={closeModalForRooms}
                   hotelName={selectedRoom.roomName}
                   nameDelete="this room"
                 />
                 )}
                 <CardRooms
                   key={room.id}
-                  roomName={room.roomName}
-                  urlImage={room.img}
-                  arrayAmenities={room.amenities}
-                  arrayInclusions={room.inclusion}
-                  previousPrice={room.previousPrice}
-                  newPrice={room.newPrice}
+                  roomName={room.room_name}
+                  urlImage={room.room_img}
+                  // arrayAmenities={room.amenities}
+                  // arrayInclusions={room.inclusion}
+                  previousPrice={room.previous_price}
+                  newPrice={room.new_price}
                   profile="admin"
-                  country={room.country}
-                  city={room.city}
-                  hotelName={room.hotelName}
-                  guests={room.guests}
-                  checkIn={room.checkIn}
-                  checkOut={room.checkOut}
-                  dateIn={room.dateIn}
-                  dateOut={room.dateOut}
+                  // country={room.country}
+                  // city={room.city}
+                  // hotelName={room.hotelName}
+                  guests={room.max_guests}
+                  // checkIn={room.checkIn}
+                  // checkOut={room.checkOut}
+                  // dateIn={room.dateIn}
+                  // dateOut={room.dateOut}
                   onCustomButtonClick={() => {
-                    return openModal(room);
+                    return openModalForRooms(room);
                   }}
                 />
               </div>

@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../store/AppContext';
 import './FormRoomEdit.scss';
 
 const FormRoomEdit = () => {
-  const [image, setImage] = useState('');
-  const [formValues, setFormValues] = useState({
-    name: '',
-    guests: '',
-    normalPrice: 0,
-    salePrice: 0,
-    amenities: [],
-    inclusions: [],
-  });
-
+  const store = useContext(AppContext);
+  const {
+    imageCreateRoom,
+    // setImageCreateRoom,
+    formValuesCreateRoom,
+    // setFormValuesCreateRoom,
+    handleInputChangeCreateRoom,
+    uploadImageCreateRoom,
+    handleSubmitCreateRoom,
+  } = store;
   const availableAmenities = [
     'King/Twin',
     'Pool View',
@@ -26,94 +27,6 @@ const FormRoomEdit = () => {
     'Non Refundable',
     'Dinner & Lunch',
   ];
-
-  const handleInputChange = (event) => {
-    const { name, value, type, checked } = event.target;
-
-    if (type === 'checkbox') {
-      if (name === 'amenities') {
-        if (checked) {
-          setFormValues((prevValues) => {
-            return {
-              ...prevValues,
-              amenities: [...prevValues.amenities, value],
-            };
-          });
-        } else {
-          setFormValues((prevValues) => {
-            return {
-              ...prevValues,
-              amenities: prevValues.amenities.filter((item) => {
-                return item !== value;
-              }),
-            };
-          });
-        }
-      } else if (name === 'inclusions') {
-        if (checked) {
-          setFormValues((prevValues) => {
-            return {
-              ...prevValues,
-              inclusions: [...prevValues.inclusions, value],
-            };
-          });
-        } else {
-          setFormValues((prevValues) => {
-            return {
-              ...prevValues,
-              inclusions: prevValues.inclusions.filter((item) => {
-                return item !== value;
-              }),
-            };
-          });
-        }
-      }
-    } else {
-      setFormValues((prevValues) => {
-        return {
-          ...prevValues,
-          [name]: value,
-        };
-      });
-    }
-  };
-
-  const uploadImage = async (event) => {
-    const { files } = event.target;
-    const data = new FormData();
-    data.append('file', files[0]);
-    data.append('upload_preset', 'hotelImages');
-    const res = await fetch(
-      'https://api.cloudinary.com/v1_1/drnclewqh/image/upload',
-      {
-        method: 'POST',
-        body: data,
-      }
-    );
-    const file = await res.json();
-    setImage(file.secure_url);
-    console.log(file.secure_url);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const dataToSend = {
-      ...formValues,
-      image,
-    };
-
-    setImage('');
-    setFormValues({
-      name: '',
-      guests: '',
-      normalPrice: 0,
-      salePrice: 0,
-      amenities: [],
-      inclusions: [],
-    });
-    console.log('Data to send:', dataToSend);
-  };
-
   return (
     <div className="formRoom">
       <div className="tittleForm">
@@ -131,18 +44,18 @@ const FormRoomEdit = () => {
                 type="file"
                 name="file"
                 accept="image/*"
-                onChange={uploadImage}
+                onChange={uploadImageCreateRoom}
               />
             </label>
           </div>
-          {image && (
+          {imageCreateRoom && (
             <div>
-              <img src={image} alt="Uploaded Room" />
+              <img src={imageCreateRoom} alt="Uploaded Room" />
             </div>
           )}
         </div>
         <div className="formRoomContainer__text">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmitCreateRoom}>
             <div className="inputText">
               <div>
                 <label htmlFor="name">
@@ -152,8 +65,8 @@ const FormRoomEdit = () => {
                     type="text"
                     id="name"
                     name="name"
-                    value={formValues.name}
-                    onChange={handleInputChange}
+                    value={formValuesCreateRoom.name}
+                    onChange={handleInputChangeCreateRoom}
                   />
                 </label>
               </div>
@@ -163,8 +76,8 @@ const FormRoomEdit = () => {
                   <select
                     id="guests"
                     name="guests"
-                    value={formValues.guests}
-                    onChange={handleInputChange}
+                    value={formValuesCreateRoom.guests}
+                    onChange={handleInputChangeCreateRoom}
                   >
                     <option value="" disabled hidden>
                       Select an option
@@ -182,10 +95,11 @@ const FormRoomEdit = () => {
                   Normal price:
                   <input
                     placeholder="Normal price"
-                    type="number"
+                    type="text"
                     id="normalPrice"
                     name="normalPrice"
-                    onChange={handleInputChange}
+                    value={formValuesCreateRoom.normalPrice}
+                    onChange={handleInputChangeCreateRoom}
                   />
                 </label>
               </div>
@@ -194,10 +108,11 @@ const FormRoomEdit = () => {
                   Sale Price:
                   <input
                     placeholder="Sale Price"
-                    type="number"
+                    type="text"
                     id="salePrice"
                     name="salePrice"
-                    onChange={handleInputChange}
+                    value={formValuesCreateRoom.salePrice}
+                    onChange={handleInputChangeCreateRoom}
                   />
                 </label>
               </div>
@@ -210,13 +125,14 @@ const FormRoomEdit = () => {
                     {availableAmenities.map((amenity) => {
                       return (
                         <div key={amenity}>
-                          <label>
+                          <label htmlFor="amenities">
                             <input
+                              id="amenities"
                               type="checkbox"
                               name="amenities"
                               value={amenity}
-                              checked={formValues.amenities.includes(amenity)}
-                              onChange={handleInputChange}
+                              checked={formValuesCreateRoom.amenities.includes(amenity)}
+                              onChange={handleInputChangeCreateRoom}
                             />
                             &nbsp;
                             {amenity}
@@ -234,15 +150,16 @@ const FormRoomEdit = () => {
                     {availableInclusions.map((inclusion) => {
                       return (
                         <div key={inclusion}>
-                          <label>
+                          <label htmlFor="inclusions">
                             <input
+                              id="inclusions"
                               type="checkbox"
                               name="inclusions"
                               value={inclusion}
-                              checked={formValues.inclusions.includes(
-                                inclusion
+                              checked={formValuesCreateRoom.inclusions.includes(
+                                inclusion,
                               )}
-                              onChange={handleInputChange}
+                              onChange={handleInputChangeCreateRoom}
                             />
                             &nbsp;
                             {inclusion}

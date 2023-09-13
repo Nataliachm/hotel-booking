@@ -26,7 +26,7 @@ export const CardRooms = (props) => {
         </div>
         <div className="container-rooms__information-container">
           <div className="container-rooms__amenities">
-            <h4 className="container-rooms__title-amenities">Amenities</h4>
+            {/* <h4 className="container-rooms__title-amenities">Amenities</h4>
             {arrayAmenities.map((amenitie) => {
               return (
                 <div className="container-rooms__amenitie" key={amenitie}>
@@ -38,11 +38,11 @@ export const CardRooms = (props) => {
                   <p>{amenitie}</p>
                 </div>
               );
-            })}
+            })} */}
 
           </div>
           <div className="container-rooms__inclusions">
-            <h4 className="container-rooms__title-inclusions">Inclusion</h4>
+            {/* <h4 className="container-rooms__title-inclusions">Inclusion</h4>
             {arrayInclusions.map((inclusion) => {
               return (
 
@@ -51,7 +51,7 @@ export const CardRooms = (props) => {
                   <p>{inclusion}</p>
                 </div>
               );
-            })}
+            })} */}
 
           </div>
         </div>

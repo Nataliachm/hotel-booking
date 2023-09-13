@@ -14,6 +14,9 @@ import {
   deleteHotelAdminPageById,
   editUserProfile,
   editUserImage,
+  createRoomsAdmin,
+  getAllRoomsAdminPage,
+  getRoomsByHotelId,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -45,8 +48,8 @@ export const AppContextProvider = ({ children }) => {
     phone: '',
     description: '',
     stars: '',
-    normalPrice: '',
-    salePrice: '',
+    normalPrice: 0,
+    salePrice: 0,
     label1: '',
     label2: '',
     status: '',
@@ -54,6 +57,17 @@ export const AppContextProvider = ({ children }) => {
 
   const [imageUser, setImageUser] = useState('https://icon-library.com/images/persona-icon/persona-icon-25.jpg');
   const fileInputRef = useRef(null);
+  const [imageCreateRoom, setImageCreateRoom] = useState('');
+  const [formValuesCreateRoom, setFormValuesCreateRoom] = useState({
+    name: '',
+    guests: '',
+    normalPrice: 0,
+    salePrice: 0,
+    amenities: [],
+    inclusions: [],
+  });
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [showModalForRooms, setShowModalForRooms] = useState(false);
 
   const handleHotel = async () => {
     const allHotels = await getAllHotels();
@@ -135,6 +149,20 @@ export const AppContextProvider = ({ children }) => {
     setSelectedHotelForModal(null);
     setShowModal(false);
   };
+  const openModalForRooms = (room) => {
+    setSelectedRoom(room);
+    setShowModalForRooms(true);
+  };
+
+  const closeModalForRooms = () => {
+    setSelectedRoom(null);
+    setShowModalForRooms(false);
+  };
+
+  const handleConfirmForRooms = () => {
+    closeModalForRooms();
+  };
+
   const uploadImage = async (image) => {
     const data = new FormData();
     data.append('file', image);
@@ -275,6 +303,139 @@ export const AppContextProvider = ({ children }) => {
   //   }
   //   console.log('Wrong credentials :(');
   // };
+  const handleInputChangeCreateRoom = (event) => {
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = event.target;
+
+    if (type === 'checkbox') {
+      if (name === 'amenities') {
+        if (checked) {
+          setFormValuesCreateRoom((prevValues) => {
+            return {
+              ...prevValues,
+              amenities: [...prevValues.amenities, value],
+            };
+          });
+        } else {
+          setFormValuesCreateRoom((prevValues) => {
+            return {
+              ...prevValues,
+              amenities: prevValues.amenities.filter((item) => {
+                return item !== value;
+              }),
+            };
+          });
+        }
+      } else if (name === 'inclusions') {
+        if (checked) {
+          setFormValuesCreateRoom((prevValues) => {
+            return {
+              ...prevValues,
+              inclusions: [...prevValues.inclusions, value],
+            };
+          });
+        } else {
+          setFormValuesCreateRoom((prevValues) => {
+            return {
+              ...prevValues,
+              inclusions: prevValues.inclusions.filter((item) => {
+                return item !== value;
+              }),
+            };
+          });
+        }
+      }
+    } else {
+      setFormValuesCreateRoom((prevValues) => {
+        return {
+          ...prevValues,
+          [name]: value,
+        };
+      });
+    }
+  };
+  const uploadImageCreateRoom = async (event) => {
+    const { files } = event.target;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'hotelImages');
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/drnclewqh/image/upload',
+      {
+        method: 'POST',
+        body: data,
+      },
+    );
+    const file = await res.json();
+    setImageCreateRoom(file.secure_url);
+    console.log(file.secure_url);
+  };
+
+  // // const handleSubmitCreateRoom = (event) => {
+  // //   event.preventDefault();
+  // //   const dataToSend = {
+  // //     ...formValuesCreateRoom,
+  // //     imageCreateRoom,
+  // //   };
+
+  //   setImageCreateRoom('');
+  //   setFormValuesCreateRoom({
+  //     name: '',
+  //     guests: '',
+  //     normalPrice: 0,
+  //     salePrice: 0,
+  //     amenities: [],
+  //     inclusions: [],
+  //   });
+  //   console.log('Data to send:', dataToSend);
+  // };
+
+  const handleSubmitCreateRoom = async (event) => {
+    event.preventDefault();
+    const newRoom = {
+      ...formValuesCreateRoom,
+      imageCreateRoom,
+    };
+    try {
+      const response = await createRoomsAdmin(newRoom);
+      setFormValuesCreateRoom({
+        name: '',
+        guests: '',
+        normalPrice: 0,
+        salePrice: 0,
+        amenities: [],
+        inclusions: [],
+      });
+      setImageCreateRoom('');
+      console.log('hotelcreado:', response);
+      // return respose;
+    } catch (error) {
+      return error;
+    }
+  };
+  const getAllRoomsAdminPageData = async () => {
+    try {
+      const response = await getAllRoomsAdminPage();
+      return response;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getRoomsByIdHotel = async () => {
+    try {
+      const rooms = await getRoomsByHotelId();
+      console.log('rooms by hotel: ', rooms);
+      return rooms;
+    } catch (error) {
+      console.error('error rooms: ', error);
+      return error;
+    }
+  };
 
   return (
     <AppContext.Provider
@@ -321,6 +482,22 @@ export const AppContextProvider = ({ children }) => {
         fileInputRef,
         handleUserImageChange,
         imageIsLoading,
+        imageCreateRoom,
+        setImageCreateRoom,
+        formValuesCreateRoom,
+        setFormValuesCreateRoom,
+        handleInputChangeCreateRoom,
+        uploadImageCreateRoom,
+        handleSubmitCreateRoom,
+        selectedRoom,
+        setSelectedRoom,
+        showModalForRooms,
+        setShowModalForRooms,
+        openModalForRooms,
+        closeModalForRooms,
+        handleConfirmForRooms,
+        getAllRoomsAdminPageData,
+        getRoomsByIdHotel,
       }}
     >
       {isLoading ? <Loading /> : children }
