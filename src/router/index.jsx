@@ -59,7 +59,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/payment/:roomId',
-        element: <Payment />,
+        element: (
+          <PrivateRoute redirectRoute="/login">
+            <Payment />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/hotel/:hotelId',
@@ -126,7 +130,8 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: '/login-password/:email',
+        // path: '/login-password/:email',
+        path: '/login-password',
         element: <Password />,
       },
       {

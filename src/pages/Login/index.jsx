@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-extraneous-dependencies */
 
 import { useContext } from 'react';
@@ -18,7 +19,6 @@ const Login = () => {
   const store = useContext(AppContext);
 
   const { email, handleEmail, setEmail } = store;
-
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
 
   const handleGoogleLogin = () => {

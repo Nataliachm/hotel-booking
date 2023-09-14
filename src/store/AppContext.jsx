@@ -7,13 +7,14 @@ import {
   verifyUserEmail,
   registerUser,
   getUserByEmail,
+  editUserProfile,
+  editUserImage,
+  authenticationUser,
   createHotelsAdmin,
   getAllHotelsAdminPage,
   getHotelAdminPageById,
   updateHotelAdminPageById,
   deleteHotelAdminPageById,
-  editUserProfile,
-  editUserImage,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -29,6 +30,7 @@ export const AppContextProvider = ({ children }) => {
   const [userData, setUserData] = useState([{}]);
   const [userEditId, setUserEditId] = useState(null);
   const [formUserData, setFormUserData] = useState({});
+  const [validCredentials, setValidCredentials] = useState(false);
   // mainHotelConfig
   const [selectedHotelForModal, setSelectedHotelForModal] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -67,7 +69,8 @@ export const AppContextProvider = ({ children }) => {
     const found = await verifyUserEmail(email);
     setIsLoading(false);
     if (found.data.message === 'User has been found successfully') {
-      return navigate(`/login-Password/${email}`);
+      localStorage.setItem('email', email);
+      return navigate('/login-Password');
     }
     return navigate('/login-register-password');
   };
@@ -127,6 +130,7 @@ export const AppContextProvider = ({ children }) => {
       return error;
     }
   };
+
   const openModal = (hotel) => {
     setSelectedHotelForModal(hotel);
     setShowModal(true);
@@ -270,14 +274,44 @@ export const AppContextProvider = ({ children }) => {
     }
   };
 
-  // const handleSignIn = async () => {
-  //   const found = await authenticationUser(email, password);
-  //   if (found) {
-  //     console.log('Signed in!');
-  //     return;
-  //   }
-  //   console.log('Wrong credentials :(');
-  // };
+  const handleSignIn = async () => {
+    try {
+      setIsLoading(true);
+      const found = await authenticationUser(email, password);
+
+      if (found.status === 200) {
+        // Acción si la autenticación es exitosa (status 200)
+        const { user, token } = found.data;
+        localStorage.setItem('userData', JSON.stringify(user));
+        localStorage.setItem('token', JSON.stringify(token));
+        navigate('/');
+      }
+      if (found === false) {
+        setValidCredentials(true);
+      } else {
+        // Manejar otros posibles códigos de estado
+        return found.status;
+      }
+    } catch (error) {
+      return error;
+    }
+    setIsLoading(false);
+  };
+
+  const handleSignOut = async () => {
+    if (JSON.parse(localStorage.getItem('userData'))) {
+      localStorage.removeItem('userData');
+    }
+
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+    }
+
+    if (localStorage.getItem('email')) {
+      localStorage.removeItem('email');
+    }
+    navigate('/login');
+  };
 
   return (
     <AppContext.Provider
@@ -324,6 +358,10 @@ export const AppContextProvider = ({ children }) => {
         fileInputRef,
         handleUserImageChange,
         imageIsLoading,
+        handleSignIn,
+        validCredentials,
+        setValidCredentials,
+        handleSignOut,
       }}
     >
       {isLoading ? <Loading /> : children}
