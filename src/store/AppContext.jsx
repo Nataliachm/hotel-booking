@@ -10,6 +10,7 @@ import {
   createHotelsAdmin,
   getAllHotelsAdminPage,
   getHotelAdminPageById,
+  getRoomAdminPageById,
   updateHotelAdminPageById,
   deleteHotelAdminPageById,
   editUserProfile,
@@ -18,6 +19,7 @@ import {
   getAllRoomsAdminPage,
   getRoomsByHotelId,
   updateRoomAdminPageById,
+  deleteRoomAdminPageById,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -232,6 +234,14 @@ export const AppContextProvider = ({ children }) => {
       return error;
     }
   };
+  const getRoomAdminPageDataById = async (id) => {
+    try {
+      const response = await getRoomAdminPageById(id);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  };
   const getRoomsByIdHotel = async (id) => {
     try {
       const rooms = await getRoomsByHotelId(id);
@@ -245,6 +255,14 @@ export const AppContextProvider = ({ children }) => {
   const deleteHotelAdminPageByIdFunction = async (id) => {
     try {
       const response = await deleteHotelAdminPageById(id);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  };
+  const deleteRoomAdminPageByIdFunction = async (id) => {
+    try {
+      const response = await deleteRoomAdminPageById(id);
       return response;
     } catch (error) {
       return error;
@@ -507,6 +525,8 @@ export const AppContextProvider = ({ children }) => {
         handleConfirmForRooms,
         getAllRoomsAdminPageData,
         getRoomsByIdHotel,
+        getRoomAdminPageDataById,
+        deleteRoomAdminPageByIdFunction,
       }}
     >
       {isLoading ? <Loading /> : children }

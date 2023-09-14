@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AppContext } from '../../store/AppContext';
 import './FormRoomEdit.scss';
@@ -7,12 +7,14 @@ const FormRoomEdit = () => {
   const store = useContext(AppContext);
   const {
     imageCreateRoom,
-    // setImageCreateRoom,
+    setImageCreateRoom,
     formValuesCreateRoom,
-    // setFormValuesCreateRoom,
+    setFormValuesCreateRoom,
     handleInputChangeCreateRoom,
     uploadImageCreateRoom,
     handleSubmitCreateRoom,
+    // getRoomsByIdHotel,
+    getRoomAdminPageDataById,
   } = store;
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -33,6 +35,31 @@ const FormRoomEdit = () => {
     'Non Refundable',
     'Dinner & Lunch',
   ];
+  // const [roomData, setRoomData] = useState({});
+  useEffect(() => {
+    const fetchRoomData = async () => {
+      console.log('este es el id para editar', roomId);
+      if (roomId) {
+        try {
+          const room = await getRoomAdminPageDataById(roomId);
+          console.log('Valor de room_name:', room.room_name);
+          setFormValuesCreateRoom({
+            name: room.room_name,
+            guests: room.max_guests,
+            normalPrice: room.previous_price,
+            salePrice: room.new_price,
+            amenities: [],
+            inclusions: [],
+            images: imageCreateRoom,
+          });
+          setImageCreateRoom(room.room_img);
+        } catch (error) {
+          console.error('error fetch room: ', error);
+        }
+      }
+    };
+    fetchRoomData();
+  }, [roomId]);
   return (
     <div className="formRoom">
       <div className="tittleForm">
@@ -64,6 +91,7 @@ const FormRoomEdit = () => {
           <form onSubmit={(e) => { return handleSubmitCreateRoom(hotelId, roomId, e); }}>
             <div className="inputText">
               <div>
+                {console.log('Valor del nombre en formValuesCreateRoom:', formValuesCreateRoom)}
                 <label htmlFor="name">
                   Name:
                   <input

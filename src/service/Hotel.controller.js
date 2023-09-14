@@ -195,3 +195,20 @@ export const updateRoomAdminPageById = async (id, roomData) => {
     return error;
   }
 };
+export const getRoomAdminPageById = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/room/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteRoomAdminPageById = async (id) => {
+  try {
+    const response = await axios.delete(`http://localhost:8080/api/room/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
