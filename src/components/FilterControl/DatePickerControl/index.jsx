@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef } from 'react';
 import ReactDatePicker from 'react-datepicker';
 
 const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => {
@@ -19,14 +19,12 @@ ExampleCustomInput.defaultProps = {
   onClick: () => {},
 };
 
-export default function DatePickerControl() {
-  const [startDate, setStartDate] = useState(new Date());
-
+export default function DatePickerControl({ date, setDate }) {
   return (
     <ReactDatePicker
-      selected={startDate}
-      onChange={(date) => {
-        return setStartDate(date);
+      selected={date}
+      onChange={(d) => {
+        return setDate(d);
       }}
       customInput={<ExampleCustomInput />}
     />

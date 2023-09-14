@@ -25,7 +25,6 @@ const ViewRooms = () => {
   }, [hotelId]);
 
   const { imgs, rooms, ...rest } = hotelInfo;
-  console.log(rooms);
   const images = (imgs || []).map((element, index) => {
     return { id: index, url: element };
   });
@@ -40,7 +39,7 @@ const ViewRooms = () => {
           {rest.length !== 0 ? (
             <main className="principal-container-main-views">
               <HeaderMainRooms hotelInfo={rest} />
-              <MainRooms rooms={rooms} />
+              <MainRooms rooms={rooms} hotelInfo={rest} />
             </main>
           ) : null}
         </>

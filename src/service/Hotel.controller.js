@@ -10,11 +10,10 @@ const axiosInstance = axios.create({
   // },
 });
 
-export const getAllHotels = async () => {
+export const getAllHotels = async (filters) => {
   try {
-    const response = await axiosInstance.get('/api/hotel');
-    const productData = await response.json();
-    return await productData.data;
+    const response = await axiosInstance.get(`/api/hotel${filters}`);
+    return response.data;
   } catch (error) {
     return error;
   }
@@ -23,6 +22,24 @@ export const getAllHotels = async () => {
 export const getHotel = async (hotelId) => {
   try {
     const response = await axiosInstance(`/api/hotel/${hotelId}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getRoom = async (roomId) => {
+  try {
+    const response = await axiosInstance.get(`/api/room/${roomId}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getBookedRoom = async (bookedRoomId) => {
+  try {
+    const response = await axiosInstance(`/api/booked-room/${bookedRoomId}`);
     return response.data;
   } catch (error) {
     return error;
@@ -189,4 +206,12 @@ export const deleteHotelAdminPageById = async (id) => {
   } catch (error) {
     return error;
   }
+};
+
+export const createBookedRoom = async (data) => {
+  const response = await axios.post(
+    'http://localhost:8080/api/booked-room',
+    data
+  );
+  return response.data;
 };

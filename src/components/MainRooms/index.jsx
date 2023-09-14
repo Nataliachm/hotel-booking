@@ -2,10 +2,10 @@
 import './MainRooms.scss';
 import React, { useState } from 'react';
 import { CardRooms } from '../CardRooms';
-// import rooms from './infoRooms';
 import FormRooms from '../FormRooms';
+import useQuery from '../../hooks/useQuery';
 
-const MainRooms = ({ rooms }) => {
+const MainRooms = ({ rooms, hotelInfo }) => {
   if (typeof rooms !== 'object' || rooms === null) {
     return <div>No hay información de habitaciones disponible.</div>;
   }
@@ -14,6 +14,8 @@ const MainRooms = ({ rooms }) => {
   const handleSelectedItem = (item) => {
     setSelected(item);
   };
+
+  const query = useQuery();
 
   return (
     <main className="main-rooms-container">
@@ -31,15 +33,29 @@ const MainRooms = ({ rooms }) => {
         <div className="main-rooms__content-container">
           <div className="container-rooms">
             {rooms.map((room) => {
+              const checkInDate = new Date(hotelInfo.check_in);
+              const checkOutDate = new Date(hotelInfo.check_out);
+              const checkIn = `${checkInDate.getHours()}:${checkInDate.getMinutes()}`;
+              const checkOut = `${checkOutDate.getHours()}:${checkOutDate.getMinutes()}`;
               return (
                 <CardRooms
                   key={room.id}
+                  roomId={room.id}
                   roomName={room.room_name}
                   urlImage={room.room_img}
                   arrayAmenities={room.Amenity_room}
                   arrayInclusions={room.Inclusion_room}
                   previousPrice={room.previous_price}
                   newPrice={room.new_price}
+                  city={hotelInfo.City.name_city}
+                  country={hotelInfo.City.country.country_name}
+                  checkIn={checkIn}
+                  checkOut={checkOut}
+                  hotelName={hotelInfo.hotel_name}
+                  guests={room.max_guests}
+                  dateIn={query.get('dateIn')}
+                  dateOut={query.get('dateOut')}
+                  profile="room"
                 />
               );
             })}
@@ -47,7 +63,7 @@ const MainRooms = ({ rooms }) => {
         </div>
       </div>
       <section className="main-rooms__calendar-container">
-        <FormRooms />
+        <FormRooms hotelInfo={hotelInfo} />
       </section>
     </main>
   );
