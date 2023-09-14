@@ -16,7 +16,7 @@ const MainHotelConfig = () => {
     handleConfirm,
     getAllHotelsAdminPageData,
     selectedHotelId,
-    handleSelectHotel,
+    // handleSelectHotel,
     getRoomsByIdHotel,
   } = store;
   const [hotels, setHotels] = useState([]);

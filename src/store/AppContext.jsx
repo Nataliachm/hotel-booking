@@ -30,6 +30,7 @@ export const AppContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [imageIsLoading, setImageIsLoading] = useState(false);
   const [hotels, setHotels] = useState([]);
+  const [roomss, setRoomss] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userData, setUserData] = useState([{}]);
@@ -162,8 +163,22 @@ export const AppContextProvider = ({ children }) => {
     setShowModalForRooms(false);
   };
 
-  const handleConfirmForRooms = () => {
-    closeModalForRooms();
+  const handleConfirmForRooms = async () => {
+    try {
+      if (selectedRoom) {
+        const roomId = selectedRoom.id;
+        const response = await deleteRoomAdminPageById(roomId);
+        closeModalForRooms();
+        setRoomss((prevRooms) => {
+          return prevRooms.map(
+            (room) => { return (room.id === roomId ? { ...room, isDeleted: true } : room); },
+          );
+        });
+        return response;
+      }
+    } catch (error) {
+      return error;
+    }
   };
 
   const uploadImage = async (image) => {
@@ -245,10 +260,8 @@ export const AppContextProvider = ({ children }) => {
   const getRoomsByIdHotel = async (id) => {
     try {
       const rooms = await getRoomsByHotelId(id);
-      console.log('rooms by hotel: ', rooms);
       return rooms;
     } catch (error) {
-      console.error('error rooms: ', error);
       return error;
     }
   };
@@ -323,15 +336,6 @@ export const AppContextProvider = ({ children }) => {
       setImageUser(file.secure_url);
     }
   };
-
-  // const handleSignIn = async () => {
-  //   const found = await authenticationUser(email, password);
-  //   if (found) {
-  //     console.log('Signed in!');
-  //     return;
-  //   }
-  //   console.log('Wrong credentials :(');
-  // };
   const handleInputChangeCreateRoom = (event) => {
     const {
       name,
@@ -401,7 +405,6 @@ export const AppContextProvider = ({ children }) => {
     );
     const file = await res.json();
     setImageCreateRoom(file.secure_url);
-    console.log(file.secure_url);
   };
 
   // // const handleSubmitCreateRoom = (event) => {
@@ -449,10 +452,8 @@ export const AppContextProvider = ({ children }) => {
         inclusions: [],
       });
       setImageCreateRoom('');
-      console.log('hotelcreado:', response);
-      // return respose;
+      return response;
     } catch (error) {
-      console.error('error al crear/editar el hotel: ', error);
       return error;
     }
   };
@@ -469,6 +470,7 @@ export const AppContextProvider = ({ children }) => {
       value={{
         handleHotel,
         hotels,
+        roomss,
         handleEmail,
         email,
         setEmail,

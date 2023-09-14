@@ -23,6 +23,7 @@ const AdminRoomEdit = () => {
     getRoomsByIdHotel,
   } = store;
   const [roomsList, setRoomsList] = useState([]);
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -37,7 +38,23 @@ const AdminRoomEdit = () => {
     };
     fetchRooms();
   }, [id]);
-
+  // const handleDeleteRoom = (room) => {
+  //   openModalForRooms(room);
+  // };
+  const handleConfirmDelete = async () => {
+    try {
+      await handleConfirmForRooms(selectedRoom);
+      setDeleteConfirmed(true);
+      closeModalForRooms();
+    } catch (error) {
+      console.error('error al confirmas la eliminacion: ', error);
+    }
+  };
+  useEffect(() => {
+    if (deleteConfirmed) {
+      window.location.reload();
+    }
+  }, [deleteConfirmed]);
   return (
     <div className="room-admin-container">
       <div>
@@ -62,10 +79,10 @@ const AdminRoomEdit = () => {
               <div className="room-admin-container__room" key={room.id} id={room.id}>
                 {showModalForRooms && selectedRoom && (
                 <ConfirmationModal
-                  imageSrc={selectedRoom.img}
-                  onConfirm={handleConfirmForRooms}
+                  imageSrc={selectedRoom.room_img}
+                  onConfirm={handleConfirmDelete}
                   onCancel={closeModalForRooms}
-                  hotelName={selectedRoom.roomName}
+                  hotelName={selectedRoom.room_name}
                   nameDelete="this room"
                 />
                 )}
