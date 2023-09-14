@@ -17,7 +17,7 @@ import {
   createRoomsAdmin,
   getAllRoomsAdminPage,
   getRoomsByHotelId,
-  // updateRoomAdminPageById,
+  updateRoomAdminPageById,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -405,14 +405,23 @@ export const AppContextProvider = ({ children }) => {
   //   console.log('Data to send:', dataToSend);
   // };
 
-  const handleSubmitCreateRoom = async (hotelId, event) => {
+  const handleSubmitCreateRoom = async (hotelId, roomId, event) => {
     event.preventDefault();
     const newRoom = {
       ...formValuesCreateRoom,
       imageCreateRoom,
     };
     try {
-      const response = await createRoomsAdmin(hotelId, newRoom);
+      let response;
+      // const response = await createRoomsAdmin(hotelId, newRoom);
+      if (roomId) {
+        response = await updateRoomAdminPageById(roomId, newRoom);
+        navigate('/hotel-config');
+      } else {
+        response = await createRoomsAdmin(hotelId, newRoom);
+        navigate(`/admin-room-edit?id=${hotelId}`);
+      }
+
       setFormValuesCreateRoom({
         name: '',
         guests: '',
@@ -425,6 +434,7 @@ export const AppContextProvider = ({ children }) => {
       console.log('hotelcreado:', response);
       // return respose;
     } catch (error) {
+      console.error('error al crear/editar el hotel: ', error);
       return error;
     }
   };

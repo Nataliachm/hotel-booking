@@ -71,6 +71,7 @@ const AdminRoomEdit = () => {
                 )}
                 <CardRooms
                   key={room.id}
+                  roomId={room.id}
                   roomName={room.room_name}
                   urlImage={room.room_img}
                   // arrayAmenities={room.amenities}

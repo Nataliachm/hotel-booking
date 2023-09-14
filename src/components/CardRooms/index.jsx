@@ -11,11 +11,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export const CardRooms = (props) => {
   const {
     roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice, profile,
-    country, city, hotelName, guests, checkIn, checkOut, dateIn, dateOut, onCustomButtonClick,
+    country, city, hotelName, guests, checkIn, checkOut, dateIn, dateOut,
+    onCustomButtonClick,
+    roomId,
   } = props;
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const roomId = queryParams.get('id');
+  // const location = useLocation();
+  // const queryParams = new URLSearchParams(location.search);
+  // const roomId = queryParams.get('id');
   const navigate = useNavigate();
 
   return (

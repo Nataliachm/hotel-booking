@@ -17,6 +17,8 @@ const FormRoomEdit = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const hotelId = queryParams.get('hotelId');
+  const roomId = queryParams.get('roomId');
+  console.log('id del room', roomId);
   const availableAmenities = [
     'King/Twin',
     'Pool View',
@@ -59,7 +61,7 @@ const FormRoomEdit = () => {
           )}
         </div>
         <div className="formRoomContainer__text">
-          <form onSubmit={(e) => { return handleSubmitCreateRoom(hotelId, e); }}>
+          <form onSubmit={(e) => { return handleSubmitCreateRoom(hotelId, roomId, e); }}>
             <div className="inputText">
               <div>
                 <label htmlFor="name">
