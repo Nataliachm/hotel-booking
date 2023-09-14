@@ -11,9 +11,12 @@ import { useNavigate } from 'react-router-dom';
 import FormInput from '../FormInput';
 import FormButton from '../FormButton';
 import Modal from '../Modal';
-import { pay as apiPay } from '../../service/Hotel.controller';
+import {
+  pay as apiPay,
+  createBookedRoom,
+} from '../../service/Hotel.controller';
 
-const PaymentCreditCard = () => {
+const PaymentCreditCard = ({ bookRoom }) => {
   const [updateModal, setUpdateModal] = useState({ show: false, msg: '' });
   const stripe = useStripe();
   const elements = useElements();
@@ -47,8 +50,16 @@ const PaymentCreditCard = () => {
 
   const pay = async (paymentMethod) => {
     try {
+      const data = {
+        guests: bookRoom.guests,
+        check_in: bookRoom.check_in,
+        check_out: bookRoom.check_out,
+        userId: bookRoom.userId,
+        roomId: bookRoom.roomId,
+      };
       await apiPay(paymentMethod);
-      navigate('/success-payment');
+      const response = await createBookedRoom(data);
+      navigate(`/success-payment/${response?.createdBookedRoom.id}`);
     } catch (error) {
       setUpdateModal({ show: true, msg: error?.response?.data?.message });
     }

@@ -1,108 +1,103 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './HeaderViewRooms.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { faCaretRight, faXmark } from '@fortawesome/free-solid-svg-icons';
 
-export const HeaderViewRooms = () => {
-  const arrayImages = [
-    {
-      id: 1,
-      url: 'https://themes.pixelstrap.com/rica/assets/images/single-hotel/slider/10.jpg',
-    },
-    {
-      id: 2,
-      url: 'https://themes.pixelstrap.com/rica/assets/images/single-hotel/slider/11.jpg',
-    },
-    {
-      id: 3,
-      url: 'https://themes.pixelstrap.com/rica/assets/images/single-hotel/slider/7.jpg',
-    },
-    {
-      id: 4,
-      url: 'https://themes.pixelstrap.com/rica/assets/images/single-hotel/slider/6.jpg',
-    },
-    {
-      id: 5,
-      url: 'https://themes.pixelstrap.com/rica/assets/images/single-hotel/slider/8.jpg',
-    },
-  ];
-
-  const [image, setImage] = useState(arrayImages[0]);
+export const HeaderViewRooms = ({ images }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [indexImage, setIndexImage] = useState();
   const [isVisibleRightArrow, setIsVisibleRightArrow] = useState(true);
   const [isVisibleLeftArrow, setIsVisibleLeftArrow] = useState(true);
-
-  const arrayImageModified = arrayImages.slice(1);
-
-  const handleClickImage = (id) => {
-    setIndexImage(id - 1);
-    setImage(arrayImages[id - 1]);
-    setIsVisible(!isVisible);
-    if (id - 1 === 0) {
+  useEffect(() => {
+    if (indexImage === 0) {
       setIsVisibleLeftArrow(false);
-    } else if (id - 1 === 4) {
+      setIsVisibleRightArrow(true);
+    } else if (indexImage === images.length - 1) {
       setIsVisibleRightArrow(false);
+      setIsVisibleLeftArrow(true);
+    } else {
+      setIsVisibleRightArrow(true);
+      setIsVisibleLeftArrow(true);
     }
+  }, [indexImage]);
+
+  const arrayImageModified = images.slice(1);
+
+  const handleClickImage = (index) => {
+    setIndexImage(index);
+    setIsVisible(!isVisible);
   };
 
   const handleClickRightArrow = () => {
-    const rightIndex = indexImage + 1;
-    setIndexImage(rightIndex);
-    setImage(arrayImages[rightIndex]);
-
-    if (!isVisibleLeftArrow) {
-      setIsVisibleLeftArrow(true);
-    } else if (rightIndex === 4) {
-      setIsVisibleRightArrow(false);
-    }
+    setIndexImage((prevIndex) => {
+      return prevIndex + 1;
+    });
   };
 
   const handleClickLeftArrow = () => {
-    const leftIndex = indexImage - 1;
-    setIndexImage(leftIndex);
-    setImage(arrayImages[leftIndex]);
-    if (!isVisibleRightArrow) {
-      setIsVisibleRightArrow(true);
-    } else if (leftIndex === 0) {
-      setIsVisibleLeftArrow(false);
-    }
+    setIndexImage((prevIndex) => {
+      return prevIndex - 1;
+    });
   };
 
   return (
     <>
       <div className="header-view-rooms">
         <div className="header-view-rooms__principal-image">
-          <img src={arrayImages[0].url} alt="view" key={arrayImages[0].id} onClick={() => { return handleClickImage(arrayImages[0].id); }} />
+          <button
+            type="button"
+            onClick={() => {
+              return handleClickImage(0);
+            }}
+          >
+            <img src={images[0].url} alt="view " key={images[0].id} />
+          </button>
         </div>
         <div className="header-view-secondary-image">
-          {
-                arrayImageModified.map((element) => {
-                  return (
-                    <img src={element.url} alt="view" key={element.id} id={element.id} onClick={() => { return handleClickImage(element.id); }} />
-                  );
-                })
-            }
+          {arrayImageModified.map((element, index) => {
+            return (
+              <button
+                type="button"
+                onClick={() => {
+                  return handleClickImage(index);
+                }}
+                key={element.id}
+              >
+                <img src={element.url} alt="view" id={element.id} />
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {
-        isVisible
-      && (
-
+      {isVisible && (
         <div className="header-carrousel">
           {/* <FontAwesomeIcon icon={faXmark} className="xmark" /> */}
-          {isVisibleLeftArrow && <FontAwesomeIcon icon={faCaretRight} rotation={180} className="header-carrousel__leftIcon" onClick={handleClickLeftArrow} />}
+          {isVisibleLeftArrow && (
+            <FontAwesomeIcon
+              icon={faCaretRight}
+              rotation={180}
+              className="header-carrousel__leftIcon"
+              onClick={handleClickLeftArrow}
+            />
+          )}
           <div className="header-carrousel__image">
-            <FontAwesomeIcon icon={faXmark} className="header-carrousel__xmark" onClick={handleClickImage} />
-            <img src={image.url} alt="hotel view" />
+            <FontAwesomeIcon
+              icon={faXmark}
+              className="header-carrousel__xmark"
+              onClick={handleClickImage}
+            />
+            <img src={images[indexImage].url} alt="hotel view" />
           </div>
-          {isVisibleRightArrow && <FontAwesomeIcon icon={faCaretRight} className="header-carrousel__rightIcon" onClick={handleClickRightArrow} />}
+          {isVisibleRightArrow && (
+            <FontAwesomeIcon
+              icon={faCaretRight}
+              className="header-carrousel__rightIcon"
+              onClick={handleClickRightArrow}
+            />
+          )}
         </div>
-      )
-    }
+      )}
     </>
   );
 };

@@ -3,7 +3,12 @@
 import { createContext, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  getAllHotels, verifyUserEmail, registerUser, getUserByEmail, editUserProfile, editUserImage,
+  getAllHotels,
+  verifyUserEmail,
+  registerUser,
+  getUserByEmail,
+  editUserProfile,
+  editUserImage,
   authenticationUser,
   createHotelsAdmin,
   getAllHotelsAdminPage,
@@ -49,7 +54,9 @@ export const AppContextProvider = ({ children }) => {
     status: '',
   });
 
-  const [imageUser, setImageUser] = useState('https://icon-library.com/images/persona-icon/persona-icon-25.jpg');
+  const [imageUser, setImageUser] = useState(
+    'https://icon-library.com/images/persona-icon/persona-icon-25.jpg'
+  );
   const fileInputRef = useRef(null);
 
   const handleHotel = async () => {
@@ -86,19 +93,15 @@ export const AppContextProvider = ({ children }) => {
   const handleUserEdit = (userName) => {
     setUserEditId(userName);
 
-    setFormUserData(
-      userData[0],
-    );
+    setFormUserData(userData[0]);
   };
 
   const handleInputUserChange = (e) => {
     const { name, value } = e.target;
-    setFormUserData(
-      {
-        ...formUserData,
-        [name]: value,
-      },
-    );
+    setFormUserData({
+      ...formUserData,
+      [name]: value,
+    });
   };
 
   const handleInfoUserSave = async () => {
@@ -114,7 +117,9 @@ export const AppContextProvider = ({ children }) => {
     try {
       const infoLocalUser = localStorage.getItem('userData');
       if (!infoLocalUser) {
-        const found = await getUserByEmail(email || localStorage.getItem('email'));
+        const found = await getUserByEmail(
+          email || localStorage.getItem('email')
+        );
         localStorage.setItem('userData', JSON.stringify(found.data.user));
         // JSON.parse(localStorage.getItem('userData'))
         setUserData([{ ...found.data.user }]);
@@ -143,7 +148,7 @@ export const AppContextProvider = ({ children }) => {
       {
         method: 'POST',
         body: data,
-      },
+      }
     );
     const file = await res.json();
     setImageHotelCloudinary(file.secure_url);
@@ -161,8 +166,9 @@ export const AppContextProvider = ({ children }) => {
       images: imageHotelCloudinary,
     };
     try {
-      const response = await
-      (id ? updateHotelAdminPageById(id, newHotel) : createHotelsAdmin(newHotel));
+      const response = await (id
+        ? updateHotelAdminPageById(id, newHotel)
+        : createHotelsAdmin(newHotel));
       navigate('/hotel-config');
       setFormDataCreateHotel({
         index: '',
@@ -218,9 +224,9 @@ export const AppContextProvider = ({ children }) => {
         const response = await deleteHotelAdminPageByIdFunction(hotelId);
         closeModal();
         setHotels((prevHotels) => {
-          return prevHotels.map(
-            (hotel) => { return (hotel.id === hotelId ? { ...hotel, isDeleted: true } : hotel); },
-          );
+          return prevHotels.map((hotel) => {
+            return hotel.id === hotelId ? { ...hotel, isDeleted: true } : hotel;
+          });
         });
         return response;
       }
@@ -250,14 +256,16 @@ export const AppContextProvider = ({ children }) => {
         {
           method: 'POST',
           body: data,
-        },
+        }
       );
       const file = await res.json();
       const token = localStorage.getItem('token');
       await editUserImage(token, file.secure_url);
       localStorage.removeItem('userData');
 
-      const found = await getUserByEmail(email || localStorage.getItem('email'));
+      const found = await getUserByEmail(
+        email || localStorage.getItem('email')
+      );
       localStorage.setItem('userData', JSON.stringify(found.data.user));
       setUserData([{ ...found.data.user }]);
       setImageIsLoading(false);
@@ -277,7 +285,8 @@ export const AppContextProvider = ({ children }) => {
         localStorage.setItem('userData', JSON.stringify(user));
         localStorage.setItem('token', JSON.stringify(token));
         navigate('/');
-      } if (found === false) {
+      }
+      if (found === false) {
         setValidCredentials(true);
       } else {
         // Manejar otros posibles códigos de estado
@@ -355,8 +364,7 @@ export const AppContextProvider = ({ children }) => {
         handleSignOut,
       }}
     >
-      {isLoading ? <Loading /> : children }
+      {isLoading ? <Loading /> : children}
     </AppContext.Provider>
-
   );
 };

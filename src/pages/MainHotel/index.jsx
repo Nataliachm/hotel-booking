@@ -1,42 +1,56 @@
-import { useContext, useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../../store/AppContext';
+import { useEffect, useState } from 'react';
 import './MainHotel.scss';
-// import { useNavigate } from 'react-router-dom';
-// import hotels from './hotels';
+import { useNavigate } from 'react-router-dom';
+import useQuery from '../../hooks/useQuery';
+import { getAllHotels } from '../../service/Hotel.controller';
 
 const MainHotel = () => {
-  const store = useContext(AppContext);
-  // const navigate = useNavigate();
-  const {
-    getAllHotelsAdminPageData,
-  } = store;
-  const [hotelsListUser, setHotelsListUser] = useState([]);
+  const navigate = useNavigate();
+  const query = useQuery();
+
+  const handleSelectHotel = (id) => {
+    navigate(`/hotel/${id}?${query.toString()}`);
+  };
+
+  const filters = query.toString();
+
+  const [hotels, setHotels] = useState([]);
   useEffect(() => {
     const fetchHotels = async () => {
-      const response = await getAllHotelsAdminPageData();
-
-      console.log(response);
-      setHotelsListUser(response);
+      const response = await getAllHotels(filters ? `/?${filters}` : '');
+      setHotels(response);
     };
     fetchHotels();
-  }, []);
+  }, [filters]);
+
   const ratingToStars = (rating) => {
     switch (rating) {
-      case 'one': return 1;
-      case 'two': return 2;
-      case 'three': return 3;
-      case 'four': return 4;
-      case 'five': return 5;
-      default: return 0;
+      case 'one':
+        return 1;
+      case 'two':
+        return 2;
+      case 'three':
+        return 3;
+      case 'four':
+        return 4;
+      case 'five':
+        return 5;
+      default:
+        return 0;
     }
   };
 
   return (
     <div className="MainHotel__container">
-      {hotelsListUser.map((hotel) => {
+      {hotels.map((hotel) => {
         return (
-          <div className="card" key={hotel.id}>
+          <div
+            onClick={() => {
+              return handleSelectHotel(hotel.id);
+            }}
+            className="card"
+            key={hotel.id}
+          >
             <div className="card__digital">
               <div className="card__digital--img">
                 {hotel.labels && (
@@ -68,17 +82,46 @@ const MainHotel = () => {
               </div>
               <div className="card__text--review">
                 <div className="star-icons">
-                  <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 1 ? 'fas filled' : 'far'}`} />
-                  <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 2 ? 'fas filled' : 'far'}`} />
-                  <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 3 ? 'fas filled' : 'far'}`} />
-                  <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 4 ? 'fas filled' : 'far'}`} />
-                  <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 5 ? 'fas filled' : 'far'}`} />
+                  <i
+                    className={` fa-star star-icon ${
+                      ratingToStars(hotel.hotel_rating) >= 1
+                        ? 'fas filled'
+                        : 'far'
+                    }`}
+                  />
+                  <i
+                    className={` fa-star star-icon ${
+                      ratingToStars(hotel.hotel_rating) >= 2
+                        ? 'fas filled'
+                        : 'far'
+                    }`}
+                  />
+                  <i
+                    className={` fa-star star-icon ${
+                      ratingToStars(hotel.hotel_rating) >= 3
+                        ? 'fas filled'
+                        : 'far'
+                    }`}
+                  />
+                  <i
+                    className={` fa-star star-icon ${
+                      ratingToStars(hotel.hotel_rating) >= 4
+                        ? 'fas filled'
+                        : 'far'
+                    }`}
+                  />
+                  <i
+                    className={` fa-star star-icon ${
+                      ratingToStars(hotel.hotel_rating) >= 5
+                        ? 'fas filled'
+                        : 'far'
+                    }`}
+                  />
                 </div>
                 <div>
                   <h6>
                     {`${hotel.hotel_rating} 
                         stars`}
-
                   </h6>
                 </div>
               </div>

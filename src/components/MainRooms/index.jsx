@@ -2,52 +2,68 @@
 import './MainRooms.scss';
 import React, { useState } from 'react';
 import { CardRooms } from '../CardRooms';
-import rooms from './infoRooms';
 import FormRooms from '../FormRooms';
+import useQuery from '../../hooks/useQuery';
 
-const MainRooms = () => {
+const MainRooms = ({ rooms, hotelInfo }) => {
+  if (typeof rooms !== 'object' || rooms === null) {
+    return <div>No hay información de habitaciones disponible.</div>;
+  }
   const [selected, setSelected] = useState('Rooms');
 
   const handleSelectedItem = (item) => {
     setSelected(item);
   };
 
+  const query = useQuery();
+
   return (
     <main className="main-rooms-container">
       <div className="main-rooms">
         <ul className="main-rooms__options">
-          <li className={selected === 'Rooms' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Rooms'); }}>Rooms</li>
-          <li className={selected === 'About' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('About'); }}>About</li>
-          <li className={selected === 'Facility' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Facility'); }}>Facility</li>
-          <li className={selected === 'Location' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Location'); }}>Location</li>
-          <li className={selected === 'Reviews' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Reviews'); }}>Reviews</li>
-          <li className={selected === 'Policies' ? 'selected-item' : 'no-selected'} onClick={() => { return handleSelectedItem('Policies'); }}>Policies</li>
+          <li
+            className={selected === 'Rooms' ? 'selected-item' : 'no-selected'}
+            onClick={() => {
+              return handleSelectedItem('Rooms');
+            }}
+          >
+            Rooms
+          </li>
         </ul>
         <div className="main-rooms__content-container">
           <div className="container-rooms">
             {rooms.map((room) => {
+              const checkInDate = new Date(hotelInfo.check_in);
+              const checkOutDate = new Date(hotelInfo.check_out);
+              const checkIn = `${checkInDate.getHours()}:${checkInDate.getMinutes()}`;
+              const checkOut = `${checkOutDate.getHours()}:${checkOutDate.getMinutes()}`;
               return (
-              // roomName, urlImage, arrayAmenities, arrayInclusions, previousPrice, newPrice,
-
                 <CardRooms
                   key={room.id}
-                  roomName={room.roomName}
-                  urlImage={room.img}
-                  arrayAmenities={room.amenities}
-                  arrayInclusions={room.inclusion}
-                  previousPrice={room.previousPrice}
-                  newPrice={room.newPrice}
+                  roomId={room.id}
+                  roomName={room.room_name}
+                  urlImage={room.room_img}
+                  arrayAmenities={room.Amenity_room}
+                  arrayInclusions={room.Inclusion_room}
+                  previousPrice={room.previous_price}
+                  newPrice={room.new_price}
+                  city={hotelInfo.City.name_city}
+                  country={hotelInfo.City.country.country_name}
+                  checkIn={checkIn}
+                  checkOut={checkOut}
+                  hotelName={hotelInfo.hotel_name}
+                  guests={room.max_guests}
+                  dateIn={query.get('dateIn')}
+                  dateOut={query.get('dateOut')}
                   profile="room"
-
                 />
               );
             })}
           </div>
-
         </div>
       </div>
       <section className="main-rooms__calendar-container">
-        <FormRooms />
+        <FormRooms hotelInfo={hotelInfo} />
       </section>
     </main>
   );
