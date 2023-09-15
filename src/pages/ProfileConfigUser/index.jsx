@@ -21,7 +21,7 @@ const ProfileConfigUser = () => {
 
   useEffect(() => {
     handleGetUser();
-  }, []);
+  }, [userData]);
 
   return (
     <div className="ProfileConfigUser__container">
