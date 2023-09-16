@@ -23,7 +23,7 @@ const PersonCard = (props) => {
                   onClick={() => { return fileInputRef.current.click(); }}
                 >
                   <img
-                    src={userData[0].user_img || 'https://icon-library.com/images/persona-icon/persona-icon-25.jpg'}
+                    src={userData[0]?.user_img || 'https://icon-library.com/images/persona-icon/persona-icon-25.jpg'}
                     alt="profileImg"
                     className="profile-img"
                   />
