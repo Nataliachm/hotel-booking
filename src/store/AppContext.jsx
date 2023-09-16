@@ -20,6 +20,8 @@ import {
   getRoomsByHotelId,
   updateRoomAdminPageById,
   deleteRoomAdminPageById,
+  getAllInclusionsRooms,
+  getAllAmenitiesRooms,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -406,26 +408,6 @@ export const AppContextProvider = ({ children }) => {
     const file = await res.json();
     setImageCreateRoom(file.secure_url);
   };
-
-  // // const handleSubmitCreateRoom = (event) => {
-  // //   event.preventDefault();
-  // //   const dataToSend = {
-  // //     ...formValuesCreateRoom,
-  // //     imageCreateRoom,
-  // //   };
-
-  //   setImageCreateRoom('');
-  //   setFormValuesCreateRoom({
-  //     name: '',
-  //     guests: '',
-  //     normalPrice: 0,
-  //     salePrice: 0,
-  //     amenities: [],
-  //     inclusions: [],
-  //   });
-  //   console.log('Data to send:', dataToSend);
-  // };
-
   const handleSubmitCreateRoom = async (hotelId, roomId, event) => {
     event.preventDefault();
     const newRoom = {
@@ -460,6 +442,22 @@ export const AppContextProvider = ({ children }) => {
   const getAllRoomsAdminPageData = async () => {
     try {
       const response = await getAllRoomsAdminPage();
+      return response;
+    } catch (error) {
+      return error;
+    }
+  };
+  const getAllInclusionsRoomPageData = async () => {
+    try {
+      const response = await getAllInclusionsRooms();
+      return response;
+    } catch (error) {
+      return error;
+    }
+  };
+  const getAllAmenitiesRoomPageData = async () => {
+    try {
+      const response = await getAllAmenitiesRooms();
       return response;
     } catch (error) {
       return error;
@@ -529,6 +527,8 @@ export const AppContextProvider = ({ children }) => {
         getRoomsByIdHotel,
         getRoomAdminPageDataById,
         deleteRoomAdminPageByIdFunction,
+        getAllInclusionsRoomPageData,
+        getAllAmenitiesRoomPageData,
       }}
     >
       {isLoading ? <Loading /> : children }

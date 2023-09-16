@@ -212,3 +212,67 @@ export const deleteRoomAdminPageById = async (id) => {
     return error;
   }
 };
+
+export const createInclusionsRooms = async (inclusionRoomsData) => {
+  try {
+    const response = await axios.post('http://localhost:8080/api/inclusion_room', inclusionRoomsData);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAllInclusionsRooms = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/api/inclusion_room');
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getInclusionsRoomsById = async (roomId) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/inclusion_room/${roomId}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateInclusionsRoomsById = async (id, roomId) => {
+  try {
+    const response = await axios.put(`http://localhost:8080/api/inclusion_room/${id}`, roomId);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAllAmenitiesRooms = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/api/amenities_room');
+    console.log('response amenities: ', response);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAmenitiesRoomsById = async (roomId) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/amenities_room/${roomId}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateAmenitiesRoomsById = async (id, roomId) => {
+  try {
+    const response = await axios.put(`http://localhost:8080/api/amenities_room/${id}`, roomId);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

@@ -28,7 +28,6 @@ const AdminRoomEdit = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        console.log('este es el: ', id);
         const response = await getRoomsByIdHotel(id);
         console.log(response);
         setRoomsList(response);

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AppContext } from '../../store/AppContext';
+// import { getAllInclusionsRooms } from '../../service/Hotel.controller';
 import './FormRoomEdit.scss';
 
 const FormRoomEdit = () => {
@@ -15,7 +16,11 @@ const FormRoomEdit = () => {
     handleSubmitCreateRoom,
     // getRoomsByIdHotel,
     getRoomAdminPageDataById,
+    getAllInclusionsRoomPageData,
+    getAllAmenitiesRoomPageData,
   } = store;
+  const [inclusionsRooms, setInclusionsRooms] = useState([]);
+  const [amenitiesRooms, setAmenitiesRooms] = useState([]);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const hotelId = queryParams.get('hotelId');
@@ -35,7 +40,10 @@ const FormRoomEdit = () => {
     'Non Refundable',
     'Dinner & Lunch',
   ];
-  // const [roomData, setRoomData] = useState({});
+  useEffect(() => {
+
+  }, []);
+
   useEffect(() => {
     const fetchRoomData = async () => {
       console.log('este es el id para editar', roomId);
@@ -58,8 +66,29 @@ const FormRoomEdit = () => {
         }
       }
     };
+    const fetchInclusionsData = async () => {
+      try {
+        const { data: inclusions } = await getAllInclusionsRoomPageData();
+        setInclusionsRooms(inclusions);
+        console.log('estos son los inclusions: ', inclusions);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchAmenitiesData = async () => {
+      try {
+        const { data: amenities } = await getAllAmenitiesRoomPageData();
+        console.log('amenities: ', amenities);
+        setAmenitiesRooms(amenities);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchInclusionsData();
+    fetchAmenitiesData();
     fetchRoomData();
   }, [roomId]);
+
   return (
     <div className="formRoom">
       <div className="tittleForm">
@@ -156,20 +185,23 @@ const FormRoomEdit = () => {
                 <label htmlFor="amenities">
                   Amenities:
                   <div id="amenities">
-                    {availableAmenities.map((amenity) => {
+                    {amenitiesRooms.map((item, index) => {
                       return (
-                        <div key={amenity}>
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div key={index}>
                           <label htmlFor="amenities">
                             <input
                               id="amenities"
                               type="checkbox"
                               name="amenities"
-                              value={amenity}
-                              checked={formValuesCreateRoom.amenities.includes(amenity)}
+                              value={item.amenity.amenity_name}
+                              checked={formValuesCreateRoom.amenities.includes(
+                                item.amenity.amenity_name,
+                              )}
                               onChange={handleInputChangeCreateRoom}
                             />
                             &nbsp;
-                            {amenity}
+                            {item.amenity.amenity_name}
                           </label>
                         </div>
                       );
@@ -181,22 +213,24 @@ const FormRoomEdit = () => {
                 <label htmlFor="inclusions">
                   Inclusions:
                   <div id="inclusions">
-                    {availableInclusions.map((inclusion) => {
+                    {inclusionsRooms.map((item, index) => {
+                      console.log('inclusion-item: ', item.inclusion_name);
                       return (
-                        <div key={inclusion}>
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div key={index}>
                           <label htmlFor="inclusions">
                             <input
                               id="inclusions"
                               type="checkbox"
                               name="inclusions"
-                              value={inclusion}
+                              value={item.inclusion.inclusion_name}
                               checked={formValuesCreateRoom.inclusions.includes(
-                                inclusion,
+                                item.inclusion.inclusion_name,
                               )}
                               onChange={handleInputChangeCreateRoom}
                             />
                             &nbsp;
-                            {inclusion}
+                            {item.inclusion.inclusion_name}
                           </label>
                         </div>
                       );
