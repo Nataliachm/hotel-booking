@@ -107,6 +107,7 @@ export const AppContextProvider = ({ children }) => {
   const handleInfoUserSave = async () => {
     localStorage.removeItem('userData');
     setUserData([formUserData]);
+    localStorage.setItem('userData', JSON.stringify(formUserData));
     const token = localStorage.getItem('token');
     await editUserProfile(token, formUserData);
     setUserEditId(null);
@@ -285,6 +286,7 @@ export const AppContextProvider = ({ children }) => {
         localStorage.setItem('userData', JSON.stringify(user));
         localStorage.setItem('token', JSON.stringify(token));
         navigate('/');
+        setIsLoading(false);
       }
       if (found === false) {
         setValidCredentials(true);
@@ -294,8 +296,9 @@ export const AppContextProvider = ({ children }) => {
       }
     } catch (error) {
       return error;
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const handleSignOut = async () => {
