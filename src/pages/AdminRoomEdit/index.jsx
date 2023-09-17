@@ -5,7 +5,6 @@ import { AppContext } from '../../store/AppContext';
 import ConfirmationModal from '../../components/ConfirmationModal';
 import { CardRooms } from '../../components/CardRooms';
 import PersonCard from '../../components/PersonCard';
-// import rooms from './infoRooms';
 
 const AdminRoomEdit = () => {
   const store = useContext(AppContext);
@@ -19,7 +18,6 @@ const AdminRoomEdit = () => {
     openModalForRooms,
     handleConfirmForRooms,
     closeModalForRooms,
-    // getAllRoomsAdminPageData,
     getRoomsByIdHotel,
   } = store;
   const [roomsList, setRoomsList] = useState([]);
@@ -29,7 +27,6 @@ const AdminRoomEdit = () => {
     const fetchRooms = async () => {
       try {
         const response = await getRoomsByIdHotel(id);
-        console.log(response);
         setRoomsList(response);
       } catch (error) {
         console.error('error al obtener: ', error);
@@ -37,9 +34,6 @@ const AdminRoomEdit = () => {
     };
     fetchRooms();
   }, [id]);
-  // const handleDeleteRoom = (room) => {
-  //   openModalForRooms(room);
-  // };
   const handleConfirmDelete = async () => {
     try {
       await handleConfirmForRooms(selectedRoom);
@@ -97,7 +91,7 @@ const AdminRoomEdit = () => {
                   profile="admin"
                   // country={room.country}
                   // city={room.city}
-                  // hotelName={room.hotelName}
+                  hotelName={room.hotel_name}
                   guests={room.max_guests}
                   // checkIn={room.checkIn}
                   // checkOut={room.checkOut}

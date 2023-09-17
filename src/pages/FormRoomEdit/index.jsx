@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AppContext } from '../../store/AppContext';
-// import { getAllInclusionsRooms } from '../../service/Hotel.controller';
 import './FormRoomEdit.scss';
 
 const FormRoomEdit = () => {
@@ -14,7 +13,6 @@ const FormRoomEdit = () => {
     handleInputChangeCreateRoom,
     uploadImageCreateRoom,
     handleSubmitCreateRoom,
-    // getRoomsByIdHotel,
     getRoomAdminPageDataById,
     getAllInclusionsRoomPageData,
     getAllAmenitiesRoomPageData,
@@ -25,38 +23,43 @@ const FormRoomEdit = () => {
   const queryParams = new URLSearchParams(location.search);
   const hotelId = queryParams.get('hotelId');
   const roomId = queryParams.get('roomId');
-  console.log('id del room', roomId);
-  const availableAmenities = [
-    'King/Twin',
-    'Pool View',
-    'LCD TV',
-    'Couch',
-    'Shower',
-  ];
-  const availableInclusions = [
-    'Wi-Fi',
-    'Breakfast',
-    'Free Cancellation',
-    'Non Refundable',
-    'Dinner & Lunch',
-  ];
+  // const availableAmenities = [
+  //   'King/Twin',
+  //   'Pool View',
+  //   'LCD TV',
+  //   'Couch',
+  //   'Shower',
+  // ];
+  // const availableInclusions = [
+  //   'Wi-Fi',
+  //   'Breakfast',
+  //   'Free Cancellation',
+  //   'Non Refundable',
+  //   'Dinner & Lunch',
+  // ];
   useEffect(() => {
 
   }, []);
 
   useEffect(() => {
     const fetchRoomData = async () => {
-      console.log('este es el id para editar', roomId);
       if (roomId) {
         try {
-          const room = await getRoomAdminPageDataById(roomId);
-          console.log('Valor de room_name:', room.room_name);
+          const roomPromise = getRoomAdminPageDataById(roomId);
+          const amenitiesPromise = getAllAmenitiesRoomPageData(roomId);
+
+          const room = await roomPromise;
+          const amenities = await amenitiesPromise;
+          setAmenitiesRooms(amenities);
+
           setFormValuesCreateRoom({
             name: room.room_name,
             guests: room.max_guests,
             normalPrice: room.previous_price,
             salePrice: room.new_price,
-            amenities: [],
+            amenities: amenities
+              .filter((amenity) => { return amenity.selected; })
+              .map((amenity) => { return amenity.amenity_name; }),
             inclusions: [],
             images: imageCreateRoom,
           });
@@ -64,28 +67,21 @@ const FormRoomEdit = () => {
         } catch (error) {
           console.error('error fetch room: ', error);
         }
+      } else {
+        const amenitiesPromise = getAllAmenitiesRoomPageData(roomId);
+        const amenities = await amenitiesPromise;
+        setAmenitiesRooms(amenities);
       }
     };
     const fetchInclusionsData = async () => {
       try {
         const { data: inclusions } = await getAllInclusionsRoomPageData();
         setInclusionsRooms(inclusions);
-        console.log('estos son los inclusions: ', inclusions);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    const fetchAmenitiesData = async () => {
-      try {
-        const { data: amenities } = await getAllAmenitiesRoomPageData();
-        console.log('amenities: ', amenities);
-        setAmenitiesRooms(amenities);
       } catch (error) {
         console.error(error);
       }
     };
     fetchInclusionsData();
-    fetchAmenitiesData();
     fetchRoomData();
   }, [roomId]);
 
@@ -120,7 +116,6 @@ const FormRoomEdit = () => {
           <form onSubmit={(e) => { return handleSubmitCreateRoom(hotelId, roomId, e); }}>
             <div className="inputText">
               <div>
-                {console.log('Valor del nombre en formValuesCreateRoom:', formValuesCreateRoom)}
                 <label htmlFor="name">
                   Name:
                   <input
@@ -194,14 +189,14 @@ const FormRoomEdit = () => {
                               id="amenities"
                               type="checkbox"
                               name="amenities"
-                              value={item.amenity.amenity_name}
+                              value={item.amenity_name}
                               checked={formValuesCreateRoom.amenities.includes(
-                                item.amenity.amenity_name,
+                                item.amenity_name,
                               )}
                               onChange={handleInputChangeCreateRoom}
                             />
                             &nbsp;
-                            {item.amenity.amenity_name}
+                            {item.amenity_name}
                           </label>
                         </div>
                       );
@@ -214,7 +209,6 @@ const FormRoomEdit = () => {
                   Inclusions:
                   <div id="inclusions">
                     {inclusionsRooms.map((item, index) => {
-                      console.log('inclusion-item: ', item.inclusion_name);
                       return (
                         // eslint-disable-next-line react/no-array-index-key
                         <div key={index}>

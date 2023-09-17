@@ -21,7 +21,7 @@ import {
   updateRoomAdminPageById,
   deleteRoomAdminPageById,
   getAllInclusionsRooms,
-  getAllAmenitiesRooms,
+  getAmenitiesRoomsById,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -38,10 +38,8 @@ export const AppContextProvider = ({ children }) => {
   const [userData, setUserData] = useState([{}]);
   const [userEditId, setUserEditId] = useState(null);
   const [formUserData, setFormUserData] = useState({});
-  // mainHotelConfig
   const [selectedHotelForModal, setSelectedHotelForModal] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  // formHotelRegistration
   const [imageHotelCloudinary, setImageHotelCloudinary] = useState('');
   const [selectedImagesFormHotel, setSelectedImagesFormHotel] = useState([]);
   const [hotelsDataCreateHotel, setHotelsDataCreateHotel] = useState({});
@@ -138,7 +136,6 @@ export const AppContextProvider = ({ children }) => {
       if (!infoLocalUser) {
         const found = await getUserByEmail(email || localStorage.getItem('email'));
         localStorage.setItem('userData', JSON.stringify(found.data.user));
-        // JSON.parse(localStorage.getItem('userData'))
         setUserData([{ ...found.data.user }]);
       } else {
         setUserData([JSON.parse(infoLocalUser)]);
@@ -416,7 +413,6 @@ export const AppContextProvider = ({ children }) => {
     };
     try {
       let response;
-      // const response = await createRoomsAdmin(hotelId, newRoom);
       if (roomId) {
         response = await updateRoomAdminPageById(roomId, newRoom);
         navigate('/hotel-config');
@@ -455,9 +451,9 @@ export const AppContextProvider = ({ children }) => {
       return error;
     }
   };
-  const getAllAmenitiesRoomPageData = async () => {
+  const getAllAmenitiesRoomPageData = async (roomId) => {
     try {
-      const response = await getAllAmenitiesRooms();
+      const response = await getAmenitiesRoomsById(roomId);
       return response;
     } catch (error) {
       return error;

@@ -5,9 +5,6 @@ const url = `${import.meta.env.VITE_APIVITE_API_BASE_URL}`;
 
 const axiosInstance = axios.create({
   baseURL: url,
-  // headers: {
-  //   'Content-Type': 'application/json',
-  // },
 });
 
 export const getAllHotels = async () => {
@@ -26,7 +23,6 @@ export const verifyUserEmail = async (email) => {
       email,
     };
     const response = await axios.post('http://localhost:8080/api/user/verify', emailUser);
-    // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {
     return error;
@@ -40,7 +36,6 @@ export const authenticationUser = async (email, password) => {
       password,
     };
     const response = await axios.post('http://localhost:8080/api/user', data);
-    // const emailVerification = await response.json();
     return (await response?.data?.emailUser?.email) === email;
   } catch (error) {
     return false;
@@ -54,7 +49,6 @@ export const registerUser = async (email, password) => {
       password,
     };
     const response = await axios.post('http://localhost:8080/api/user', data);
-    // const emailVerification = await response.json();
     return response;
   } catch (error) {
     return false;
@@ -67,7 +61,6 @@ export const getUserByEmail = async (emailPerson) => {
       emailPerson,
     };
     const response = await axios.post('http://localhost:8080/api/user/get-info-user', emailUser);
-    // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {
     return error;
@@ -78,13 +71,12 @@ export const editUserProfile = async (userToken, userInfo) => {
   try {
     const headers = {
       Authorization: `Bearer ${userToken}`,
-      'Content-Type': 'application/json', // Especificamos que estamos enviando datos en formato JSON
+      'Content-Type': 'application/json',
     };
     const data = {
       ...userInfo,
     };
     const response = await axios.put('http://localhost:8080/api/user', data, { headers });
-    // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {
     return error;
@@ -95,13 +87,12 @@ export const editUserImage = async (userToken, userImage) => {
   try {
     const headers = {
       Authorization: `Bearer ${userToken}`,
-      'Content-Type': 'application/json', // Especificamos que estamos enviando datos en formato JSON
+      'Content-Type': 'application/json',
     };
     const data = {
       user_img: userImage,
     };
     const response = await axios.put('http://localhost:8080/api/user/image', data, { headers });
-    // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {
     return error;
@@ -249,19 +240,9 @@ export const updateInclusionsRoomsById = async (id, roomId) => {
   }
 };
 
-export const getAllAmenitiesRooms = async () => {
-  try {
-    const response = await axios.get('http://localhost:8080/api/amenities_room');
-    console.log('response amenities: ', response);
-    return response;
-  } catch (error) {
-    return error;
-  }
-};
-
 export const getAmenitiesRoomsById = async (roomId) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/amenities_room/${roomId}`);
+    const response = await axios.get(`http://localhost:8080/api/amenities_room/${roomId || ''}`);
     return response.data;
   } catch (error) {
     return error;

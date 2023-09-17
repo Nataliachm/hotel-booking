@@ -1,13 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../store/AppContext';
 import './MainHotel.scss';
-// import { useNavigate } from 'react-router-dom';
-// import hotels from './hotels';
 
 const MainHotel = () => {
   const store = useContext(AppContext);
-  // const navigate = useNavigate();
   const {
     getAllHotelsAdminPageData,
   } = store;
@@ -15,8 +11,6 @@ const MainHotel = () => {
   useEffect(() => {
     const fetchHotels = async () => {
       const response = await getAllHotelsAdminPageData();
-
-      console.log(response);
       setHotelsListUser(response);
     };
     fetchHotels();
@@ -59,7 +53,7 @@ const MainHotel = () => {
                   <h6>
                     <i className="fas fa-map-marker-alt" />
                     &nbsp;
-                    {hotel.city}
+                    {hotel.City?.name_city}
                   </h6>
                 </div>
               </div>
