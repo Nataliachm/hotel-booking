@@ -19,11 +19,7 @@ const PurchaseSummary = ({ bookInfo, bookRoom }) => {
     <div className="PurchaseSummary__container">
       <h2>Booking Summary</h2>
       <section className="container__hotel section">
-        <img
-          className="roomImage"
-          src="https://themes.pixelstrap.com/rica/assets/images/hotel/room/1.jpg"
-          alt="roomImage"
-        />
+        <img className="roomImage" src={bookInfo.room_img} alt="roomImage" />
         <div>
           <h3>{bookInfo?.hotel.hotel_name}</h3>
           <p>

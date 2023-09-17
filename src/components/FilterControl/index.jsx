@@ -22,11 +22,10 @@ export default function FilterControl() {
     const dateIn = query.get('dateIn');
     const dateOut = query.get('dateOut');
     const guests = query.get('guests');
-
     setfilterInfo({
       destination: city,
-      checkIn: new Date(dateIn),
-      checkOut: new Date(dateOut),
+      checkIn: dateIn ? new Date(dateIn) : new Date(),
+      checkOut: dateOut ? new Date(dateOut) : new Date(),
       guests,
     });
   }, []);
