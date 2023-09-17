@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         element: <MainHotel />,
       },
       {
-        path: '/success-payment',
+        path: '/success-payment/:bookedRoomId',
         element: <SuccessPayment />,
       },
       {
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/traveller-information',
+        path: '/traveller-information/:roomId',
         element: (
           <PrivateRoute redirectRoute="/login">
             <TravellerInformation />
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/payment',
+        path: '/payment/:roomId',
         element: (
           <PrivateRoute redirectRoute="/login">
             <Payment />
@@ -66,15 +66,15 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/view-rooms',
+        path: '/hotel/:hotelId',
         element: <ViewRooms />,
       },
       {
         path: '/hotel-config',
         element: (
-        // <PrivateRoute role="admin" redirectRoute="/login">
+          // <PrivateRoute role="admin" redirectRoute="/login">
           <MainHotelConfig />
-        // </PrivateRoute>
+          // </PrivateRoute>
         ),
       },
       {
@@ -88,9 +88,9 @@ const router = createBrowserRouter([
       {
         path: '/form-hotel-registration',
         element: (
-        // <PrivateRoute role="admin" redirectRoute="/login">
+          // <PrivateRoute role="admin" redirectRoute="/login">
           <FormHotelRegistration />
-        // </PrivateRoute>
+          // </PrivateRoute>
         ),
       },
       {
@@ -130,7 +130,8 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: '/login-password/:email',
+        // path: '/login-password/:email',
+        path: '/login-password',
         element: <Password />,
       },
       {

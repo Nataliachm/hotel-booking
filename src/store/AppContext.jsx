@@ -22,6 +22,7 @@ import {
   deleteRoomAdminPageById,
   getAllInclusionsRooms,
   getAmenitiesRoomsById,
+  authenticationUser,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -38,6 +39,7 @@ export const AppContextProvider = ({ children }) => {
   const [userData, setUserData] = useState([{}]);
   const [userEditId, setUserEditId] = useState(null);
   const [formUserData, setFormUserData] = useState({});
+  const [validCredentials, setValidCredentials] = useState(false);
   const [selectedHotelForModal, setSelectedHotelForModal] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [imageHotelCloudinary, setImageHotelCloudinary] = useState('');
@@ -59,7 +61,9 @@ export const AppContextProvider = ({ children }) => {
     status: '',
   });
 
-  const [imageUser, setImageUser] = useState('https://icon-library.com/images/persona-icon/persona-icon-25.jpg');
+  const [imageUser, setImageUser] = useState(
+    'https://icon-library.com/images/persona-icon/persona-icon-25.jpg',
+  );
   const fileInputRef = useRef(null);
   const [imageCreateRoom, setImageCreateRoom] = useState('');
   const [formValuesCreateRoom, setFormValuesCreateRoom] = useState({
@@ -83,6 +87,7 @@ export const AppContextProvider = ({ children }) => {
     const found = await verifyUserEmail(email);
     setIsLoading(false);
     if (found.data.message === 'User has been found successfully') {
+      localStorage.setItem('email', email);
       return navigate('/login-Password');
     }
     return navigate('/login-register-password');
@@ -106,24 +111,21 @@ export const AppContextProvider = ({ children }) => {
   const handleUserEdit = (userName) => {
     setUserEditId(userName);
 
-    setFormUserData(
-      userData[0],
-    );
+    setFormUserData(userData[0]);
   };
 
   const handleInputUserChange = (e) => {
     const { name, value } = e.target;
-    setFormUserData(
-      {
-        ...formUserData,
-        [name]: value,
-      },
-    );
+    setFormUserData({
+      ...formUserData,
+      [name]: value,
+    });
   };
 
   const handleInfoUserSave = async () => {
     localStorage.removeItem('userData');
     setUserData([formUserData]);
+    localStorage.setItem('userData', JSON.stringify(formUserData));
     const token = localStorage.getItem('token');
     await editUserProfile(token, formUserData);
     setUserEditId(null);
@@ -134,7 +136,9 @@ export const AppContextProvider = ({ children }) => {
     try {
       const infoLocalUser = localStorage.getItem('userData');
       if (!infoLocalUser) {
-        const found = await getUserByEmail(email || localStorage.getItem('email'));
+        const found = await getUserByEmail(
+          email || localStorage.getItem('email'),
+        );
         localStorage.setItem('userData', JSON.stringify(found.data.user));
         setUserData([{ ...found.data.user }]);
       } else {
@@ -144,14 +148,14 @@ export const AppContextProvider = ({ children }) => {
       return error;
     }
   };
-  const openModal = (hotel) => {
-    setSelectedHotelForModal(hotel);
-    setShowModal(true);
-  };
-  const closeModal = () => {
-    setSelectedHotelForModal(null);
-    setShowModal(false);
-  };
+  // const openModal = (hotel) => {
+  //   setSelectedHotelForModal(hotel);
+  //   setShowModal(true);
+  // };
+  // const closeModal = () => {
+  //   setSelectedHotelForModal(null);
+  //   setShowModal(false);
+  // };
   const openModalForRooms = (room) => {
     setSelectedRoom(room);
     setShowModalForRooms(true);
@@ -180,6 +184,14 @@ export const AppContextProvider = ({ children }) => {
     }
   };
 
+  const openModal = (hotel) => {
+    setSelectedHotelForModal(hotel);
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setSelectedHotelForModal(null);
+    setShowModal(false);
+  };
   const uploadImage = async (image) => {
     const data = new FormData();
     data.append('file', image);
@@ -327,7 +339,9 @@ export const AppContextProvider = ({ children }) => {
       await editUserImage(token, file.secure_url);
       localStorage.removeItem('userData');
 
-      const found = await getUserByEmail(email || localStorage.getItem('email'));
+      const found = await getUserByEmail(
+        email || localStorage.getItem('email'),
+      );
       localStorage.setItem('userData', JSON.stringify(found.data.user));
       setUserData([{ ...found.data.user }]);
       setImageIsLoading(false);
@@ -459,6 +473,46 @@ export const AppContextProvider = ({ children }) => {
       return error;
     }
   };
+  const handleSignIn = async () => {
+    try {
+      setIsLoading(true);
+      const found = await authenticationUser(email, password);
+
+      if (found.status === 200) {
+        // Acción si la autenticación es exitosa (status 200)
+        const { user, token } = found.data;
+        localStorage.setItem('userData', JSON.stringify(user));
+        localStorage.setItem('token', JSON.stringify(token));
+        navigate('/');
+        setIsLoading(false);
+      }
+      if (found === false) {
+        setValidCredentials(true);
+      } else {
+        // Manejar otros posibles códigos de estado
+        return found.status;
+      }
+    } catch (error) {
+      return error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    if (JSON.parse(localStorage.getItem('userData'))) {
+      localStorage.removeItem('userData');
+    }
+
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+    }
+
+    if (localStorage.getItem('email')) {
+      localStorage.removeItem('email');
+    }
+    navigate('/login');
+  };
   return (
     <AppContext.Provider
       value={{
@@ -525,9 +579,13 @@ export const AppContextProvider = ({ children }) => {
         deleteRoomAdminPageByIdFunction,
         getAllInclusionsRoomPageData,
         getAllAmenitiesRoomPageData,
+        handleSignIn,
+        validCredentials,
+        setValidCredentials,
+        handleSignOut,
       }}
     >
-      {isLoading ? <Loading /> : children }
+      {isLoading ? <Loading /> : children}
     </AppContext.Provider>
 
   );
