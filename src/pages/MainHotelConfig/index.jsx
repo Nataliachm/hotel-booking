@@ -15,6 +15,8 @@ const MainHotelConfig = () => {
     closeModal,
     handleConfirm,
     getAllHotelsAdminPageData,
+    selectedHotelId,
+    getRoomsByIdHotel,
   } = store;
   const [hotels, setHotels] = useState([]);
 
@@ -38,6 +40,11 @@ const MainHotelConfig = () => {
   const handleDeleteHotel = (hotel) => {
     openModal(hotel);
   };
+  useEffect(() => {
+    if (selectedHotelId) {
+      getRoomsByIdHotel();
+    }
+  }, [selectedHotelId, getRoomsByIdHotel]);
 
   return (
     <div className="MainHotelConfig__container">
@@ -87,7 +94,7 @@ const MainHotelConfig = () => {
                       <h6>
                         <i className="fas fa-map-marker-alt" />
                         &nbsp;
-                        {hotel.city}
+                        {hotel.City?.name_city}
                       </h6>
                     </div>
                   </div>
@@ -141,7 +148,7 @@ const MainHotelConfig = () => {
                     </button>
                   </div>
                   <div>
-                    <button className="btn2" type="button">
+                    <button className="btn2" type="button" onClick={() => { return navigate(`/admin-room-edit?id=${hotel.id}`); }}>
                       <i className="fas fa-cog" />
                       &nbsp; Edit Rooms
                     </button>
