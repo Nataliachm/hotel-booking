@@ -7,7 +7,6 @@ import React from 'react';
 
 const PrivateRoute = ({ role = 'user', redirectRoute = '/', children }) => {
   const token = localStorage.getItem('token');
-
   if (!token) {
     return <Navigate to={redirectRoute} />;
   }
@@ -23,8 +22,15 @@ const PrivateRoute = ({ role = 'user', redirectRoute = '/', children }) => {
     const { role_name: roleName } = decodedToken;
     const isAthorization = !isExpired;
 
-    return isAthorization ? (role === roleName ? children : <Navigate to={redirectRoute} />)
-      : <Navigate to={redirectRoute} />;
+    return isAthorization ? (
+      role === roleName ? (
+        children
+      ) : (
+        <Navigate to={redirectRoute} />
+      )
+    ) : (
+      <Navigate to={redirectRoute} />
+    );
   }
 
   return children;

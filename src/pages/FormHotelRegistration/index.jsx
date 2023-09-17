@@ -1,86 +1,65 @@
-import { useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+// import { createHotelsAdmin } from '../../service/Hotel.controller';
 import './FormHotelRegistration.scss';
+import { AppContext } from '../../store/AppContext';
 
 const FormHotelRegistration = () => {
-  const [image, setImage] = useState('');
-  const [selectedImages, setSelectedImages] = useState([]);
-  const [hotelsData, setHotelsData] = useState([]);
-  const [formData, setFormData] = useState({
-    index: '',
-    name: '',
-    country: '',
-    city: '',
-    address: '',
-    phone: '',
-    description: '',
-    stars: '',
-    normalPrice: '',
-    salePrice: '',
-    label1: '',
-    label2: '',
-    status: '',
-  });
-  const uploadImage = async (event) => {
-    const filesa = event.target.files;
-    const data = new FormData();
-    data.append('file', filesa[0]);
-    data.append('upload_preset', 'hotelImages');
-    const res = await fetch(
-      'https://api.cloudinary.com/v1_1/drnclewqh/image/upload',
-      {
-        method: 'POST',
-        body: data,
-      },
-    );
-    const file = await res.json();
-    setImage(file.secure_url);
-    console.log(file.secure_url);
-  };
-  const handleImageChange = (event) => {
-    const images = event.target.files;
-    const imageUrls = [];
-    for (let i = 0; i < images.length; i += 1) {
-      const imageUrl = URL.createObjectURL(images[i]);
-      imageUrls.push(imageUrl);
+  const store = useContext(AppContext);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const hotelId = queryParams.get('id');
+  const {
+    selectedImagesFormHotel,
+    setSelectedImagesFormHotel,
+    formDataCreateHotel,
+    setFormDataCreateHotel,
+    handleImageChange,
+    handleFormSubmit,
+    handleInputChange,
+    getHotelAdminPageDataById,
+    imageHotelCloudinary,
+    setImageHotelCloudinary,
+  } = store;
+  const ratingToStars = (rating) => {
+    switch (rating) {
+      case 'one': return 1;
+      case 'two': return 2;
+      case 'three': return 3;
+      case 'four': return 4;
+      case 'five': return 5;
+      default: return 0;
     }
-    setSelectedImages(imageUrls);
-    uploadImage(event);
   };
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    const newHotel = {
-      ...formData,
-      images: selectedImages,
+  useEffect(() => {
+    const fetchHotelById = async () => {
+      if (hotelId) {
+        try {
+          const hotel = await getHotelAdminPageDataById(hotelId);
+          setFormDataCreateHotel({
+            name: hotel.hotel_name,
+            phone: hotel.phone,
+            description: hotel.description,
+            stars: ratingToStars(hotel.hotel_rating),
+            normalPrice: hotel.previous_price,
+            salePrice: hotel.new_price,
+            label1: hotel.label1,
+            label2: hotel.label2,
+            status: hotel.labels,
+            images: imageHotelCloudinary,
+          });
+          setImageHotelCloudinary(hotel.hotel_img);
+          setSelectedImagesFormHotel([hotel.hotel_img]);
+        } catch (error) {
+          console.error('Error al obtener datos del hotel: ', error);
+        }
+      }
     };
-    setHotelsData((prevHotelsData) => {
-      return [...prevHotelsData, newHotel];
-    });
-    setFormData({
-      index: '',
-      name: '',
-      country: '',
-      city: '',
-      address: '',
-      description: '',
-      stars: '',
-      normalPrice: '',
-      salePrice: '',
-      label1: '',
-      label2: '',
-      status: '',
-    });
 
-    setSelectedImages([]);
-  };
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => {
-      return {
-        ...prevData,
-        [name]: value,
-      };
-    });
-  };
+    if (hotelId) {
+      fetchHotelById();
+    }
+  }, [hotelId]);
   return (
     <div className="formHotel">
       <div className="tittleForm">
@@ -103,14 +82,19 @@ const FormHotelRegistration = () => {
               />
             </label>
           </div>
-          {image && (
+          {selectedImagesFormHotel.length > 0 && (
             <div>
-              <img src={image} alt="Uploaded Room" />
+              {selectedImagesFormHotel.map((imageUrl, id) => {
+                return (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <img key={id} src={imageUrl} alt={`Uploaded Room ${id}`} />
+                );
+              })}
             </div>
           )}
         </div>
         <div className="formHotelContainer__text">
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={(e) => { return handleFormSubmit(e, hotelId); }}>
             <div>
               <label htmlFor="index">
                 Index:
@@ -119,7 +103,7 @@ const FormHotelRegistration = () => {
                   type="number"
                   id="index"
                   name="index"
-                  value={formData.index}
+                  value={formDataCreateHotel.index}
                   onChange={handleInputChange}
                 />
               </label>
@@ -132,7 +116,7 @@ const FormHotelRegistration = () => {
                   type="text"
                   id="name"
                   name="name"
-                  value={formData.name}
+                  value={formDataCreateHotel.name}
                   onChange={handleInputChange}
                 />
               </label>
@@ -145,7 +129,7 @@ const FormHotelRegistration = () => {
                   type="text"
                   id="country"
                   name="country"
-                  value={formData.country}
+                  value={formDataCreateHotel.country}
                   onChange={handleInputChange}
                 />
               </label>
@@ -158,7 +142,7 @@ const FormHotelRegistration = () => {
                   type="text"
                   id="city"
                   name="city"
-                  value={formData.city}
+                  value={formDataCreateHotel.city}
                   onChange={handleInputChange}
                 />
               </label>
@@ -171,7 +155,20 @@ const FormHotelRegistration = () => {
                   type="text"
                   id="address"
                   name="address"
-                  value={formData.address}
+                  value={formDataCreateHotel.address}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="phone">
+                Phone:
+                <input
+                  placeholder="Phone"
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  value={formDataCreateHotel.phone}
                   onChange={handleInputChange}
                 />
               </label>
@@ -183,7 +180,7 @@ const FormHotelRegistration = () => {
                   placeholder="Description"
                   id="description"
                   name="description"
-                  value={formData.description}
+                  value={formDataCreateHotel.description}
                   onChange={handleInputChange}
                 />
               </label>
@@ -194,7 +191,7 @@ const FormHotelRegistration = () => {
                 <select
                   id="stars"
                   name="stars"
-                  value={formData.stars}
+                  value={formDataCreateHotel.stars}
                   onChange={handleInputChange}
                 >
                   <option value="" disabled hidden>
@@ -216,7 +213,7 @@ const FormHotelRegistration = () => {
                   type="number"
                   id="normalPrice"
                   name="normalPrice"
-                  value={formData.normalPrice}
+                  value={formDataCreateHotel.normalPrice}
                   onChange={handleInputChange}
                 />
               </label>
@@ -229,7 +226,7 @@ const FormHotelRegistration = () => {
                   type="number"
                   id="salePrice"
                   name="salePrice"
-                  value={formData.salePrice}
+                  value={formDataCreateHotel.salePrice}
                   onChange={handleInputChange}
                 />
               </label>
@@ -240,7 +237,7 @@ const FormHotelRegistration = () => {
                 <select
                   id="label1"
                   name="label1"
-                  value={formData.label1}
+                  value={formDataCreateHotel.label1}
                   onChange={handleInputChange}
                 >
                   <option value="" disabled hidden>
@@ -260,7 +257,7 @@ const FormHotelRegistration = () => {
                 <select
                   id="label2"
                   name="label2"
-                  value={formData.label2}
+                  value={formDataCreateHotel.label2}
                   onChange={handleInputChange}
                 >
                   <option value="" disabled hidden>
@@ -280,7 +277,7 @@ const FormHotelRegistration = () => {
                 <select
                   id="status"
                   name="status"
-                  value={formData.status}
+                  value={formDataCreateHotel.status}
                   onChange={handleInputChange}
                 >
                   <option value="" disabled hidden>

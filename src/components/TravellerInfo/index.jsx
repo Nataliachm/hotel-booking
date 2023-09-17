@@ -1,19 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './TravellerInfo.scss';
 import PhoneInput from 'react-phone-number-input';
+import { useNavigate } from 'react-router-dom';
 import FormButton from '../FormButton';
 import FormInput from '../FormInput';
 
 const DEFAULT_FORM_INFO = {
   firstName: '',
   lastName: '',
-  email: '',
+  emailAddress: '',
   contact: '',
   specialRequest: '',
+  promo: '',
 };
 
-export default function TravellerInfo() {
+export default function TravellerInfo({ bookRoom }) {
+  const navigate = useNavigate();
+  const handleBookRoom = async () => {
+    navigate(`/payment/${bookRoom.roomId}`);
+  };
   const [formInfo, setFormInfo] = useState(DEFAULT_FORM_INFO);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const areRequiredFieldsFilled = () => {
+    const requiredFields = ['firstName', 'lastName', 'emailAddress', 'contact'];
+
+    return requiredFields.every((field) => {
+      return formInfo[field];
+    });
+  };
+
+  useEffect(() => {
+    setIsButtonDisabled(!areRequiredFieldsFilled());
+  }, [formInfo]);
+
   return (
     <form className="TravellerInfo__container">
       <h2>Traveller Information</h2>
@@ -25,6 +45,12 @@ export default function TravellerInfo() {
           name="name"
           required
           placeholder="First Name"
+          onChange={(e) => {
+            const firstName = e.target.value;
+            setFormInfo((oldInfo) => {
+              return { ...oldInfo, firstName };
+            });
+          }}
         />
         <FormInput
           labelText="Last Name"
@@ -33,6 +59,12 @@ export default function TravellerInfo() {
           name="lastName"
           required
           placeholder="Last Name"
+          onChange={(e) => {
+            const lastName = e.target.value;
+            setFormInfo((oldInfo) => {
+              return { ...oldInfo, lastName };
+            });
+          }}
         />
       </div>
       <div>
@@ -43,6 +75,12 @@ export default function TravellerInfo() {
           name="emailAddress"
           required
           placeholder="Email Address"
+          onChange={(e) => {
+            const emailAddress = e.target.value;
+            setFormInfo((oldInfo) => {
+              return { ...oldInfo, emailAddress };
+            });
+          }}
         />
         <span className="helper-text">
           Booking confirmation will be sent to this email ID.
@@ -51,6 +89,7 @@ export default function TravellerInfo() {
       <span className="traveller-info-item">
         <span>Contact Info</span>
         <PhoneInput
+          required
           defaultCountry="CO"
           id="contactInfo"
           placeholder="Phone number"
@@ -70,6 +109,12 @@ export default function TravellerInfo() {
           name="specialRequest"
           rows={4}
           placeholder="e.g.. early check-in, airport transfer"
+          onChange={(e) => {
+            const specialRequest = e.target.value;
+            setFormInfo((oldInfo) => {
+              return { ...oldInfo, specialRequest };
+            });
+          }}
         />
       </label>
       <FormInput
@@ -79,8 +124,16 @@ export default function TravellerInfo() {
         id="promo"
         name="promo"
         placeholder="Promo Code"
+        onChange={(e) => {
+          const promo = e.target.value;
+          setFormInfo((oldInfo) => {
+            return { ...oldInfo, promo };
+          });
+        }}
       />
-      <FormButton>PAY NOW</FormButton>
+      <FormButton onClick={handleBookRoom} disabled={isButtonDisabled}>
+        PAY NOW
+      </FormButton>
     </form>
   );
 }

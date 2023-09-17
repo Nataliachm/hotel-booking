@@ -5,13 +5,14 @@ const FormInput = ({
   onButtonClick,
   buttonText,
   buttonClassName,
+  value,
   ...inputProps
 }) => {
   return (
     <label htmlFor={inputProps.id} className="FormInput__container">
       <span>{labelText}</span>
       <div className="input-row">
-        <input {...inputProps} />
+        <input {...inputProps} value={value} />
         {buttonText && (
           <button
             type="button"

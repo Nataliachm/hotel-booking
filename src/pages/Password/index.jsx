@@ -10,7 +10,7 @@ import { AppContext } from '../../store/AppContext';
 const Password = () => {
   const store = useContext(AppContext);
   const {
-    email, handleSignIn, password, setPassword,
+    email, handleSignIn, password, setPassword, validCredentials, setValidCredentials,
   } = store;
 
   // const { email } = useParams();
@@ -41,9 +41,10 @@ const Password = () => {
           placeholder="Enter your password"
           value={password}
           onChange={(e) => {
-            return setPassword(e.target.value);
+            return (setPassword(e.target.value), setValidCredentials(false));
           }}
         />
+        {validCredentials && <p className="Password__container__invalid-Credentials">The credentials are wrong, try again</p>}
         <FormButton onClick={handleSignIn}>Sing in</FormButton>
         <div className="line">
           <span className="line-text">or</span>

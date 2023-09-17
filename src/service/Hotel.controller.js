@@ -10,11 +10,37 @@ const axiosInstance = axios.create({
   // },
 });
 
-export const getAllHotels = async () => {
+export const getAllHotels = async (filters) => {
   try {
-    const response = await axiosInstance('/api/hotel');
-    const productData = await response.json();
-    return await productData.data;
+    const response = await axiosInstance.get(`/api/hotel${filters}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getHotel = async (hotelId) => {
+  try {
+    const response = await axiosInstance(`/api/hotel/${hotelId}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getRoom = async (roomId) => {
+  try {
+    const response = await axiosInstance.get(`/api/room/${roomId}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getBookedRoom = async (bookedRoomId) => {
+  try {
+    const response = await axiosInstance(`/api/booked-room/${bookedRoomId}`);
+    return response.data;
   } catch (error) {
     return error;
   }
@@ -25,7 +51,10 @@ export const verifyUserEmail = async (email) => {
     const emailUser = {
       email,
     };
-    const response = await axios.post('http://localhost:8080/api/user/verify', emailUser);
+    const response = await axios.post(
+      'http://localhost:8080/api/user/verify',
+      emailUser,
+    );
     // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {
@@ -39,9 +68,12 @@ export const authenticationUser = async (email, password) => {
       email,
       password,
     };
-    const response = await axios.post('http://localhost:8080/api/user', data);
+    const response = await axios.post(
+      'http://localhost:8080/api/user/login',
+      data,
+    );
     // const emailVerification = await response.json();
-    return (await response?.data?.emailUser?.email) === email;
+    return response;
   } catch (error) {
     return false;
   }
@@ -66,7 +98,10 @@ export const getUserByEmail = async (emailPerson) => {
     const emailUser = {
       emailPerson,
     };
-    const response = await axios.post('http://localhost:8080/api/user/get-info-user', emailUser);
+    const response = await axios.post(
+      'http://localhost:8080/api/user/get-info-user',
+      emailUser,
+    );
     // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {
@@ -83,7 +118,10 @@ export const editUserProfile = async (userToken, userInfo) => {
     const data = {
       ...userInfo,
     };
-    const response = await axios.put('http://localhost:8080/api/user', data, { headers });
+
+    const response = await axios.put('http://localhost:8080/api/user', data, {
+      headers,
+    });
     // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {
@@ -100,7 +138,11 @@ export const editUserImage = async (userToken, userImage) => {
     const data = {
       user_img: userImage,
     };
-    const response = await axios.put('http://localhost:8080/api/user/image', data, { headers });
+    const response = await axios.put(
+      'http://localhost:8080/api/user/image',
+      data,
+      { headers },
+    );
     // return await response?.data?.emailUser?.email === email;
     return response;
   } catch (error) {
@@ -114,4 +156,65 @@ export const pay = async (paymentMethod) => {
     amount: Math.floor(100 * 100),
   });
   return response;
+};
+
+export const createHotelsAdmin = async (hotelsData) => {
+  try {
+    const response = await axios.post(
+      'http://localhost:8080/api/hotel',
+      hotelsData,
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAllHotelsAdminPage = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/api/hotel');
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getHotelAdminPageById = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/hotel/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateHotelAdminPageById = async (id, hotelData) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:8080/api/hotel/${id}`,
+      hotelData,
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteHotelAdminPageById = async (id) => {
+  try {
+    const response = await axios.delete(
+      `http://localhost:8080/api/hotel/${id}`,
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const createBookedRoom = async (data) => {
+  const response = await axios.post(
+    'http://localhost:8080/api/booked-room',
+    data,
+  );
+  return response.data;
 };
