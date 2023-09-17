@@ -21,14 +21,14 @@ const ProfileConfigUser = () => {
 
   useEffect(() => {
     handleGetUser();
-  }, [userData]);
+  }, []);
 
   return (
     <div className="ProfileConfigUser__container">
       <div>
         <PersonCard
           btn2="Hotels"
-          userName={userData[0].user_name}
+          userName={userData[0]?.user_name || emptyFields}
           className="PersonCard"
         />
       </div>
@@ -47,37 +47,37 @@ const ProfileConfigUser = () => {
                         <th>
                           <b>Name</b>
                         </th>
-                        <th>{item.user_name || emptyFields}</th>
+                        <th>{item?.user_name || emptyFields}</th>
                       </tr>
                       <tr>
                         <th>
                           <b>Gender</b>
                         </th>
-                        <th>{item.gender || emptyFields}</th>
+                        <th>{item?.gender || emptyFields}</th>
                       </tr>
                       <tr>
                         <th>
                           <b>Birthday</b>
                         </th>
-                        <th>{item.birthday || emptyFields}</th>
+                        <th>{item?.birthday || emptyFields}</th>
                       </tr>
                       <tr>
                         <th>
                           <b>Street Address</b>
                         </th>
-                        <th>{item.address || emptyFields}</th>
+                        <th>{item?.address || emptyFields}</th>
                       </tr>
                       <tr>
                         <th>
                           <b>City/State</b>
                         </th>
-                        <th>{item.name_city || emptyFields}</th>
+                        <th>{item?.name_city || emptyFields}</th>
                       </tr>
                       <tr>
                         <th>
                           <b>Zip</b>
                         </th>
-                        <th>{item.postal_code || emptyFields}</th>
+                        <th>{item?.postal_code || emptyFields}</th>
                       </tr>
                     </>
                   );

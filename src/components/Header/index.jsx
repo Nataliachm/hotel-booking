@@ -25,7 +25,7 @@ function Header() {
     if (localStorage.getItem('token')) {
       setUserData([JSON.parse(localStorage.getItem('userData'))]);
     }
-  }, [userData]);
+  }, []);
 
   return (
     <div className="container-header">
@@ -77,7 +77,7 @@ function Header() {
               />
             </div>
             <hr />
-            <Link to="/profile-config-user">Profile</Link>
+            <Link to="/profile-config-user" onClick={handleUserMenuClick}>Profile</Link>
             <a href="/" onClick={handleSignOut}>Log out</a>
           </>
           )}

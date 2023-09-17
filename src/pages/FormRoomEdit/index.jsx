@@ -1,118 +1,89 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { AppContext } from '../../store/AppContext';
 import './FormRoomEdit.scss';
 
 const FormRoomEdit = () => {
-  const [image, setImage] = useState('');
-  const [formValues, setFormValues] = useState({
-    name: '',
-    guests: '',
-    normalPrice: 0,
-    salePrice: 0,
-    amenities: [],
-    inclusions: [],
-  });
+  const store = useContext(AppContext);
+  const {
+    imageCreateRoom,
+    setImageCreateRoom,
+    formValuesCreateRoom,
+    setFormValuesCreateRoom,
+    handleInputChangeCreateRoom,
+    uploadImageCreateRoom,
+    handleSubmitCreateRoom,
+    getRoomAdminPageDataById,
+    getAllInclusionsRoomPageData,
+    getAllAmenitiesRoomPageData,
+  } = store;
+  const [inclusionsRooms, setInclusionsRooms] = useState([]);
+  const [amenitiesRooms, setAmenitiesRooms] = useState([]);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const hotelId = queryParams.get('hotelId');
+  const roomId = queryParams.get('roomId');
+  // const availableAmenities = [
+  //   'King/Twin',
+  //   'Pool View',
+  //   'LCD TV',
+  //   'Couch',
+  //   'Shower',
+  // ];
+  // const availableInclusions = [
+  //   'Wi-Fi',
+  //   'Breakfast',
+  //   'Free Cancellation',
+  //   'Non Refundable',
+  //   'Dinner & Lunch',
+  // ];
+  useEffect(() => {
 
-  const availableAmenities = [
-    'King/Twin',
-    'Pool View',
-    'LCD TV',
-    'Couch',
-    'Shower',
-  ];
-  const availableInclusions = [
-    'Wi-Fi',
-    'Breakfast',
-    'Free Cancellation',
-    'Non Refundable',
-    'Dinner & Lunch',
-  ];
+  }, []);
 
-  const handleInputChange = (event) => {
-    const { name, value, type, checked } = event.target;
+  useEffect(() => {
+    const fetchRoomData = async () => {
+      if (roomId) {
+        try {
+          const roomPromise = getRoomAdminPageDataById(roomId);
+          const amenitiesPromise = getAllAmenitiesRoomPageData(roomId);
 
-    if (type === 'checkbox') {
-      if (name === 'amenities') {
-        if (checked) {
-          setFormValues((prevValues) => {
-            return {
-              ...prevValues,
-              amenities: [...prevValues.amenities, value],
-            };
+          const room = await roomPromise;
+          const amenities = await amenitiesPromise;
+          setAmenitiesRooms(amenities);
+
+          setFormValuesCreateRoom({
+            name: room.room_name,
+            guests: room.max_guests,
+            normalPrice: room.previous_price,
+            salePrice: room.new_price,
+            amenities: amenities
+              .filter((amenity) => { return amenity.selected; })
+              .map((amenity) => { return amenity.amenity_name; }),
+            inclusions: [],
+            images: imageCreateRoom,
           });
-        } else {
-          setFormValues((prevValues) => {
-            return {
-              ...prevValues,
-              amenities: prevValues.amenities.filter((item) => {
-                return item !== value;
-              }),
-            };
-          });
+          setImageCreateRoom(room.room_img);
+        } catch (error) {
+          console.error('error fetch room: ', error);
         }
-      } else if (name === 'inclusions') {
-        if (checked) {
-          setFormValues((prevValues) => {
-            return {
-              ...prevValues,
-              inclusions: [...prevValues.inclusions, value],
-            };
-          });
-        } else {
-          setFormValues((prevValues) => {
-            return {
-              ...prevValues,
-              inclusions: prevValues.inclusions.filter((item) => {
-                return item !== value;
-              }),
-            };
-          });
-        }
+      } else {
+        const amenitiesPromise = getAllAmenitiesRoomPageData(roomId);
+        const amenities = await amenitiesPromise;
+        setAmenitiesRooms(amenities);
       }
-    } else {
-      setFormValues((prevValues) => {
-        return {
-          ...prevValues,
-          [name]: value,
-        };
-      });
-    }
-  };
-
-  const uploadImage = async (event) => {
-    const { files } = event.target;
-    const data = new FormData();
-    data.append('file', files[0]);
-    data.append('upload_preset', 'hotelImages');
-    const res = await fetch(
-      'https://api.cloudinary.com/v1_1/drnclewqh/image/upload',
-      {
-        method: 'POST',
-        body: data,
-      }
-    );
-    const file = await res.json();
-    setImage(file.secure_url);
-    console.log(file.secure_url);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const dataToSend = {
-      ...formValues,
-      image,
     };
-
-    setImage('');
-    setFormValues({
-      name: '',
-      guests: '',
-      normalPrice: 0,
-      salePrice: 0,
-      amenities: [],
-      inclusions: [],
-    });
-    console.log('Data to send:', dataToSend);
-  };
+    const fetchInclusionsData = async () => {
+      try {
+        const { data: inclusions } = await getAllInclusionsRoomPageData();
+        setInclusionsRooms(inclusions);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchInclusionsData();
+    fetchRoomData();
+  }, [roomId]);
 
   return (
     <div className="formRoom">
@@ -131,18 +102,18 @@ const FormRoomEdit = () => {
                 type="file"
                 name="file"
                 accept="image/*"
-                onChange={uploadImage}
+                onChange={uploadImageCreateRoom}
               />
             </label>
           </div>
-          {image && (
+          {imageCreateRoom && (
             <div>
-              <img src={image} alt="Uploaded Room" />
+              <img src={imageCreateRoom} alt="Uploaded Room" />
             </div>
           )}
         </div>
         <div className="formRoomContainer__text">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => { return handleSubmitCreateRoom(hotelId, roomId, e); }}>
             <div className="inputText">
               <div>
                 <label htmlFor="name">
@@ -152,8 +123,8 @@ const FormRoomEdit = () => {
                     type="text"
                     id="name"
                     name="name"
-                    value={formValues.name}
-                    onChange={handleInputChange}
+                    value={formValuesCreateRoom.name}
+                    onChange={handleInputChangeCreateRoom}
                   />
                 </label>
               </div>
@@ -163,8 +134,8 @@ const FormRoomEdit = () => {
                   <select
                     id="guests"
                     name="guests"
-                    value={formValues.guests}
-                    onChange={handleInputChange}
+                    value={formValuesCreateRoom.guests}
+                    onChange={handleInputChangeCreateRoom}
                   >
                     <option value="" disabled hidden>
                       Select an option
@@ -182,10 +153,11 @@ const FormRoomEdit = () => {
                   Normal price:
                   <input
                     placeholder="Normal price"
-                    type="number"
+                    type="text"
                     id="normalPrice"
                     name="normalPrice"
-                    onChange={handleInputChange}
+                    value={formValuesCreateRoom.normalPrice}
+                    onChange={handleInputChangeCreateRoom}
                   />
                 </label>
               </div>
@@ -194,10 +166,11 @@ const FormRoomEdit = () => {
                   Sale Price:
                   <input
                     placeholder="Sale Price"
-                    type="number"
+                    type="text"
                     id="salePrice"
                     name="salePrice"
-                    onChange={handleInputChange}
+                    value={formValuesCreateRoom.salePrice}
+                    onChange={handleInputChangeCreateRoom}
                   />
                 </label>
               </div>
@@ -207,19 +180,23 @@ const FormRoomEdit = () => {
                 <label htmlFor="amenities">
                   Amenities:
                   <div id="amenities">
-                    {availableAmenities.map((amenity) => {
+                    {amenitiesRooms.map((item, index) => {
                       return (
-                        <div key={amenity}>
-                          <label>
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div key={index}>
+                          <label htmlFor="amenities">
                             <input
+                              id="amenities"
                               type="checkbox"
                               name="amenities"
-                              value={amenity}
-                              checked={formValues.amenities.includes(amenity)}
-                              onChange={handleInputChange}
+                              value={item.amenity_name}
+                              checked={formValuesCreateRoom.amenities.includes(
+                                item.amenity_name,
+                              )}
+                              onChange={handleInputChangeCreateRoom}
                             />
                             &nbsp;
-                            {amenity}
+                            {item.amenity_name}
                           </label>
                         </div>
                       );
@@ -231,21 +208,23 @@ const FormRoomEdit = () => {
                 <label htmlFor="inclusions">
                   Inclusions:
                   <div id="inclusions">
-                    {availableInclusions.map((inclusion) => {
+                    {inclusionsRooms.map((item, index) => {
                       return (
-                        <div key={inclusion}>
-                          <label>
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div key={index}>
+                          <label htmlFor="inclusions">
                             <input
+                              id="inclusions"
                               type="checkbox"
                               name="inclusions"
-                              value={inclusion}
-                              checked={formValues.inclusions.includes(
-                                inclusion
+                              value={item.inclusion.inclusion_name}
+                              checked={formValuesCreateRoom.inclusions.includes(
+                                item.inclusion.inclusion_name,
                               )}
-                              onChange={handleInputChange}
+                              onChange={handleInputChangeCreateRoom}
                             />
                             &nbsp;
-                            {inclusion}
+                            {item.inclusion.inclusion_name}
                           </label>
                         </div>
                       );

@@ -18,14 +18,15 @@
       .modal-context_container{
         border: 2px solid #ff5733;
         padding: 10px; 
-        border-radius: 5px; 
+        border-radius: 20px; 
         margin: 5px;
       }
       
       img {
-        max-width: 300px;
-        height: auto;
+        max-width: 450px;
+        max-height: auto;
         margin-bottom: 20px;
+        border-radius: 20px;
       }
   
       .button-container {
@@ -53,4 +54,17 @@
         }
       }
     }
+    @media (max-width: 600px) {
+      .modal-content {
+        width: 300px;
+  
+        img {
+          max-width: 200px;
+          max-height: auto;
+        }
+      }
+    }
   }
+
+ 
+
