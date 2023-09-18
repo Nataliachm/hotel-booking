@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 export const getAllHotels = async (filters) => {
   try {
-    const response = await axiosInstance.get(`/api/hotel${filters}`);
+    const response = await axiosInstance.get(`/api/hotel${filters}/`);
     return response.data;
   } catch (error) {
     return error;
@@ -48,7 +48,10 @@ export const verifyUserEmail = async (email) => {
     const emailUser = {
       email,
     };
-    const response = await axios.post('http://localhost:8080/api/user/verify', emailUser);
+    const response = await axios.post(
+      'http://localhost:8080/api/user/verify',
+      emailUser
+    );
     return response;
   } catch (error) {
     return error;
@@ -63,7 +66,7 @@ export const authenticationUser = async (email, password) => {
     };
     const response = await axios.post(
       'http://localhost:8080/api/user/login',
-      data,
+      data
     );
     return response;
   } catch (error) {
@@ -91,7 +94,7 @@ export const getUserByEmail = async (emailPerson) => {
     };
     const response = await axios.post(
       'http://localhost:8080/api/user/get-info-user',
-      emailUser,
+      emailUser
     );
     return response;
   } catch (error) {
@@ -130,7 +133,7 @@ export const editUserImage = async (userToken, userImage) => {
     const response = await axios.put(
       'http://localhost:8080/api/user/image',
       data,
-      { headers },
+      { headers }
     );
     return response;
   } catch (error) {
@@ -150,7 +153,7 @@ export const createHotelsAdmin = async (hotelsData) => {
   try {
     const response = await axios.post(
       'http://localhost:8080/api/hotel',
-      hotelsData,
+      hotelsData
     );
     return response.data;
   } catch (error) {
@@ -167,20 +170,11 @@ export const getAllHotelsAdminPage = async () => {
   }
 };
 
-export const getHotelAdminPageById = async (id) => {
-  try {
-    const response = await axios.get(`http://localhost:8080/api/hotel/${id}`);
-    return response.data;
-  } catch (error) {
-    return error;
-  }
-};
-
 export const updateHotelAdminPageById = async (id, hotelData) => {
   try {
     const response = await axios.put(
       `http://localhost:8080/api/hotel/${id}`,
-      hotelData,
+      hotelData
     );
     return response.data;
   } catch (error) {
@@ -190,7 +184,9 @@ export const updateHotelAdminPageById = async (id, hotelData) => {
 
 export const deleteHotelAdminPageById = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:8080/api/hotel/${id}`);
+    const response = await axios.delete(
+      `http://localhost:8080/api/hotel/${id}`
+    );
     return response.data;
   } catch (error) {
     return error;
@@ -198,7 +194,10 @@ export const deleteHotelAdminPageById = async (id) => {
 };
 export const createRoomsAdmin = async (hotelId, roomData) => {
   try {
-    const response = await axios.post(`http://localhost:8080/api/room?hotelId=${hotelId}`, roomData);
+    const response = await axios.post(
+      `http://localhost:8080/api/room?hotelId=${hotelId}`,
+      roomData
+    );
     return response.data;
   } catch (error) {
     return error;
@@ -216,7 +215,9 @@ export const getAllRoomsAdminPage = async () => {
 
 export const getRoomsByHotelId = async (hotelId) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/hotel/${hotelId}/rooms`);
+    const response = await axios.get(
+      `http://localhost:8080/api/hotel/${hotelId}/rooms`
+    );
     return response.data;
   } catch (error) {
     return error;
@@ -225,7 +226,10 @@ export const getRoomsByHotelId = async (hotelId) => {
 
 export const updateRoomAdminPageById = async (id, roomData) => {
   try {
-    const response = await axios.put(`http://localhost:8080/api/room/${id}`, roomData);
+    const response = await axios.put(
+      `http://localhost:8080/api/room/${id}`,
+      roomData
+    );
     return response.data;
   } catch (error) {
     return error;
@@ -251,7 +255,10 @@ export const deleteRoomAdminPageById = async (id) => {
 
 export const createInclusionsRooms = async (inclusionRoomsData) => {
   try {
-    const response = await axios.post('http://localhost:8080/api/inclusion_room', inclusionRoomsData);
+    const response = await axios.post(
+      'http://localhost:8080/api/inclusion_room',
+      inclusionRoomsData
+    );
     return response.data;
   } catch (error) {
     return error;
@@ -260,7 +267,9 @@ export const createInclusionsRooms = async (inclusionRoomsData) => {
 
 export const getAllInclusionsRooms = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/inclusion_room');
+    const response = await axios.get(
+      'http://localhost:8080/api/inclusion_room'
+    );
     return response;
   } catch (error) {
     return error;
@@ -269,7 +278,9 @@ export const getAllInclusionsRooms = async () => {
 
 export const getInclusionsRoomsById = async (roomId) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/inclusion_room/${roomId}`);
+    const response = await axios.get(
+      `http://localhost:8080/api/inclusion_room/${roomId}`
+    );
     return response.data;
   } catch (error) {
     return error;
@@ -278,7 +289,10 @@ export const getInclusionsRoomsById = async (roomId) => {
 
 export const updateInclusionsRoomsById = async (id, roomId) => {
   try {
-    const response = await axios.put(`http://localhost:8080/api/inclusion_room/${id}`, roomId);
+    const response = await axios.put(
+      `http://localhost:8080/api/inclusion_room/${id}`,
+      roomId
+    );
     return response.data;
   } catch (error) {
     return error;
@@ -287,7 +301,9 @@ export const updateInclusionsRoomsById = async (id, roomId) => {
 
 export const getAmenitiesRoomsById = async (roomId) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/amenities_room/${roomId || ''}`);
+    const response = await axios.get(
+      `http://localhost:8080/api/amenities_room/${roomId || ''}`
+    );
     return response.data;
   } catch (error) {
     return error;
@@ -296,7 +312,10 @@ export const getAmenitiesRoomsById = async (roomId) => {
 
 export const updateAmenitiesRoomsById = async (id, roomId) => {
   try {
-    const response = await axios.put(`http://localhost:8080/api/amenities_room/${id}`, roomId);
+    const response = await axios.put(
+      `http://localhost:8080/api/amenities_room/${id}`,
+      roomId
+    );
     return response.data;
   } catch (error) {
     return error;
@@ -306,7 +325,7 @@ export const updateAmenitiesRoomsById = async (id, roomId) => {
 export const createBookedRoom = async (data) => {
   const response = await axios.post(
     'http://localhost:8080/api/booked-room',
-    data,
+    data
   );
   return response.data;
 };
