@@ -209,11 +209,17 @@ export const CardRooms = (props) => {
         </div>
       )}
 
-      {userRole === 'admin' && profile === 'admin' && (
+      {profile === 'admin' && (
         <div className="container-rooms__price-container">
           <div className="container-rooms__botons-container">
             <div>
-              <button className="container-rooms__button--edit" type="button" onClick={() => { return navigate(`/form-room-edit?roomId=${roomId}`); }}>
+              <button
+                className="container-rooms__button--edit"
+                type="button"
+                onClick={() => {
+                  return navigate(`/form-room-edit?roomId=${roomId}`);
+                }}
+              >
                 <i className="fas fa-cog" />
                 &nbsp; Edit
               </button>

@@ -43,6 +43,17 @@ export const getBookedRoom = async (bookedRoomId) => {
   }
 };
 
+export const getbookedRoomsByUserId = async (userId) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/api/booked-room/${userId}/bookedRooms`
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const verifyUserEmail = async (email) => {
   try {
     const emailUser = {
