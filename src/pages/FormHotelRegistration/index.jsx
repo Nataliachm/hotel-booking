@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 // import { createHotelsAdmin } from '../../service/Hotel.controller';
 import './FormHotelRegistration.scss';
 import { AppContext } from '../../store/AppContext';
+import { getHotel } from '../../service/Hotel.controller';
 
 const FormHotelRegistration = () => {
   const store = useContext(AppContext);
@@ -17,25 +18,30 @@ const FormHotelRegistration = () => {
     handleImageChange,
     handleFormSubmit,
     handleInputChange,
-    getHotelAdminPageDataById,
     imageHotelCloudinary,
     setImageHotelCloudinary,
   } = store;
   const ratingToStars = (rating) => {
     switch (rating) {
-      case 'one': return 1;
-      case 'two': return 2;
-      case 'three': return 3;
-      case 'four': return 4;
-      case 'five': return 5;
-      default: return 0;
+      case 'one':
+        return 1;
+      case 'two':
+        return 2;
+      case 'three':
+        return 3;
+      case 'four':
+        return 4;
+      case 'five':
+        return 5;
+      default:
+        return 0;
     }
   };
   useEffect(() => {
     const fetchHotelById = async () => {
       if (hotelId) {
         try {
-          const hotel = await getHotelAdminPageDataById(hotelId);
+          const hotel = await getHotel(hotelId);
           setFormDataCreateHotel({
             name: hotel.hotel_name,
             phone: hotel.phone,
@@ -94,7 +100,11 @@ const FormHotelRegistration = () => {
           )}
         </div>
         <div className="formHotelContainer__text">
-          <form onSubmit={(e) => { return handleFormSubmit(e, hotelId); }}>
+          <form
+            onSubmit={(e) => {
+              return handleFormSubmit(e, hotelId);
+            }}
+          >
             <div>
               <label htmlFor="index">
                 Index:

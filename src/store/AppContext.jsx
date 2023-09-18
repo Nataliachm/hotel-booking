@@ -9,7 +9,6 @@ import {
   getUserByEmail,
   createHotelsAdmin,
   getAllHotelsAdminPage,
-  getHotelAdminPageById,
   getRoomAdminPageById,
   updateHotelAdminPageById,
   deleteHotelAdminPageById,
@@ -23,6 +22,7 @@ import {
   getAllInclusionsRooms,
   getAmenitiesRoomsById,
   authenticationUser,
+  getHotel,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -261,14 +261,6 @@ export const AppContextProvider = ({ children }) => {
   const getAllHotelsAdminPageData = async () => {
     try {
       const response = await getAllHotelsAdminPage();
-      return response;
-    } catch (error) {
-      return error;
-    }
-  };
-  const getHotelAdminPageDataById = async (id) => {
-    try {
-      const response = await getHotelAdminPageById(id);
       return response;
     } catch (error) {
       return error;
@@ -565,7 +557,6 @@ export const AppContextProvider = ({ children }) => {
         handleFormSubmit,
         handleInputChange,
         getAllHotelsAdminPageData,
-        getHotelAdminPageDataById,
         imageUser,
         fileInputRef,
         handleUserImageChange,

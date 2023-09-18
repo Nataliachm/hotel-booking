@@ -47,8 +47,8 @@ const MainRooms = ({ rooms, hotelInfo }) => {
                   arrayInclusions={room.Inclusion_room}
                   previousPrice={room.previous_price}
                   newPrice={room.new_price}
-                  city={hotelInfo.City.name_city}
-                  country={hotelInfo.City.country.country_name}
+                  city={hotelInfo.city.name_city}
+                  country={hotelInfo.city.country.country_name}
                   checkIn={checkIn}
                   checkOut={checkOut}
                   hotelName={hotelInfo.hotel_name}

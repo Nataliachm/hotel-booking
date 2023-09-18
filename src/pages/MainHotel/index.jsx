@@ -75,7 +75,7 @@ const MainHotel = () => {
                   <h6>
                     <i className="fas fa-map-marker-alt" />
                     &nbsp;
-                    {hotel.city}
+                    {hotel.city.name_city}
                   </h6>
                 </div>
               </div>

@@ -59,13 +59,13 @@ const HeaderMainRooms = ({ hotelInfo }) => {
           </div>
         </div>
         <div className="container-header-rooms__location-tags">
-          <p>{hotelInfo.City.name_city}</p>
+          <p>{hotelInfo.city.name_city}</p>
         </div>
         <div className="container-header-rooms__service-tags">
-          {Object.keys(hotelInfo.Service_labels_hotel).map((key) => {
+          {hotelInfo.Service_labels_hotel.map((serviceLabel) => {
             return (
-              <p key={hotelInfo.Service_labels_hotel[key].id}>
-                {hotelInfo.Service_labels_hotel[key].service_label_name}
+              <p key={serviceLabel.id}>
+                {serviceLabel.label.service_label_name}
               </p>
             );
           })}
