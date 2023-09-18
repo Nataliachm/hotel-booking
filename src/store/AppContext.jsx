@@ -22,7 +22,6 @@ import {
   getAllInclusionsRooms,
   getAmenitiesRoomsById,
   authenticationUser,
-  getHotel,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -62,7 +61,7 @@ export const AppContextProvider = ({ children }) => {
   });
 
   const [imageUser, setImageUser] = useState(
-    'https://icon-library.com/images/persona-icon/persona-icon-25.jpg'
+    'https://icon-library.com/images/persona-icon/persona-icon-25.jpg',
   );
   const fileInputRef = useRef(null);
   const [imageCreateRoom, setImageCreateRoom] = useState('');
@@ -76,6 +75,10 @@ export const AppContextProvider = ({ children }) => {
   });
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [showModalForRooms, setShowModalForRooms] = useState(false);
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency', currency: 'USD', minimumFractionDigits: 2,
+  }); // Número mínimo de decimales});
 
   const handleHotel = async () => {
     const allHotels = await getAllHotels();
@@ -150,7 +153,7 @@ export const AppContextProvider = ({ children }) => {
       const infoLocalUser = localStorage.getItem('userData');
       if (!infoLocalUser) {
         const found = await getUserByEmail(
-          email || localStorage.getItem('email')
+          email || localStorage.getItem('email'),
         );
         localStorage.setItem('userData', JSON.stringify(found.data.user));
         setUserData([{ ...found.data.user }]);
@@ -186,9 +189,9 @@ export const AppContextProvider = ({ children }) => {
         const response = await deleteRoomAdminPageById(roomId);
         closeModalForRooms();
         setRoomss((prevRooms) => {
-          return prevRooms.map((room) => {
-            return room.id === roomId ? { ...room, isDeleted: true } : room;
-          });
+          return prevRooms.map(
+            (room) => { return (room.id === roomId ? { ...room, isDeleted: true } : room); },
+          );
         });
         return response;
       }
@@ -214,7 +217,7 @@ export const AppContextProvider = ({ children }) => {
       {
         method: 'POST',
         body: data,
-      }
+      },
     );
     const file = await res.json();
     setImageHotelCloudinary(file.secure_url);
@@ -232,9 +235,8 @@ export const AppContextProvider = ({ children }) => {
       images: imageHotelCloudinary,
     };
     try {
-      const response = await (id
-        ? updateHotelAdminPageById(id, newHotel)
-        : createHotelsAdmin(newHotel));
+      const response = await
+      (id ? updateHotelAdminPageById(id, newHotel) : createHotelsAdmin(newHotel));
       navigate('/hotel-config');
       setFormDataCreateHotel({
         index: '',
@@ -306,9 +308,9 @@ export const AppContextProvider = ({ children }) => {
         const response = await deleteHotelAdminPageByIdFunction(hotelId);
         closeModal();
         setHotels((prevHotels) => {
-          return prevHotels.map((hotel) => {
-            return hotel.id === hotelId ? { ...hotel, isDeleted: true } : hotel;
-          });
+          return prevHotels.map(
+            (hotel) => { return (hotel.id === hotelId ? { ...hotel, isDeleted: true } : hotel); },
+          );
         });
         return response;
       }
@@ -338,7 +340,7 @@ export const AppContextProvider = ({ children }) => {
         {
           method: 'POST',
           body: data,
-        }
+        },
       );
       const file = await res.json();
       const token = localStorage.getItem('token');
@@ -346,7 +348,7 @@ export const AppContextProvider = ({ children }) => {
       localStorage.removeItem('userData');
 
       const found = await getUserByEmail(
-        email || localStorage.getItem('email')
+        email || localStorage.getItem('email'),
       );
       localStorage.setItem('userData', JSON.stringify(found.data.user));
       setUserData([{ ...found.data.user }]);
@@ -356,7 +358,12 @@ export const AppContextProvider = ({ children }) => {
     }
   };
   const handleInputChangeCreateRoom = (event) => {
-    const { name, value, type, checked } = event.target;
+    const {
+      name,
+      value,
+      type,
+      checked,
+    } = event.target;
 
     if (type === 'checkbox') {
       if (name === 'amenities') {
@@ -415,7 +422,7 @@ export const AppContextProvider = ({ children }) => {
       {
         method: 'POST',
         body: data,
-      }
+      },
     );
     const file = await res.json();
     setImageCreateRoom(file.secure_url);
@@ -585,9 +592,11 @@ export const AppContextProvider = ({ children }) => {
         validCredentials,
         setValidCredentials,
         handleSignOut,
+        formatter,
       }}
     >
       {isLoading ? <Loading /> : children}
     </AppContext.Provider>
+
   );
 };

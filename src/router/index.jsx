@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable jsx-a11y/aria-role */
 /* eslint-disable react/jsx-one-expression-per-line */
 import { createBrowserRouter } from 'react-router-dom';
@@ -112,17 +113,17 @@ const router = createBrowserRouter([
       {
         path: '/admin-room-edit',
         element: (
-          // <PrivateRoute role="admin" redirectRoute="/login">
-          <AdminRoomEdit />
-          // </PrivateRoute>
+          <PrivateRoute role="admin" redirectRoute="/login">
+            <AdminRoomEdit />
+          </PrivateRoute>
         ),
       },
       {
         path: '/form-room-edit',
         element: (
-          // <PrivateRoute role="admin" redirectRoute="/login">
-          <FormRoomEdit />
-          // </PrivateRoute>
+          <PrivateRoute role="admin" redirectRoute="/login">
+            <FormRoomEdit />
+          </PrivateRoute>
         ),
       },
       {

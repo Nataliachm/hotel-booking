@@ -17,6 +17,7 @@ const MainHotelConfig = () => {
     getAllHotelsAdminPageData,
     selectedHotelId,
     getRoomsByIdHotel,
+    formatter,
   } = store;
   const [hotels, setHotels] = useState([]);
 
@@ -160,14 +161,16 @@ const MainHotelConfig = () => {
                   <div className="card__text--price">
                     <div>
                       <h5>
-                        {`$
-                  ${hotel.previous_price}`}
+                        {`
+                  ${formatter.format(hotel.previous_price)}`}
+                  &nbsp;USD
                       </h5>
                     </div>
                     <div>
                       <span>
-                        {`$
-                    ${hotel.new_price}`}
+                        {`
+                    ${formatter.format(hotel.new_price)
+                    }`}
                       </span>
                     </div>
                   </div>
@@ -187,7 +190,7 @@ const MainHotelConfig = () => {
                       type="button"
                       onClick={() => {
                         return navigate(
-                          `/form-hotel-registration?id=${hotel.id}`
+                          `/form-hotel-registration?id=${hotel.id}`,
                         );
                       }}
                     >
@@ -196,13 +199,7 @@ const MainHotelConfig = () => {
                     </button>
                   </div>
                   <div>
-                    <button
-                      className="btn2"
-                      type="button"
-                      onClick={() => {
-                        return navigate(`/admin-room-edit?id=${hotel.id}`);
-                      }}
-                    >
+                    <button className="btn2" type="button" onClick={() => { return navigate(`/admin-room-edit?id=${hotel.id}`); }}>
                       <i className="fas fa-cog" />
                       &nbsp; Edit Rooms
                     </button>
