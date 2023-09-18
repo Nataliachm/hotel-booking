@@ -5,6 +5,7 @@ import { HeaderViewRooms } from '../../components/HeaderViewRooms';
 import HeaderMainRooms from '../../components/HeaderMainRooms';
 import MainRooms from '../../components/MainRooms';
 import { getHotel } from '../../service/Hotel.controller';
+import Loading from '../../components/Loading';
 
 const ViewRooms = () => {
   const { hotelId } = useParams();
@@ -32,7 +33,7 @@ const ViewRooms = () => {
   return (
     <div>
       {loading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : (
         <>
           {images.length !== 0 ? <HeaderViewRooms images={images} /> : null}

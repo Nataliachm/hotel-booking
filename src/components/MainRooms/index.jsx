@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 import { CardRooms } from '../CardRooms';
 import FormRooms from '../FormRooms';
 import useQuery from '../../hooks/useQuery';
+import Loading from '../Loading';
 
 const MainRooms = ({ rooms, hotelInfo }) => {
   if (typeof rooms !== 'object' || rooms === null) {
-    return <div>No hay información de habitaciones disponible.</div>;
+    return <Loading />;
   }
   const [selected, setSelected] = useState('Rooms');
 
