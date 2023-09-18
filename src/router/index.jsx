@@ -113,6 +113,9 @@ const router = createBrowserRouter([
       {
         path: '/admin-room-edit',
         element: (
+        // <PrivateRoute role="admin" redirectRoute="/login">
+          <AdminRoomEdit />
+        // </PrivateRoute>
           <PrivateRoute role="admin" redirectRoute="/login">
             <AdminRoomEdit />
           </PrivateRoute>
@@ -121,6 +124,9 @@ const router = createBrowserRouter([
       {
         path: '/form-room-edit',
         element: (
+        // <PrivateRoute role="admin" redirectRoute="/login">
+          <FormRoomEdit />
+        // </PrivateRoute>
           <PrivateRoute role="admin" redirectRoute="/login">
             <FormRoomEdit />
           </PrivateRoute>

@@ -1,5 +1,6 @@
+@import "../../styles/abstract/variables.scss";
 .Payment__container {
-  background-color: #e8e8e8;
+  background-color: $color-main-background;
   padding: 20px;
 
   .container {

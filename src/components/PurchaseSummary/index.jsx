@@ -1,6 +1,13 @@
+import { useContext } from 'react';
+import { AppContext } from '../../store/AppContext';
+
 import './PurchaseSummary.scss';
 
 const PurchaseSummary = ({ bookInfo, bookRoom }) => {
+  const store = useContext(AppContext);
+  const {
+    formatter,
+  } = store;
   const basePrice = bookInfo.new_price;
 
   const promoDiscount = bookInfo.previous_price - bookInfo.new_price;
@@ -16,13 +23,13 @@ const PurchaseSummary = ({ bookInfo, bookRoom }) => {
   const checkInTime = new Date(bookInfo.hotel.check_in).toLocaleTimeString(
     'es-ES',
 
-    { hour: '2-digit', minute: '2-digit' }
+    { hour: '2-digit', minute: '2-digit' },
   );
 
   const checkOutTime = new Date(bookInfo.hotel.check_out).toLocaleTimeString(
     'es-ES',
 
-    { hour: '2-digit', minute: '2-digit' }
+    { hour: '2-digit', minute: '2-digit' },
   );
 
   return (
@@ -127,9 +134,10 @@ const PurchaseSummary = ({ bookInfo, bookRoom }) => {
         <span>Payable Amount</span>
 
         <span>
-          {'$ '}
 
-          {total}
+          {`
+                    ${formatter.format(total)}`}
+                    &nbsp;USD
         </span>
       </section>
     </div>

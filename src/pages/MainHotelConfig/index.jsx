@@ -18,15 +18,19 @@ const MainHotelConfig = () => {
     selectedHotelId,
     getRoomsByIdHotel,
     formatter,
+    setIsLoading,
   } = store;
   const [hotels, setHotels] = useState([]);
 
   useEffect(() => {
     const fetchHotels = async () => {
       const response = await getAllHotelsAdminPageData();
+
       setHotels(response);
     };
+    setIsLoading(true);
     fetchHotels();
+    setIsLoading(false);
   }, []);
   const ratingToStars = (rating) => {
     switch (rating) {
@@ -171,6 +175,7 @@ const MainHotelConfig = () => {
                         {`
                     ${formatter.format(hotel.new_price)
                     }`}
+                    &nbsp;USD
                       </span>
                     </div>
                   </div>

@@ -20,6 +20,7 @@ const FormHotelRegistration = () => {
     handleInputChange,
     imageHotelCloudinary,
     setImageHotelCloudinary,
+    setIsLoading,
   } = store;
   const ratingToStars = (rating) => {
     switch (rating) {
@@ -63,7 +64,9 @@ const FormHotelRegistration = () => {
     };
 
     if (hotelId) {
+      setIsLoading(true);
       fetchHotelById();
+      setIsLoading(false);
     }
   }, [hotelId]);
   return (

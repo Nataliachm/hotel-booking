@@ -19,6 +19,7 @@ const AdminRoomEdit = () => {
     handleConfirmForRooms,
     closeModalForRooms,
     getRoomsByIdHotel,
+    setIsLoading,
   } = store;
   const [roomsList, setRoomsList] = useState([]);
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
@@ -32,7 +33,9 @@ const AdminRoomEdit = () => {
         console.error('error al obtener: ', error);
       }
     };
+    setIsLoading(true);
     fetchRooms();
+    setIsLoading(false);
   }, []);
   const handleConfirmDelete = async () => {
     try {
