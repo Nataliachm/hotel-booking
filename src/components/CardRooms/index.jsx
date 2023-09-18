@@ -3,11 +3,9 @@
 /* eslint-disable react/prop-types */
 
 /* eslint-disable react/button-has-type */
+import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AppContext } from '../../store/AppContext';
 import './CardRooms.scss';
-
-import React from 'react';
 
 import {
   faBed,
@@ -20,7 +18,7 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useJwt } from 'react-jwt';
-import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../store/AppContext';
 
 export const CardRooms = (props) => {
   const navigate = useNavigate();

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable jsx-a11y/aria-role */
 /* eslint-disable react/jsx-one-expression-per-line */
 import { createBrowserRouter } from 'react-router-dom';

@@ -9,21 +9,9 @@ import {
   getUserByEmail,
   createHotelsAdmin,
   getAllHotelsAdminPage,
-  getHotelAdminPageById,
   getRoomAdminPageById,
   updateHotelAdminPageById,
   deleteHotelAdminPageById,
-  editUserProfile,
-  editUserImage,
-  createRoomsAdmin,
-  getAllRoomsAdminPage,
-  getRoomsByHotelId,
-  updateRoomAdminPageById,
-  deleteRoomAdminPageById,
-  getAllInclusionsRooms,
-  getAmenitiesRoomsById,
-  authenticationUser,
-  getHotel,
   editUserProfile,
   editUserImage,
   createRoomsAdmin,
@@ -73,7 +61,7 @@ export const AppContextProvider = ({ children }) => {
   });
 
   const [imageUser, setImageUser] = useState(
-    'https://icon-library.com/images/persona-icon/persona-icon-25.jpg'
+    'https://icon-library.com/images/persona-icon/persona-icon-25.jpg',
   );
   const fileInputRef = useRef(null);
   const [imageCreateRoom, setImageCreateRoom] = useState('');
@@ -165,7 +153,7 @@ export const AppContextProvider = ({ children }) => {
       const infoLocalUser = localStorage.getItem('userData');
       if (!infoLocalUser) {
         const found = await getUserByEmail(
-          email || localStorage.getItem('email')
+          email || localStorage.getItem('email'),
         );
         localStorage.setItem('userData', JSON.stringify(found.data.user));
         setUserData([{ ...found.data.user }]);
@@ -229,7 +217,7 @@ export const AppContextProvider = ({ children }) => {
       {
         method: 'POST',
         body: data,
-      }
+      },
     );
     const file = await res.json();
     setImageHotelCloudinary(file.secure_url);
@@ -275,14 +263,6 @@ export const AppContextProvider = ({ children }) => {
   const getAllHotelsAdminPageData = async () => {
     try {
       const response = await getAllHotelsAdminPage();
-      return response;
-    } catch (error) {
-      return error;
-    }
-  };
-  const getRoomAdminPageDataById = async (id) => {
-    try {
-      const response = await getRoomAdminPageById(id);
       return response;
     } catch (error) {
       return error;
@@ -360,7 +340,7 @@ export const AppContextProvider = ({ children }) => {
         {
           method: 'POST',
           body: data,
-        }
+        },
       );
       const file = await res.json();
       const token = localStorage.getItem('token');
@@ -368,7 +348,7 @@ export const AppContextProvider = ({ children }) => {
       localStorage.removeItem('userData');
 
       const found = await getUserByEmail(
-        email || localStorage.getItem('email')
+        email || localStorage.getItem('email'),
       );
       localStorage.setItem('userData', JSON.stringify(found.data.user));
       setUserData([{ ...found.data.user }]);

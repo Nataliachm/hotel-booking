@@ -190,7 +190,7 @@ const MainHotelConfig = () => {
                       type="button"
                       onClick={() => {
                         return navigate(
-                          `/form-hotel-registration?id=${hotel.id}`
+                          `/form-hotel-registration?id=${hotel.id}`,
                         );
                       }}
                     >

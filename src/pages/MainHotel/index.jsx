@@ -1,10 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { useContext } from 'react';
-import { AppContext } from '../../store/AppContext';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import './MainHotel.scss';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../store/AppContext';
 import useQuery from '../../hooks/useQuery';
 import { getAllHotels } from '../../service/Hotel.controller';
 
