@@ -30,12 +30,18 @@ const MainHotelConfig = () => {
   }, []);
   const ratingToStars = (rating) => {
     switch (rating) {
-      case 'one': return 1;
-      case 'two': return 2;
-      case 'three': return 3;
-      case 'four': return 4;
-      case 'five': return 5;
-      default: return 0;
+      case 'one':
+        return 1;
+      case 'two':
+        return 2;
+      case 'three':
+        return 3;
+      case 'four':
+        return 4;
+      case 'five':
+        return 5;
+      default:
+        return 0;
     }
   };
   const handleDeleteHotel = (hotel) => {
@@ -68,7 +74,12 @@ const MainHotelConfig = () => {
         img="https://cdn-icons-png.flaticon.com/512/3135/3135768.png"
       />
       <div className="MainHotelConfig__container--button">
-        <button onClick={() => { return navigate('/form-hotel-registration'); }} type="button">
+        <button
+          onClick={() => {
+            return navigate('/form-hotel-registration');
+          }}
+          type="button"
+        >
           <i className="fas fa-plus-circle" />
           &nbsp; Add Hottel
         </button>
@@ -104,11 +115,41 @@ const MainHotelConfig = () => {
                   </div>
                   <div className="card__text--review">
                     <div className="star-icons">
-                      <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 1 ? 'fas filled' : 'far'}`} />
-                      <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 2 ? 'fas filled' : 'far'}`} />
-                      <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 3 ? 'fas filled' : 'far'}`} />
-                      <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 4 ? 'fas filled' : 'far'}`} />
-                      <i className={` fa-star star-icon ${ratingToStars(hotel.hotel_rating) >= 5 ? 'fas filled' : 'far'}`} />
+                      <i
+                        className={` fa-star star-icon ${
+                          ratingToStars(hotel.hotel_rating) >= 1
+                            ? 'fas filled'
+                            : 'far'
+                        }`}
+                      />
+                      <i
+                        className={` fa-star star-icon ${
+                          ratingToStars(hotel.hotel_rating) >= 2
+                            ? 'fas filled'
+                            : 'far'
+                        }`}
+                      />
+                      <i
+                        className={` fa-star star-icon ${
+                          ratingToStars(hotel.hotel_rating) >= 3
+                            ? 'fas filled'
+                            : 'far'
+                        }`}
+                      />
+                      <i
+                        className={` fa-star star-icon ${
+                          ratingToStars(hotel.hotel_rating) >= 4
+                            ? 'fas filled'
+                            : 'far'
+                        }`}
+                      />
+                      <i
+                        className={` fa-star star-icon ${
+                          ratingToStars(hotel.hotel_rating) >= 5
+                            ? 'fas filled'
+                            : 'far'
+                        }`}
+                      />
                     </div>
                     <div>
                       <h6>
@@ -144,7 +185,15 @@ const MainHotelConfig = () => {
                 </div>
                 <div className="card__botons">
                   <div>
-                    <button className="btn1" type="button" onClick={() => { return navigate(`/form-hotel-registration?id=${hotel.id}`); }}>
+                    <button
+                      className="btn1"
+                      type="button"
+                      onClick={() => {
+                        return navigate(
+                          `/form-hotel-registration?id=${hotel.id}`
+                        );
+                      }}
+                    >
                       <i className="fas fa-cog" />
                       &nbsp; Edit Hotel
                     </button>

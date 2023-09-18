@@ -23,6 +23,17 @@ import {
   getAllInclusionsRooms,
   getAmenitiesRoomsById,
   authenticationUser,
+  getHotel,
+  editUserProfile,
+  editUserImage,
+  createRoomsAdmin,
+  getAllRoomsAdminPage,
+  getRoomsByHotelId,
+  updateRoomAdminPageById,
+  deleteRoomAdminPageById,
+  getAllInclusionsRooms,
+  getAmenitiesRoomsById,
+  authenticationUser,
 } from '../service/Hotel.controller';
 import Loading from '../components/Loading';
 
@@ -62,7 +73,7 @@ export const AppContextProvider = ({ children }) => {
   });
 
   const [imageUser, setImageUser] = useState(
-    'https://icon-library.com/images/persona-icon/persona-icon-25.jpg',
+    'https://icon-library.com/images/persona-icon/persona-icon-25.jpg'
   );
   const fileInputRef = useRef(null);
   const [imageCreateRoom, setImageCreateRoom] = useState('');
@@ -97,6 +108,19 @@ export const AppContextProvider = ({ children }) => {
     return navigate('/login-register-password');
   };
 
+  const redirectToPrevUrl = (defaultUrl = '/') => {
+    try {
+      const { roomId } = JSON.parse(localStorage.getItem('filterInfo'));
+      if (roomId) {
+        navigate(`/traveller-information/${roomId}`);
+      } else {
+        navigate(defaultUrl);
+      }
+    } catch (error) {
+      navigate(defaultUrl);
+    }
+  };
+
   const handleRegisterUser = async () => {
     try {
       setIsLoading(true);
@@ -106,7 +130,7 @@ export const AppContextProvider = ({ children }) => {
       localStorage.setItem('email', email);
       localStorage.setItem('token', token);
 
-      return navigate('/profile-config-user');
+      redirectToPrevUrl('/profile-config-user');
     } catch {
       return navigate('/login');
     }
@@ -141,7 +165,7 @@ export const AppContextProvider = ({ children }) => {
       const infoLocalUser = localStorage.getItem('userData');
       if (!infoLocalUser) {
         const found = await getUserByEmail(
-          email || localStorage.getItem('email'),
+          email || localStorage.getItem('email')
         );
         localStorage.setItem('userData', JSON.stringify(found.data.user));
         setUserData([{ ...found.data.user }]);
@@ -205,7 +229,7 @@ export const AppContextProvider = ({ children }) => {
       {
         method: 'POST',
         body: data,
-      },
+      }
     );
     const file = await res.json();
     setImageHotelCloudinary(file.secure_url);
@@ -256,9 +280,9 @@ export const AppContextProvider = ({ children }) => {
       return error;
     }
   };
-  const getHotelAdminPageDataById = async (id) => {
+  const getRoomAdminPageDataById = async (id) => {
     try {
-      const response = await getHotelAdminPageById(id);
+      const response = await getRoomAdminPageById(id);
       return response;
     } catch (error) {
       return error;
@@ -336,7 +360,7 @@ export const AppContextProvider = ({ children }) => {
         {
           method: 'POST',
           body: data,
-        },
+        }
       );
       const file = await res.json();
       const token = localStorage.getItem('token');
@@ -344,7 +368,7 @@ export const AppContextProvider = ({ children }) => {
       localStorage.removeItem('userData');
 
       const found = await getUserByEmail(
-        email || localStorage.getItem('email'),
+        email || localStorage.getItem('email')
       );
       localStorage.setItem('userData', JSON.stringify(found.data.user));
       setUserData([{ ...found.data.user }]);
@@ -490,6 +514,7 @@ export const AppContextProvider = ({ children }) => {
         navigate('/');
         setIsLoading(false);
       }
+      redirectToPrevUrl();
       if (found === false) {
         setValidCredentials(true);
       } else {
@@ -506,6 +531,7 @@ export const AppContextProvider = ({ children }) => {
   const handleSignOut = async () => {
     if (JSON.parse(localStorage.getItem('userData'))) {
       localStorage.removeItem('userData');
+      localStorage.removeItem('filterInfo');
     }
 
     if (localStorage.getItem('token')) {
@@ -558,7 +584,6 @@ export const AppContextProvider = ({ children }) => {
         handleFormSubmit,
         handleInputChange,
         getAllHotelsAdminPageData,
-        getHotelAdminPageDataById,
         imageUser,
         fileInputRef,
         handleUserImageChange,

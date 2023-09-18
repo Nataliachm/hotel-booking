@@ -8,7 +8,7 @@ import './MapHotel.scss';
 
 const MapHotel = () => {
   L.setOptions({ locale: 'en' });
-  const position = [87.986, 89.6652];
+  const position = [8.8742544, -79.8176492];
 
   return (
     <MapContainer

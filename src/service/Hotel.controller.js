@@ -43,12 +43,26 @@ export const getBookedRoom = async (bookedRoomId) => {
   }
 };
 
+export const getbookedRoomsByUserId = async (userId) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/api/booked-room/${userId}/bookedRooms`,
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const verifyUserEmail = async (email) => {
   try {
     const emailUser = {
       email,
     };
-    const response = await axios.post('http://localhost:8080/api/user/verify', emailUser);
+    const response = await axios.post(
+      'http://localhost:8080/api/user/verify',
+      emailUser,
+    );
     return response;
   } catch (error) {
     return error;
@@ -161,15 +175,6 @@ export const createHotelsAdmin = async (hotelsData) => {
 export const getAllHotelsAdminPage = async () => {
   try {
     const response = await axios.get('http://localhost:8080/api/hotel');
-    return response.data;
-  } catch (error) {
-    return error;
-  }
-};
-
-export const getHotelAdminPageById = async (id) => {
-  try {
-    const response = await axios.get(`http://localhost:8080/api/hotel/${id}`);
     return response.data;
   } catch (error) {
     return error;
