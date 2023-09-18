@@ -109,10 +109,9 @@ function Header() {
             size="2x"
           />
           <hr />
-          <a href="#">COP Peso colombiano</a>
-          <a href="#">Español</a>
-          <a href="#">Atención al cliente</a>
-          <a href="#">Información legal</a>
+          <a href="/">Home</a>
+          <a href="/hotel-config">Hotels</a>
+          <a href="/">Rooms</a>
         </div>
       </header>
     </div>
