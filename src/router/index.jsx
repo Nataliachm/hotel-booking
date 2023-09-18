@@ -116,6 +116,9 @@ const router = createBrowserRouter([
         // <PrivateRoute role="admin" redirectRoute="/login">
           <AdminRoomEdit />
         // </PrivateRoute>
+          <PrivateRoute role="admin" redirectRoute="/login">
+            <AdminRoomEdit />
+          </PrivateRoute>
         ),
       },
       {
@@ -124,6 +127,9 @@ const router = createBrowserRouter([
         // <PrivateRoute role="admin" redirectRoute="/login">
           <FormRoomEdit />
         // </PrivateRoute>
+          <PrivateRoute role="admin" redirectRoute="/login">
+            <FormRoomEdit />
+          </PrivateRoute>
         ),
       },
       {

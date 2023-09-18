@@ -189,6 +189,7 @@ export const AppContextProvider = ({ children }) => {
         setIsLoading(true);
         const response = await deleteRoomAdminPageById(roomId);
         setIsLoading(false);
+        const response = await deleteRoomAdminPageById(roomId);
         closeModalForRooms();
         setRoomss((prevRooms) => {
           return prevRooms.map(
@@ -312,6 +313,7 @@ export const AppContextProvider = ({ children }) => {
         setIsLoading(true);
         const response = await deleteHotelAdminPageByIdFunction(hotelId);
         setIsLoading(false);
+        const response = await deleteHotelAdminPageByIdFunction(hotelId);
         closeModal();
         setHotels((prevHotels) => {
           return prevHotels.map(
