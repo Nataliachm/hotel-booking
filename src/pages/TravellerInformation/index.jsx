@@ -4,6 +4,7 @@ import PurchaseSummary from '../../components/PurchaseSummary';
 import TravellerInfo from '../../components/TravellerInfo';
 import './TravellerInformation.scss';
 import { getRoom } from '../../service/Hotel.controller';
+import Loading from '../../components/Loading';
 
 const TravellerInformation = () => {
   const { roomId } = useParams();
@@ -28,7 +29,7 @@ const TravellerInformation = () => {
   return (
     <div>
       {loading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : (
         <div className="TravellerInformation__container">
           <div className="container">

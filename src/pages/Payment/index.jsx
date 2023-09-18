@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import PurchaseSummary from '../../components/PurchaseSummary';
 import PaymentCreditCard from '../../components/PaymentCreditCard';
 import { getRoom } from '../../service/Hotel.controller';
+import Loading from '../../components/Loading';
 
 const stripePromise = loadStripe(
   'pk_test_51NgUkUEMcBBlCSl2Z6jMTm8SHDBXo9SbjxJARHB8Eg2PxqZhF94Wn10IYoLt5y9EC6jcQCzur8YUKwm1SxhPrNyj00GkK8tfLs'
@@ -33,7 +34,7 @@ const Payment = () => {
   return (
     <div>
       {loading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : (
         <div className="Payment__container">
           <div className="container">

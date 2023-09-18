@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 export const getAllHotels = async (filters) => {
   try {
-    const response = await axiosInstance.get(`/api/hotel${filters}/`);
+    const response = await axiosInstance.get(`/api/hotel${filters}`);
     return response.data;
   } catch (error) {
     return error;
@@ -37,6 +37,17 @@ export const getRoom = async (roomId) => {
 export const getBookedRoom = async (bookedRoomId) => {
   try {
     const response = await axiosInstance(`/api/booked-room/${bookedRoomId}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getbookedRoomsByUserId = async (userId) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/api/booked-room/${userId}/bookedRooms`
+    );
     return response.data;
   } catch (error) {
     return error;
