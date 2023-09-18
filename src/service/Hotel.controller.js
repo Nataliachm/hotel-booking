@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 export const getAllHotels = async (filters) => {
   try {
-    const response = await axiosInstance.get(`/api/hotel${filters}/`);
+    const response = await axiosInstance.get(`/api/hotel${filters}`);
     return response.data;
   } catch (error) {
     return error;
