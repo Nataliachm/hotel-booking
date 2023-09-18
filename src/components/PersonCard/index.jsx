@@ -5,40 +5,44 @@ import './PersonCard.scss';
 
 const PersonCard = (props) => {
   const store = useContext(AppContext);
-  const {
-    userData, fileInputRef, handleUserImageChange, imageIsLoading,
-  } = store;
+  const { userData, fileInputRef, handleUserImageChange, imageIsLoading } =
+    store;
   const { btn2, userName } = props;
 
   return (
     <div className="person">
       <div className="person__card">
         <div className="profile-img-container">
-          {imageIsLoading ? <ImageLoading />
-            : (
-              <>
-                <button
-                  type="button"
-                  className="profile-img-button"
-                  onClick={() => { return fileInputRef.current.click(); }}
-                >
-                  <img
-                    src={userData[0]?.user_img || 'https://icon-library.com/images/persona-icon/persona-icon-25.jpg'}
-                    alt="profileImg"
-                    className="profile-img"
-                  />
-                </button>
-                <input
-                  type="file"
-                  id="fileInput"
-                  accept="image/*"
-                  onChange={handleUserImageChange}
-                  ref={fileInputRef}
-                  style={{ display: 'none' }}
+          {imageIsLoading ? (
+            <ImageLoading />
+          ) : (
+            <>
+              <button
+                type="button"
+                className="profile-img-button"
+                onClick={() => {
+                  return fileInputRef.current.click();
+                }}
+              >
+                <img
+                  src={
+                    userData[0]?.user_img ||
+                    'https://icon-library.com/images/persona-icon/persona-icon-25.jpg'
+                  }
+                  alt="profileImg"
+                  className="profile-img"
                 />
-              </>
-            )}
-
+              </button>
+              <input
+                type="file"
+                id="fileInput"
+                accept="image/*"
+                onChange={handleUserImageChange}
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+              />
+            </>
+          )}
         </div>
         <div className="person__card__info">
           <div>
@@ -50,17 +54,17 @@ const PersonCard = (props) => {
         </div>
         <div className="person__card__additional-info">
           <div>
-            <a href="enlace1.html" className="additional-link">
+            <a href="/profile-config-user" className="additional-link">
               Profile
             </a>
           </div>
           <div>
-            <a href="enlace2.html" className="additional-link">
+            <a href="/" className="additional-link">
               {btn2}
             </a>
           </div>
           <div>
-            <a href="enlace3.html" className="additional-link">
+            <a href="/user-booked-rooms" className="additional-link">
               Bookings
             </a>
           </div>

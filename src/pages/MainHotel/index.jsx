@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useEffect, useState } from 'react';
 import './MainHotel.scss';
 import { useNavigate } from 'react-router-dom';
@@ -73,7 +75,7 @@ const MainHotel = () => {
                   <h6>
                     <i className="fas fa-map-marker-alt" />
                     &nbsp;
-                    {hotel.city}
+                    {hotel.city.name_city}
                   </h6>
                 </div>
               </div>
