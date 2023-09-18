@@ -23,24 +23,6 @@ const FormRoomEdit = () => {
   const queryParams = new URLSearchParams(location.search);
   const hotelId = queryParams.get('hotelId');
   const roomId = queryParams.get('roomId');
-  // const availableAmenities = [
-  //   'King/Twin',
-  //   'Pool View',
-  //   'LCD TV',
-  //   'Couch',
-  //   'Shower',
-  // ];
-  // const availableInclusions = [
-  //   'Wi-Fi',
-  //   'Breakfast',
-  //   'Free Cancellation',
-  //   'Non Refundable',
-  //   'Dinner & Lunch',
-  // ];
-  useEffect(() => {
-
-  }, []);
-
   useEffect(() => {
     const fetchRoomData = async () => {
       if (roomId) {

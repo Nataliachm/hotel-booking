@@ -27,13 +27,13 @@ const AdminRoomEdit = () => {
     const fetchRooms = async () => {
       try {
         const response = await getRoomsByIdHotel(id);
-        setRoomsList(response);
+        setRoomsList(await response);
       } catch (error) {
         console.error('error al obtener: ', error);
       }
     };
     fetchRooms();
-  }, [id]);
+  }, []);
   const handleConfirmDelete = async () => {
     try {
       await handleConfirmForRooms(selectedRoom);
@@ -84,8 +84,8 @@ const AdminRoomEdit = () => {
                   roomId={room.id}
                   roomName={room.room_name}
                   urlImage={room.room_img}
-                  // arrayAmenities={room.amenities}
-                  // arrayInclusions={room.inclusion}
+                  arrayAmenities={room.Amenity_room}
+                  arrayInclusions={room.Inclusion_room}
                   previousPrice={room.previous_price}
                   newPrice={room.new_price}
                   profile="admin"

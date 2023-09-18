@@ -17,6 +17,7 @@ const MainHotelConfig = () => {
     getAllHotelsAdminPageData,
     selectedHotelId,
     getRoomsByIdHotel,
+    formatter,
   } = store;
   const [hotels, setHotels] = useState([]);
 
@@ -94,7 +95,7 @@ const MainHotelConfig = () => {
                       <h6>
                         <i className="fas fa-map-marker-alt" />
                         &nbsp;
-                        {hotel.City?.name_city}
+                        {hotel.city?.name_city}
                       </h6>
                     </div>
                   </div>
@@ -119,14 +120,15 @@ const MainHotelConfig = () => {
                   <div className="card__text--price">
                     <div>
                       <h5>
-                        {`$
-                  ${hotel.previous_price}`}
+                        {`
+                  ${formatter.format(hotel.previous_price)}`}
+                  &nbsp;USD
                       </h5>
                     </div>
                     <div>
                       <span>
-                        {`$
-                    ${hotel.new_price
+                        {`
+                    ${formatter.format(hotel.new_price)
                     }`}
                       </span>
                     </div>

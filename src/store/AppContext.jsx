@@ -77,6 +77,10 @@ export const AppContextProvider = ({ children }) => {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [showModalForRooms, setShowModalForRooms] = useState(false);
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency', currency: 'USD', minimumFractionDigits: 2,
+  }); // Número mínimo de decimales});
+
   const handleHotel = async () => {
     const allHotels = await getAllHotels();
     setHotels(allHotels);
@@ -583,6 +587,7 @@ export const AppContextProvider = ({ children }) => {
         validCredentials,
         setValidCredentials,
         handleSignOut,
+        formatter,
       }}
     >
       {isLoading ? <Loading /> : children}

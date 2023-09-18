@@ -3,7 +3,8 @@
 /* eslint-disable react/prop-types */
 
 /* eslint-disable react/button-has-type */
-
+import { useContext } from 'react';
+import { AppContext } from '../../store/AppContext';
 import './CardRooms.scss';
 
 import React from 'react';
@@ -23,6 +24,10 @@ import { useNavigate } from 'react-router-dom';
 
 export const CardRooms = (props) => {
   const navigate = useNavigate();
+  const store = useContext(AppContext);
+  const {
+    formatter,
+  } = store;
   const {
     roomName,
     urlImage,
@@ -150,9 +155,13 @@ export const CardRooms = (props) => {
       </div>
       {profile === 'room' && (
         <div className="container-rooms__price-container">
-          <span>${previousPrice}</span>
+          <span>{formatter.format(previousPrice)}
+          &nbsp;USD
+          </span>
 
-          <p>${newPrice}</p>
+          <p>{formatter.format(newPrice)}
+          &nbsp;USD
+          </p>
 
           <span>per night</span>
 
@@ -202,23 +211,32 @@ export const CardRooms = (props) => {
 
           <div className="container-rooms__price-info">
             <p>
-              ${newPrice}
+              {formatter.format(newPrice)}
+          &nbsp;USD
               /per night
             </p>
           </div>
         </div>
       )}
 
-      {userRole === 'admin' && profile === 'admin' && (
+      {profile === 'admin' && (
         <div className="container-rooms__price-container">
+          <span>
+            {formatter.format(previousPrice)}
+            &nbsp;USD
+          </span>
+          <p>
+            {formatter.format(newPrice)}
+            &nbsp;USD
+          </p>
+          <span>per night</span>
           <div className="container-rooms__botons-container">
             <div>
-              <button className="container-rooms__button--edit" type="button" onClick={() => { return navigate(`/form-room-edit?roomId=${roomId}`); }}>
+              <button onClick={() => { return navigate(`/form-room-edit?roomId=${roomId}`); }} className="container-rooms__button--edit" type="button">
                 <i className="fas fa-cog" />
-                &nbsp; Edit
+                    &nbsp; Edit
               </button>
             </div>
-
             <div>
               <button
                 className="container-rooms__button--delete"
@@ -226,7 +244,7 @@ export const CardRooms = (props) => {
                 onClick={onCustomButtonClick}
               >
                 <i className="fas fa-trash-alt" />
-                &nbsp; Delete
+                    &nbsp; Delete
               </button>
             </div>
           </div>

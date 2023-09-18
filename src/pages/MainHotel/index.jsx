@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+import { useContext } from 'react';
+import { AppContext } from '../../store/AppContext';
 import { useEffect, useState } from 'react';
 import './MainHotel.scss';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +9,10 @@ import useQuery from '../../hooks/useQuery';
 import { getAllHotels } from '../../service/Hotel.controller';
 
 const MainHotel = () => {
+  const store = useContext(AppContext);
+  const {
+    formatter,
+  } = store;
   const navigate = useNavigate();
   const query = useQuery();
 
@@ -136,8 +142,9 @@ const MainHotel = () => {
                 </div>
                 <div>
                   <span>
-                    {`$
-                    ${hotel.new_price}`}
+                    {`
+                    ${formatter.format(hotel.new_price)}`}
+                  &nbsp;USD
                   </span>
                 </div>
               </div>
