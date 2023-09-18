@@ -1,0 +1,80 @@
+@import '../../styles/abstract/variables.scss';
+
+.event-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  background-color: rgba(45, 43, 43, 0.5);
+
+  p {
+    text-align: center;
+  }
+
+  h2 {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+}
+
+.event-modal.show {
+  opacity: 10;
+  pointer-events: visible;
+}
+
+.modal-content {
+  max-width: 700px;
+  min-width: 500px;
+  position: relative;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: white;
+  transform: translateY(0%);
+  transition: all 0.3s ease-in-out;
+}
+
+.event-modal.show .modal-content {
+  transform: translateY(0);
+}
+
+.exit-btn {
+  position: absolute;
+  right: -18px;
+  top: -22px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 1.8rem;
+  cursor: pointer;
+
+  svg {
+    fill: white;
+    font-size: 1.8rem;
+  }
+}
+@media (max-width: 530px) {
+  .modal-content {
+    max-width: 300px;
+    min-width: auto; /* Si deseas que el ancho mínimo también sea 300px */
+  }
+}

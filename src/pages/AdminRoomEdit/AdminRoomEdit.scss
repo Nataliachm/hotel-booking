@@ -1,0 +1,66 @@
+@import '../../styles/abstract/variables.scss';
+@import '../../styles/abstract/mixins.scss';
+
+
+.room-admin-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $color-main-background;
+    padding: 0rem 1rem 3rem 1rem;
+
+    .room-admin-container__PersonCard{
+        background-color: $color-white;
+    }
+
+
+
+    .room-admin-container__room:not(:first-child){
+        margin-top: 1.5rem;
+    }
+
+    @media (min-width:1440px) {
+        // margin-right: 1rem;
+        padding: 0rem 3rem 1rem 3rem; 
+    }
+}
+
+.room-admin-container__main-rooms{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: $color-main-background;
+    box-shadow: 0 2px 4px 0 #dedede;
+    // max-width: 1024px;
+
+    @media (min-width:1024px) {
+        // margin-right: 1rem;
+        margin-bottom: 2rem;
+        box-shadow: none;
+    }
+}
+
+.room-admin-container__container-rooms{
+    padding: 1rem;
+    background-color: $color-white;
+    max-width: 1024px;
+
+    @media (min-width:1024px) {
+        box-shadow: 0 2px 4px 0 #dedede;
+    }
+
+}
+
+.room-admin-container__button{
+    display: flex;
+    justify-content: center;
+    button{
+      background-color: #ef3f3e;
+      font-weight: 700;
+      color: white;
+      padding: 10px 30px;
+      box-shadow: 1px 11px 20px 0px rgba(239, 63, 62, 0.12);
+      box-shadow: 1px 11px 20px 0px rgba(239, 63, 62, 0.12);
+      margin-bottom: 18px;
+  }
+}

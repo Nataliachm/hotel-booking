@@ -1,0 +1,209 @@
+@import '../../styles/abstract/variables.scss';
+
+.container-information{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // margin: 2rem 0rem;
+    padding: 2.5rem 0rem;
+    z-index: 1;
+	position: relative;
+}
+
+.bird {
+	background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/174479/bird-cells-new.svg);
+	background-size: auto 100%;
+	width: 88px;
+	height: 125px;
+	will-change: background-position;
+	
+	animation-name: fly-cycle;
+	animation-timing-function: steps(10);
+	animation-iteration-count: infinite;
+
+	&--one {
+		animation-duration: 1s;
+		animation-delay: -0.5s;		
+	}
+	
+	&--two {
+		animation-duration: 0.9s;
+		animation-delay: -0.75s;
+	}
+	
+	&--three {
+		animation-duration: 1.25s;
+		animation-delay: -0.25s;
+	}
+	
+	&--four {
+		animation-duration: 1.1s;
+		animation-delay: -0.5s;
+	}
+
+}
+
+.bird-container {
+	position: absolute;
+	top: 20%;
+	left: -10%;
+	transform: scale(0) translateX(-10vw);
+	will-change: transform;
+	
+	animation-name: fly-right-one;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	
+	&--one {
+		animation-duration: 15s;
+		animation-delay: 0;
+	}
+	
+	&--two {
+		animation-duration: 16s;
+		animation-delay: 1s;
+	}
+	
+	&--three {
+		animation-duration: 14.6s;
+		animation-delay: 9.5s;
+	}
+	
+	&--four {
+		animation-duration: 16s;
+		animation-delay: 10.25s;
+	}
+	
+}
+
+@keyframes fly-cycle {
+	
+	100% {
+		background-position: -900px 0;
+	}
+	
+}
+
+@keyframes fly-right-one {
+	
+	0% {
+		transform: scale(0.3) translateX(-10vw);
+	}
+	
+	10% {
+		transform: translateY(2vh) translateX(10vw) scale(0.4);
+	}
+	
+	20% {
+		transform: translateY(0vh) translateX(30vw) scale(0.5);
+	}
+	
+	30% {
+		transform: translateY(4vh) translateX(50vw) scale(0.6);
+	}
+	
+	40% {
+		transform: translateY(2vh) translateX(70vw) scale(0.6);
+	}
+	
+	50% {
+		transform: translateY(0vh) translateX(90vw) scale(0.6);
+	}
+	
+	60% {
+		transform: translateY(0vh) translateX(110vw) scale(0.6);
+	}
+	
+	100% {
+		transform: translateY(0vh) translateX(110vw) scale(0.6);
+	}
+	
+}
+
+@keyframes fly-right-two {
+	
+	0% {
+		transform: translateY(-2vh) translateX(-10vw) scale(0.5);
+	}
+	
+	10% {
+		transform: translateY(0vh) translateX(10vw) scale(0.4);
+	}
+	
+	20% {
+		transform: translateY(-4vh) translateX(30vw) scale(0.6);
+	}
+	
+	30% {
+		transform: translateY(1vh) translateX(50vw) scale(0.45);
+	}
+	
+	40% {
+		transform: translateY(-2.5vh) translateX(70vw) scale(0.5);
+	}
+	
+	50% {
+		transform: translateY(0vh) translateX(90vw) scale(0.45);
+	}
+	
+	51% {
+		transform: translateY(0vh) translateX(110vw) scale(0.45);
+	}
+	
+	100% {
+		transform: translateY(0vh) translateX(110vw) scale(0.45);
+	}
+	
+}
+
+.container-information_text{
+    text-align: center;
+    p{
+        font-size: 1rem;
+        text-align: center;
+        max-width: 850px;
+        padding: 0rem 1rem;
+    }
+}
+
+.container-information__images{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    z-index: 1;
+    .container-information__image{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 10px;
+        
+        height: 120px;
+        background-color: white;
+        border-radius: 15px;
+        
+        img{
+            width: 50px;
+            margin-bottom: 8px;
+        }
+    
+        p{
+            font-weight: 400;
+            color: $color-text-silver-chalice;
+        }
+
+        @media (min-width: 768px) {
+            // width: 150px;
+            width: 10rem;
+        }
+
+    }
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-around;
+        div:nth-child(2n){
+            margin-top: 70px;
+        }
+    }
+}

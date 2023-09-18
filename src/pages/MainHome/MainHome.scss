@@ -1,0 +1,207 @@
+@import '../../styles/abstract/variables.scss';
+
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main__corrousel{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // width: 23.2rem; /* Ancho del carrusel */
+    width: 100%;
+    overflow: hidden;
+    margin: 2rem 0rem;
+
+    @media (min-width: 768px) {
+        width: 100%;
+    }
+
+    // @media (min-width: 1280px) {
+    //     width: 100%;
+    // }
+}
+
+.main__wrap-corrousel{
+    display: flex;
+    animation: slideAnimation 12s infinite;
+    div:nth-child(1){
+        margin-left: 15px;
+    }
+
+    @media (width: 768px) {
+        animation: slideAnimationTabletSmall 12s infinite;
+        
+    }
+
+    @media (width: 1024px) {
+        animation: slideAnimationTablet 10s infinite;
+    }
+
+    @media (min-width: 1280px) {
+        justify-content: space-around;
+        animation: none;
+        // div:nth-child(1){
+        //     margin-left: initial;
+        // }
+    }
+}
+
+@keyframes slideAnimation {
+    0%{
+      transform: translateX(750px);
+    }
+    5%{
+        transform: translateX(745px);
+    }
+    20%{
+        transform: translateX(395px);
+    }
+    25%{
+        transform: translateX(390px);
+    }
+    40%{
+      transform: translateX(20px);
+    }
+    45%{
+      transform: translateX(15px);
+    }
+    60%{
+        transform: translateX(-350px)
+    }
+    65%{
+        transform: translateX(-355px)
+    }
+    80%{
+        transform: translateX(-720px);
+    }
+    85%{
+        transform: translateX(-725px);
+    }
+    100%{
+        transform: translateX(750px);
+    }
+}
+
+@keyframes slideAnimationTabletSmall {
+    0%{
+      transform: translateX(550px);
+    }
+    5%{
+      transform: translateX(545px);
+    }
+    25%{
+      transform: translateX(215px);
+    }
+    30%{
+        transform: translateX(210px)
+    }
+    50%{
+        transform: translateX(-180px)
+    }
+    55%{
+        transform: translateX(-185px);
+    }
+    75%{
+        transform: translateX(-530px);
+    }
+    80%{
+        transform: translateX(-535px);
+    }
+    100%{
+        transform: translateX(550px);
+    }
+}
+
+@keyframes slideAnimationTablet {
+    0%{
+    transform: translateX(400px);
+    }
+    5%{
+    transform: translateX(395px);
+    }
+    50%{
+        transform: translateX(-370px)
+    }
+    55%{
+        transform: translateX(-375px);
+    }
+    100%{
+        transform: translateX(400px);
+    }
+}
+
+.main__destination{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 2rem 0rem;
+    padding: 0rem 1rem;
+
+    .main__card-destination{
+        display: flex;
+        overflow: auto;
+        // width: 360px;
+        width: 100%;
+        cursor: pointer;
+        &::-webkit-scrollbar {
+            width: 0rem;
+            height: 0rem;
+        }
+
+
+        @media (width: 1024px) {
+            // width: 900px;
+            justify-content: space-around;
+        }
+
+        @media (min-width: 1280px) {
+            width: 1200px;
+            justify-content: space-around;
+        }
+
+    }
+
+}
+
+.main__information{
+    background-image: url('../../../public/imageMain_booking_background.jpg');
+    width: 100%;
+}
+
+.main__blogs{
+    display: flex;
+    justify-content: space-between;
+    overflow: auto;
+    // width: 360px;
+    width: 100%;
+    max-width: 1400px;
+    cursor: pointer;
+    padding-bottom: 1rem;
+    margin: 40px 0px;
+    &::-webkit-scrollbar {
+        width: 0rem;
+        height: 0rem;
+    }
+
+    @media (width: 425px) {
+        padding: 1rem 0.5rem;
+    }
+
+    @media (min-width: 1440px) {
+        padding: 1rem 2rem;
+    }
+    
+
+}
+
+// .main__subscribe{
+//     background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),url('../../../public/landscape.svg');
+//     background-position: center;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+// }

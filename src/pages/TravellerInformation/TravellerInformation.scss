@@ -1,0 +1,16 @@
+@import "../../styles/abstract/variables.scss";
+.TravellerInformation__container {
+    background-color: $color-main-background;
+    padding: 20px;
+
+
+    .container {
+        padding: 15px;
+        flex-grow: 1;
+    }
+
+    @media (min-width: 768px) {
+        display: flex;
+        align-items: stretch;
+    }
+}

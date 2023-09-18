@@ -1,0 +1,39 @@
+@import '../../styles/abstract/variables.scss';
+
+.NotFound__wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 20rem 0rem;
+}
+.container-notFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // margin: 20px 0px;
+  padding: 20px 15px;
+  // background-color: #f9f9f9;
+  img {
+    width: 300px;
+  }
+}
+
+.container-notFound__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 800px;
+
+  h2 {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 15px;
+  }
+  p {
+    color: $color-text-silver-chalice;
+    font-size: 15px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+}
