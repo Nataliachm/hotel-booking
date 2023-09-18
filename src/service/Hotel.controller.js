@@ -45,8 +45,8 @@ export const getBookedRoom = async (bookedRoomId) => {
 
 export const getbookedRoomsByUserId = async (userId) => {
   try {
-    const response = await axios.get(
-      `http://localhost:8080/api/booked-room/${userId}/bookedRooms`,
+    const response = await axiosInstance.get(
+      `/api/booked-room/${userId}/bookedRooms`,
     );
     return response.data;
   } catch (error) {
@@ -75,8 +75,8 @@ export const authenticationUser = async (email, password) => {
       email,
       password,
     };
-    const response = await axios.post(
-      'http://localhost:8080/api/user/login',
+    const response = await axiosInstance.post(
+      '/api/user/login',
       data,
     );
     return response;
@@ -91,7 +91,7 @@ export const registerUser = async (email, password) => {
       email,
       password,
     };
-    const response = await axios.post('http://localhost:8080/api/user', data);
+    const response = await axiosInstance.post('/api/user', data);
     return response;
   } catch (error) {
     return false;
@@ -103,8 +103,8 @@ export const getUserByEmail = async (emailPerson) => {
     const emailUser = {
       emailPerson,
     };
-    const response = await axios.post(
-      'http://localhost:8080/api/user/get-info-user',
+    const response = await axiosInstance.post(
+      '/api/user/get-info-user',
       emailUser,
     );
     return response;
@@ -123,7 +123,7 @@ export const editUserProfile = async (userToken, userInfo) => {
       ...userInfo,
     };
 
-    const response = await axios.put('http://localhost:8080/api/user', data, {
+    const response = await axiosInstance.put('/api/user', data, {
       headers,
     });
     return response;
@@ -141,8 +141,8 @@ export const editUserImage = async (userToken, userImage) => {
     const data = {
       user_img: userImage,
     };
-    const response = await axios.put(
-      'http://localhost:8080/api/user/image',
+    const response = await axiosInstance.put(
+      '/api/user/image',
       data,
       { headers },
     );
@@ -153,7 +153,7 @@ export const editUserImage = async (userToken, userImage) => {
 };
 
 export const pay = async (paymentMethod) => {
-  const response = await axios.post('http://localhost:8080/api/payment', {
+  const response = await axiosInstance.post('/api/payment', {
     paymentMethod,
     amount: Math.floor(100 * 100),
   });
@@ -162,8 +162,8 @@ export const pay = async (paymentMethod) => {
 
 export const createHotelsAdmin = async (hotelsData) => {
   try {
-    const response = await axios.post(
-      'http://localhost:8080/api/hotel',
+    const response = await axiosInstance.post(
+      '/api/hotel',
       hotelsData,
     );
     return response.data;
@@ -174,7 +174,7 @@ export const createHotelsAdmin = async (hotelsData) => {
 
 export const getAllHotelsAdminPage = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/hotel');
+    const response = await axiosInstance.get('/api/hotel');
     return response.data;
   } catch (error) {
     return error;
@@ -183,8 +183,8 @@ export const getAllHotelsAdminPage = async () => {
 
 export const updateHotelAdminPageById = async (id, hotelData) => {
   try {
-    const response = await axios.put(
-      `http://localhost:8080/api/hotel/${id}`,
+    const response = await axiosInstance.put(
+      `/api/hotel/${id}`,
       hotelData,
     );
     return response.data;
@@ -195,7 +195,7 @@ export const updateHotelAdminPageById = async (id, hotelData) => {
 
 export const deleteHotelAdminPageById = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:8080/api/hotel/${id}`);
+    const response = await axiosInstance.delete(`/api/hotel/${id}`);
     return response.data;
   } catch (error) {
     return error;
@@ -203,7 +203,7 @@ export const deleteHotelAdminPageById = async (id) => {
 };
 export const createRoomsAdmin = async (hotelId, roomData) => {
   try {
-    const response = await axios.post(`http://localhost:8080/api/room?hotelId=${hotelId}`, roomData);
+    const response = await axiosInstance.post(`/api/room?hotelId=${hotelId}`, roomData);
     return response.data;
   } catch (error) {
     return error;
@@ -212,7 +212,7 @@ export const createRoomsAdmin = async (hotelId, roomData) => {
 
 export const getAllRoomsAdminPage = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/room');
+    const response = await axiosInstance.get('/api/room');
     return response.data;
   } catch (error) {
     return error;
@@ -221,7 +221,7 @@ export const getAllRoomsAdminPage = async () => {
 
 export const getRoomsByHotelId = async (hotelId) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/hotel/${hotelId}/rooms`);
+    const response = await axiosInstance.get(`/api/hotel/${hotelId}/rooms`);
     return response.data;
   } catch (error) {
     return error;
@@ -230,7 +230,7 @@ export const getRoomsByHotelId = async (hotelId) => {
 
 export const updateRoomAdminPageById = async (id, roomData) => {
   try {
-    const response = await axios.put(`http://localhost:8080/api/room/${id}`, roomData);
+    const response = await axiosInstance.put(`/api/room/${id}`, roomData);
     return response.data;
   } catch (error) {
     return error;
@@ -238,7 +238,7 @@ export const updateRoomAdminPageById = async (id, roomData) => {
 };
 export const getRoomAdminPageById = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/room/${id}`);
+    const response = await axiosInstance.get(`/api/room/${id}`);
     return response.data;
   } catch (error) {
     return error;
@@ -247,7 +247,7 @@ export const getRoomAdminPageById = async (id) => {
 
 export const deleteRoomAdminPageById = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:8080/api/room/${id}`);
+    const response = await axiosInstance.delete(`/api/room/${id}`);
     return response.data;
   } catch (error) {
     return error;
@@ -256,7 +256,7 @@ export const deleteRoomAdminPageById = async (id) => {
 
 export const createInclusionsRooms = async (inclusionRoomsData) => {
   try {
-    const response = await axios.post('http://localhost:8080/api/inclusion_room', inclusionRoomsData);
+    const response = await axiosInstance.post('/api/inclusion_room', inclusionRoomsData);
     return response.data;
   } catch (error) {
     return error;
@@ -265,7 +265,7 @@ export const createInclusionsRooms = async (inclusionRoomsData) => {
 
 export const getAllInclusionsRooms = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/inclusion_room');
+    const response = await axiosInstance.get('/api/inclusion_room');
     return response;
   } catch (error) {
     return error;
@@ -274,7 +274,7 @@ export const getAllInclusionsRooms = async () => {
 
 export const getInclusionsRoomsById = async (roomId) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/inclusion_room/${roomId}`);
+    const response = await axiosInstance.get(`/api/inclusion_room/${roomId}`);
     return response.data;
   } catch (error) {
     return error;
@@ -283,7 +283,7 @@ export const getInclusionsRoomsById = async (roomId) => {
 
 export const updateInclusionsRoomsById = async (id, roomId) => {
   try {
-    const response = await axios.put(`http://localhost:8080/api/inclusion_room/${id}`, roomId);
+    const response = await axiosInstance.put(`/api/inclusion_room/${id}`, roomId);
     return response.data;
   } catch (error) {
     return error;
@@ -292,7 +292,7 @@ export const updateInclusionsRoomsById = async (id, roomId) => {
 
 export const getAmenitiesRoomsById = async (roomId) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/amenities_room/${roomId || ''}`);
+    const response = await axiosInstance.get(`/api/amenities_room/${roomId || ''}`);
     return response.data;
   } catch (error) {
     return error;
@@ -301,7 +301,7 @@ export const getAmenitiesRoomsById = async (roomId) => {
 
 export const updateAmenitiesRoomsById = async (id, roomId) => {
   try {
-    const response = await axios.put(`http://localhost:8080/api/amenities_room/${id}`, roomId);
+    const response = await axiosInstance.put(`/api/amenities_room/${id}`, roomId);
     return response.data;
   } catch (error) {
     return error;
@@ -309,8 +309,8 @@ export const updateAmenitiesRoomsById = async (id, roomId) => {
 };
 
 export const createBookedRoom = async (data) => {
-  const response = await axios.post(
-    'http://localhost:8080/api/booked-room',
+  const response = await axiosInstance.post(
+    '/api/booked-room',
     data,
   );
   return response.data;
