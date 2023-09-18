@@ -186,7 +186,9 @@ export const AppContextProvider = ({ children }) => {
     try {
       if (selectedRoom) {
         const roomId = selectedRoom.id;
+        setIsLoading(true);
         const response = await deleteRoomAdminPageById(roomId);
+        setIsLoading(false);
         closeModalForRooms();
         setRoomss((prevRooms) => {
           return prevRooms.map(
@@ -235,6 +237,7 @@ export const AppContextProvider = ({ children }) => {
       images: imageHotelCloudinary,
     };
     try {
+      setIsLoading(true);
       const response = await
       (id ? updateHotelAdminPageById(id, newHotel) : createHotelsAdmin(newHotel));
       navigate('/hotel-config');
@@ -253,6 +256,7 @@ export const AppContextProvider = ({ children }) => {
         label2: '',
         status: '',
       });
+      setIsLoading(false);
       setImageHotelCloudinary('');
       setSelectedImagesFormHotel([]);
       return response;
@@ -305,7 +309,9 @@ export const AppContextProvider = ({ children }) => {
     try {
       if (selectedHotelForModal) {
         const hotelId = selectedHotelForModal.id;
+        setIsLoading(true);
         const response = await deleteHotelAdminPageByIdFunction(hotelId);
+        setIsLoading(false);
         closeModal();
         setHotels((prevHotels) => {
           return prevHotels.map(
@@ -593,6 +599,7 @@ export const AppContextProvider = ({ children }) => {
         setValidCredentials,
         handleSignOut,
         formatter,
+        setIsLoading,
       }}
     >
       {isLoading ? <Loading /> : children}

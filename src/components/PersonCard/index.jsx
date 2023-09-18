@@ -5,8 +5,9 @@ import './PersonCard.scss';
 
 const PersonCard = (props) => {
   const store = useContext(AppContext);
-  const { userData, fileInputRef, handleUserImageChange, imageIsLoading } =
-    store;
+  const {
+    userData, fileInputRef, handleUserImageChange, imageIsLoading,
+  } = store;
   const { btn2, userName } = props;
 
   return (
@@ -26,8 +27,8 @@ const PersonCard = (props) => {
               >
                 <img
                   src={
-                    userData[0]?.user_img ||
-                    'https://icon-library.com/images/persona-icon/persona-icon-25.jpg'
+                    userData[0]?.user_img
+                    || 'https://icon-library.com/images/persona-icon/persona-icon-25.jpg'
                   }
                   alt="profileImg"
                   className="profile-img"
