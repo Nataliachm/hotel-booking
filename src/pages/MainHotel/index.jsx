@@ -135,8 +135,9 @@ const MainHotel = () => {
               <div className="card__text--price">
                 <div>
                   <h5>
-                    {`$
-                  ${hotel.previous_price}`}
+                    {`
+                    ${formatter.format(hotel.previous_price)}`}
+                  &nbsp;USD
                   </h5>
                 </div>
                 <div>
