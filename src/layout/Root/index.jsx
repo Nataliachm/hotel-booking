@@ -30,5 +30,4 @@ const Root = () => {
     </AppContextProvider>
   );
 };
-
 export default Root;

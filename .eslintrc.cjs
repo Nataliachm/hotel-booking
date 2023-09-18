@@ -9,7 +9,8 @@ module.exports = {
       env: {
         node: true,
       },
-      files: ['.eslintrc.{js,cjs}'],
+      files: [
+        '.eslintrc.{js,cjs}'],
       parserOptions: {
         sourceType: 'script',
       },
@@ -29,6 +30,5 @@ module.exports = {
     'react/prop-types': 0,
     'react/jsx-props-no-spreading': 'off',
     'linebreak-style': ['error', 'windows'],
-
   },
 };
