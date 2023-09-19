@@ -7,31 +7,31 @@ export const CardCarrousel = () => {
       id: 1,
       title: 'Hotel Booking',
       text: 'Avail Hot Deals On Hotel Booking To Any Place',
-      image: '../../../public/imageMain_1.jpg',
+      image: 'imageMain_1.jpg',
     },
     {
       id: 2,
       title: 'Flight Offer',
       text: 'Grab Amazing Deals on Flight Ticket Booking',
-      image: '../../../public/imageMain_2.jpg',
+      image: 'imageMain_2.jpg',
     },
     {
       id: 3,
       title: 'Holiday Booking',
       text: 'Weekend Sale For Holiday Bookings',
-      image: '../../../public/imageMain_3.jpg',
+      image: 'imageMain_3.jpg',
     },
     {
       id: 4,
       title: 'Food Order',
       text: 'Complimantary Breakfast. Use Code RICAFOOD',
-      image: '../../../public/imageMain_4.jpg',
+      image: 'imageMain_4.jpg',
     },
     {
       id: 5,
       title: 'Hire Cap',
       text: '50% Cashback On Every Cab Booking',
-      image: '../../../public/imageMain_5.jpg',
+      image: 'imageMain_5.jpg',
     },
   ];
 
