@@ -59,8 +59,8 @@ export const verifyUserEmail = async (email) => {
     const emailUser = {
       email,
     };
-    const response = await axios.post(
-      'http://localhost:8080/api/user/verify',
+    const response = await axiosInstance.post(
+      '/api/user/verify',
       emailUser,
     );
     return response;
