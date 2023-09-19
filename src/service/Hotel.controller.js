@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import axios from 'axios';
 
-const url = `${import.meta.env.VITE_APIVITE_API_BASE_URL}`;
+const url = `${import.meta.env.VITE_API_BASE_URL}`;
 
 const axiosInstance = axios.create({
   baseURL: url,
