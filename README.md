@@ -93,7 +93,7 @@ The homepage of our application serves as the gateway to a world of hotel option
 Selecting a hotel allows you to:
 
 - **View Details:**  Get more information about a specific hotel.
-- ![View Details](https://res.cloudinary.com/drnclewqh/image/upload/v1694927755/hotelImages/vvbdekftsttrox8ekmbi.png)
+- ![View Details](https://res.cloudinary.com/drnclewqh/image/upload/v1695164851/hotelImages/whdwox2guynrtk34bgcc.png)
 
 - **Room Listings:** See the available rooms in the selected hotel.
 - ![Room Listings](https://res.cloudinary.com/drnclewqh/image/upload/v1695020076/hotelImages/gg0ptvehxsgpadfczskt.png)

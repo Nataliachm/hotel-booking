@@ -8,22 +8,22 @@ export const CardInformation = () => {
     {
       id: 1,
       title: 'Explore',
-      image: '../../../public/imageMain_booking_1.png',
+      image: 'imageMain_booking_1.png',
     },
     {
       id: 2,
       title: 'Get Quotes',
-      image: '../../../public/imageMain_booking_2.png',
+      image: 'imageMain_booking_2.png',
     },
     {
       id: 3,
       title: 'Customize',
-      image: '../../../public/imageMain_booking_3.png',
+      image: 'imageMain_booking_3.png',
     },
     {
       id: 4,
       title: 'Book & Enjoy',
-      image: '../../../public/imageMain_booking_4.png',
+      image: 'imageMain_booking_4.png',
     },
   ];
 
