@@ -11,7 +11,7 @@ const CardBlog = () => {
       author: 'Julia Holmes',
       title: 'Lorem Ipsum is simply the of the printing and dummy text of typesetting..',
       content: 'Lorem Ipsum is simply dummy since..',
-      image: '../../../public/imageMain_blog_1.jpg',
+      image: 'imageMain_blog_1.jpg',
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ const CardBlog = () => {
       author: 'Elthon Marshall',
       title: 'Lorem Ipsum is simply the of the printing and dummy text of typesetting..',
       content: 'Lorem Ipsum is simply dummy since..',
-      image: '../../../public/imageMain_blog_2.jpg',
+      image: 'imageMain_blog_2.jpg',
     },
     {
       id: 3,
@@ -29,7 +29,7 @@ const CardBlog = () => {
       author: 'James Fromm',
       title: 'Lorem Ipsum is simply the of the printing and dummy text of typesetting..',
       content: 'Lorem Ipsum is simply dummy since..',
-      image: '../../../public/imageMain_blog_3.jpg',
+      image: 'imageMain_blog_3.jpg',
     },
   ];
 

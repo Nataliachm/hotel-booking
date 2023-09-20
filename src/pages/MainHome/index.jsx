@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useAuth0 } from '@auth0/auth0-react';
 import { CardCarrousel } from '../../components/CardCarrousel';
 import './MainHome.scss';
@@ -9,7 +10,6 @@ import SubscribeHome from '../../components/SubscribeHome';
 
 const MainHome = () => {
   const { user } = useAuth0();
-  console.log(' user:', user);
   return (
     <div className="main">
       <div className="main__corrousel">

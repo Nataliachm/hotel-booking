@@ -6,37 +6,37 @@ const CardDestination = () => {
     id: 1,
     country: 'South Africa',
     text: 'Starting From $5000',
-    image: '../../../public/imageMain_africa.jpg',
+    image: 'imageMain_africa.jpg',
   },
   {
     id: 2,
     country: 'India',
     text: 'Starting From $5000',
-    image: '../../../public/imageMain_India.jpg',
+    image: 'imageMain_India.jpg',
   },
   {
     id: 3,
     country: 'Australia',
     text: 'Starting From $5000',
-    image: '../../../public/imageMain_Australia.jpg',
+    image: 'imageMain_Australia.jpg',
   },
   {
     id: 4,
     country: 'Europe',
     text: 'Starting From $5000',
-    image: '../../../public/imageMain_Europe.jpg',
+    image: 'imageMain_Europe.jpg',
   },
   {
     id: 5,
     country: 'America',
     text: 'Starting From $5000',
-    image: '../../../public/imageMain_America.jpg',
+    image: 'imageMain_America.jpg',
   },
   {
     id: 6,
     country: 'Japan',
     text: 'Starting From $5000',
-    image: '../../../public/imageMain_Japan.jpg',
+    image: 'imageMain_Japan.jpg',
   },
   ];
 

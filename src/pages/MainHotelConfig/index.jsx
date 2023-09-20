@@ -180,14 +180,6 @@ const MainHotelConfig = () => {
                     </div>
                   </div>
                 </div>
-                <div className="card__etiquets">
-                  <div>
-                    <h4>{hotel.labels1}</h4>
-                  </div>
-                  <div>
-                    <h4>{hotel.labels2}</h4>
-                  </div>
-                </div>
                 <div className="card__botons">
                   <div>
                     <button
